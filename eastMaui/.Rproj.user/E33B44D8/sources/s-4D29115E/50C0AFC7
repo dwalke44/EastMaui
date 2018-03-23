@@ -1,0 +1,22 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1521820013627.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "1123935774",
+    "id" : "50C0AFC7",
+    "lastKnownWriteTime" : 1521821348,
+    "last_content_update" : 1521821348131,
+    "path" : "~/Programming/Trutta/HSHEP/EMaui/EMpackage/eastMaui/scripts/Habitat_output_package.R",
+    "project_path" : "scripts/Habitat_output_package.R",
+    "properties" : {
+        "cursorPosition" : "51,0",
+        "scrollLine" : "34"
+    },
+    "relative_order" : 5,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

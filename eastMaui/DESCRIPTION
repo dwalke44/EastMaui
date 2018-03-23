@@ -1,0 +1,15 @@
+Package: eastMaui
+Type: Package
+Title: Generate Habitat and Water Production Estimates
+Version: 0.1.0
+Author: Daniel Walker, Ph.D.
+Maintainer: Daniel Walker, Ph.D. <walker.dan890@gmail.com>
+Description: This package contains the functions necessary to compute water output and available habitat for freshwater fish 
+    species in East Maui watersheds.
+License: file LICENSE
+Encoding: UTF-8
+LazyData: true
+Imports: 
+  tidyverse,
+  formattable
+  
