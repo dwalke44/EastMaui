@@ -56,9 +56,9 @@ matrices = convertMatrix(nodes, watersheds)
 
 scenario.current = basin.fun(matrices$nodes, matrices$inputs)
 
-scenario.1 = basin.fun(nodes1.mat, matrices1$inputs)
+scenario.1 = basin.fun(nodes1.mat, matrices$inputs)
 
-scenario.0 = basin.fun(nodes0.mat, matrices0$inputs)
+scenario.0 = basin.fun(nodes0.mat, matrices$inputs)
 
 # --------------------------------------------------------------------------------------------------
 # append outputs
