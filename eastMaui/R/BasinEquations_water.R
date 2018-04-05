@@ -1,6 +1,6 @@
 #' @export
 
-
+# waterInput = waterInput.mat
 
 
 water.fun = function(nodesInput, waterInput){
