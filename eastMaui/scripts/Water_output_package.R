@@ -1,5 +1,15 @@
 # create water inputs
+setwd("~/Programming/Trutta/HSHEP/EMaui")
+
 library(eastMaui)
+library(tidyverse)
+library(readxl)
+library(writexl)
+library(gridExtra)
+library(formattable)
+library(webshot)
+library(htmltools)
+
 watersheds = inputs
 watersheds = watersheds[ ,-16]
 
@@ -11,8 +21,8 @@ nodes = nodes[ ,c(1, 8:18)]
 nodes0 = nodes[1, ]
 nodes = nodes[-1, ]
 nodes = rbind(nodes, nodes0)
-
-# ----------------------------------------------------------------------------------
+nodes.mat = as.matrix(nodes[ ,-2])
+# --------------------------------------------------------------------------------------------------
 # Create nodes.mat for all values = 1
 
 nodes1 = nodes
@@ -23,7 +33,7 @@ nodes1.mat = as.matrix(nodes1[ ,-2])
 row.names(nodes1.mat)<- unlist(nodes1[ ,1])
 nodes1.mat[ , c(3:11)] = as.numeric(nodes1.mat[ , c(3:11)] )
 # View(nodes1.mat)
-# ----------------------------------------------------------------------------------
+# --------------------------------------------------------------------------------------------------
 # Create nodes.mat for all values = 0
 
 nodes0 = nodes
@@ -33,16 +43,14 @@ nodes0.mat = as.matrix(nodes0[ ,-2])
 row.names(nodes0.mat)<-unlist(nodes0[ ,1])
 nodes0.mat[ , c(3:11)] = as.numeric(nodes0.mat[ , c(3:11)] )
 # View(nodes0.mat)
-
-# Node sim output generation
-
-# --------------------------------------------------------------------------------------------------
+#---------------------------------------------------------------------------------------------------
+#---------------------------------------------------------------------------------------------------
 # Run scenarios
 # waterInput = waterInput.mat
 
-scenario.current = water.fun(nodes.mat, waterInput.mat)
+scenario.current = diversion.fun(nodes.mat, waterInput.mat)
 
-scenario.1 = water.fun(nodes1.mat, waterInput.mat)
+scenario.1 = diversion.fun(nodes1.mat, waterInput.mat)
 
 scenario.0 = water.fun(nodes0.mat, waterInput.mat)
 
@@ -57,20 +65,20 @@ scenario.1t = as.data.frame(t(scenario.1))
 scenario.0t = as.data.frame(t(scenario.0))
 
 scenario.c = tibble::rownames_to_column(scenario.c, var = "rowname")
-
+scenario.0t = rownames_to_column(scenario.0t)
 
 colnames(scenario.1t) = "All_1"
 colnames(scenario.0t) = "All_0"
 
-scenario.test = bind_cols(scenario.c, scenario.0t) %>%
-  bind_cols(scenario.1t) %>%
+scenario.test = merge(scenario.c, scenario.0t, by = "rowname" ) %>%
+  merge(scenario.1t) %>%
   separate(rowname, into = c("E", "Wshed"), sep = "^([E])")
 
 # match basinID to watershed
 
 colnames(scenario.test)[1] = 'Wshed'
 colnames(scenario.test)[2] = "BASINID"
-
+colnames(scenario.test)[3] = "current"
 scenario.test$BASINID = as.numeric(scenario.test$BASINID)
 scenario.test$Wshed = as.numeric(scenario.test$Wshed)
 wsheds = watersheds[ ,c(1,2)]
@@ -88,13 +96,9 @@ scenario.test = scenario.test[ ,c(1:2,6:7, 3:5)]
 # --------------------------------------------------------------------------------------------------
 # tables and plots
 # output = summary of habitat by watershed and by species
-WshedID = unique(scenario.test$WshedID)
-WshedCount = c(1:n_distinct(WshedID))
-summaries = tibble(WshedID, WshedCount)
-species.abbvs = c("AB", "AS", "ES", "LC", "MG", "NG", "SH", "SS")
 
 output = scenario.test %>%
-  group_by(WshedID) %>%      #LINE to change GROUP ID var
+  group_by(BASINID) %>%      #LINE to change GROUP ID var
   summarise_at(vars(c(4:6)), sum)
 # write_xlsx(output, "WshedSummary.xlsx")
 
@@ -158,8 +162,8 @@ g2 = ggplot(IDvar.long, aes(x = VarID, y = lPercentChange, fill = NodeValue)) +
   theme_classic() +
   ggtitle("IDvariable summary - New Scenarios")
 # Export summary bar plots for all varID's
-summPlotPath1 = paste0(getwd(), "/testOutput/", "Water_BaselineSummary.jpeg")
-summPlotPath2 = paste0(getwd(), "/testOutput/", "Water_ScenarioTestSummary.jpeg")
+summPlotPath1 = paste0(getwd(), "/testOutput/", "Diversions_BaselineSummary.jpeg")
+summPlotPath2 = paste0(getwd(), "/testOutput/", "Diversions_ScenarioTestSummary.jpeg")
 
 jpeg(file = summPlotPath1)
 plot(g1)

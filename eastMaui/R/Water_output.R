@@ -565,7 +565,7 @@ diversion.fun = function(nodesInput, waterInput){
 
   diverted$E279 =  waterInput[279, 3]*nodesInput[133, 2]
 
-  diverted$E280 = waterInput[280, 104]
+  diverted$E280 = waterInput[280, 3]*nodesInput[104, 2]
 
   diverted$E281 = 0
 
@@ -631,4 +631,4 @@ diversion.fun = function(nodesInput, waterInput){
 
   return(output.df)
 }
-\
+
