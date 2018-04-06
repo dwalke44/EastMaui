@@ -625,9 +625,9 @@ basin.fun = function(nodesInput, wshedInput){
 
   output$E306 = wshedInput[306, c(8:15)]*nodesInput[137, c(8:11)]*wshedInput[299, c(8:15)]*nodesInput[2, c(8:11)]+ wshedInput[304, c(8:15)]*nodesInput[277, c(3:7)]+ wshedInput[308, c(8:15)]*nodesInput[65, c(3:7)]
 
-  output$E307 = wshedInput[305, c(8:15)]*nodesInput[277, c(8:11)]*wshedInput[304, c(8:15)]*nodesInput[137, c(8:11)]*wshedInput[299, c(8:15)]*nodesInput[2, c(8:11)]
+  output$E307 = wshedInput[307, c(8:15)]*nodesInput[277, c(8:11)]*wshedInput[304, c(8:15)]*nodesInput[137, c(8:11)]*wshedInput[299, c(8:15)]*nodesInput[2, c(8:11)]
 
-  output$E308 = wshedInput[306, c(8:15)]*nodesInput[65, c(8:11)]*wshedInput[297, c(8:15)]*nodesInput[84, c(8:11)]*wshedInput[296, c(8:15)]*nodesInput[3, c(8:11)]
+  output$E308 = wshedInput[308, c(8:15)]*nodesInput[65, c(8:11)]*wshedInput[297, c(8:15)]*nodesInput[84, c(8:11)]*wshedInput[296, c(8:15)]*nodesInput[3, c(8:11)]
 
   # -------------------------------------------------------------------
   # Save output in dataframe

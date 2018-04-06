@@ -410,224 +410,219 @@ diversion.fun = function(nodesInput, waterInput){
 
   diverted$E202 = waterInput[202, 3]*nodesInput[98, 2]
 
-  diverted$E203 = waterInput[203, 3]
+  diverted$E203 = 0
 
-  diverted$E204 = waterInput[204, 3] + waterInput[205, 3]*nodesInput[122, 3]
+  diverted$E204 = 0
 
-  diverted$E205 = waterInput[205, 3] + waterInput[208, 3]*nodesInput[142, 3]
+  diverted$E205 = waterInput[205, 3]*nodesInput[122, 2] + waterInput[208, 3]*nodesInput[142, 3] + waterInput[207, 3]*nodesInput[143, 3]
 
   # diverted$E206 =  list()
   # diverted$E206 = MISSING FROM GIS FILdiverted$ES
 
-  diverted$E207 = waterInput[207, 3]
+  diverted$E207 = waterInput[207, 3]*nodesInput[143, 2]
 
-  diverted$E208 = waterInput[208, 3] + waterInput[209, 3]*nodesInput[108, 3]
+  diverted$E208 = waterInput[208, 3]*nodesInput[142, 2] + waterInput[209, 3]*nodesInput[108, 3]
 
-  diverted$E209 = waterInput[209, 3] + waterInput[210, 3]*nodesInput[266, 3]
+  diverted$E209 = waterInput[209, 3]*nodesInput[108, 2] + waterInput[210, 3]*nodesInput[266, 3]
 
-  diverted$E210 = waterInput[210, 3]
+  diverted$E210 = waterInput[210, 3]*nodesInput[266, 2]
 
-  # diverted$E211 =  list() BASIN 211 MISSING OUTLdiverted$ET NODdiverted$E
-  # diverted$E211 = waterInput[211, 3]*nodesInput[0, c(8:11)] + waterInput[212, 3]*nodesInput[120, 3]
-  # 212-214 ALL Rdiverted$ELY ON OUTLdiverted$ET OF BASIN 211
-  # diverted$E212 =  list()
-  # diverted$E212 = waterInput[212, 3]*nodesInput[120, c(8:11)]*waterInput[211, 3]*nodesInput[0, c(8:11)]+ waterInput[213, 3]*nodesInput[175, 3]+ waterInput[214, 3]*nodesInput[174, 3]
-  #
-  # diverted$E213 =  list()
-  # diverted$E213 = waterInput[213, 3]*nodesInput[175, c(8:11)]*waterInput[212, 3]*nodesInput[120, c(8:11)]*waterInput[211, 3]*nodesInput[0, c(8:11)]
-  #
-  # diverted$E214 =  list()
-  # diverted$E214 = waterInput[214, 3]*nodesInput[174, c(8:11)]*waterInput[212, 3]*nodesInput[120, c(8:11)]*waterInput[211, 3]*nodesInput[0, c(8:11)]
+  diverted$E211 = 0
 
-  diverted$E215 = waterInput[215, 3]
+  diverted$E212 = waterInput[212, 3]*nodesInput[120, 2] + waterInput[214, 3]*nodesInput[174, 3] + waterInput[213, 3]*nodesInput[175, 3]
 
-  diverted$E216 = waterInput[216, 3] + waterInput[217, 3]*nodesInput[121, 3]
+  diverted$E213 = waterInput[213, 3]*nodesInput[175, 2]
 
-  diverted$E217 = waterInput[217, 3] + waterInput[218, 3]*nodesInput[300, 3]
+  diverted$E214 = waterInput[214, 3]*nodesInput[174, 2]
 
-  diverted$E218 = waterInput[218, 3]
+  diverted$E215 = 0
 
-  diverted$E219 = waterInput[219, 3]
+  diverted$E216 = 0
 
-  diverted$E220 = waterInput[220, 3] + waterInput[221, 3]*nodesInput[140, 3]
+  diverted$E217 = waterInput[217, 3]*nodesInput[121, 2] + waterInput[218, 3]*nodesInput[300, 3] + waterInput[219, 3]*nodesInput[141, 3] + waterInput[220, 3]*nodesInput[141, 3] + waterInput[222, 3]*nodesInput[147, 3]
 
-  diverted$E221 = waterInput[221, 3] + waterInput[224, 3]*nodesInput[158, 3]
+  diverted$E218 = waterInput[218, 3]*nodesInput[300, 2]
 
-  diverted$E222 = waterInput[222, 3] + waterInput[228, 3]*nodesInput[59, 3]
+  diverted$E219 = waterInput[219, 3]*nodesInput[141, 2]
 
-  diverted$E223 = waterInput[223, 3]
+  diverted$E220 = waterInput[220, 3]*nodesInput[141, 2] + waterInput[221, 3]*nodesInput[140, 3]
 
-  diverted$E224 = waterInput[224, 3] + waterInput[225, 3]*nodesInput[148, 3]
+  diverted$E221 = waterInput[221, 3]*nodesInput[140, 2] + waterInput[224, 3]*nodesInput[158, 3]
 
-  diverted$E225 = waterInput[225, 3] + waterInput[227, 3]*nodesInput[57, 3]
+  diverted$E222 = waterInput[222, 3]*nodesInput[147, 2] + waterInput[228, 3]*nodesInput[59, 3]
 
-  diverted$E226 = waterInput[226, 3] + waterInput[223, 3]*nodesInput[268, 3]
+  diverted$E223 = waterInput[223, 3]*nodesInput[268, 2]
 
-  diverted$E227 = waterInput[227, 3]
+  diverted$E224 = waterInput[224, 3]*nodesInput[158, 2] + waterInput[225, 3]*nodesInput[148, 3]*nodesInput[267, 3] + waterInput[226, 3]*nodesInput[138, 3]
 
-  diverted$E228 = waterInput[228, 3]
+  diverted$E225 = waterInput[225, 3]*nodesInput[148, 2]*nodesInput[267, 2]  + waterInput[227, 3]*nodesInput[57, 3] + waterInput[227, 3]*nodesInput[57, 3]
 
-  diverted$E229 = waterInput[229, 3]
+  diverted$E226 = waterInput[226, 3]*nodesInput[138, 2] + waterInput[223, 3]*nodesInput[268, 3] + waterInput[229, 3]*nodesInput[58, 3]
 
-  diverted$E230 = waterInput[230, 3] + waterInput[231, 3]*nodesInput[96, 3]
+  diverted$E227 = waterInput[227, 3]*nodesInput[57, 2]
 
-  diverted$E231 = waterInput[231, 3] + waterInput[234, 3]*nodesInput[117, 3]
+  diverted$E228 = waterInput[228, 3]*nodesInput[59, 2]
 
-  diverted$E232 = waterInput[232, 3]
+  diverted$E229 = waterInput[229, 3]*nodesInput[58, 2]
 
-  diverted$E233 = waterInput[233, 3]
+  diverted$E230 = 0
 
-  diverted$E234 = waterInput[234, 3] + waterInput[235, 3]*nodesInput[150, 3]
+  diverted$E231 = waterInput[231, 3]*nodesInput[96, 2] + waterInput[234, 3]*nodesInput[117, 3] + waterInput[232, 3]*nodesInput[170, 3] + waterInput[233, 3]*nodesInput[161, 3]
 
-  diverted$E235 = waterInput[235, 3]
+  diverted$E232 = waterInput[232, 3]*nodesInput[170, 2]
 
-  diverted$E236 = waterInput[236, 3] + waterInput[238, 3]*nodesInput[63, 3]
+  diverted$E233 = waterInput[233, 3]*nodesInput[161, 2]
 
-  diverted$E237 = waterInput[237, 3]
+  diverted$E234 = waterInput[234, 3]*nodesInput[117, 2] + waterInput[235, 3]*nodesInput[150, 3] + waterInput[236, 3]*nodesInput[151, 3] + waterInput[237, 3]*nodesInput[269, 3]
 
-  diverted$E238 = waterInput[238, 3]
+  diverted$E235 = waterInput[235, 3]*nodesInput[150, 2]
 
-  diverted$E239 = waterInput[239, 3] + waterInput[240, 3]*nodesInput[46, 3]
+  diverted$E236 = waterInput[236, 3]*nodesInput[151, 2] + waterInput[238, 3]*nodesInput[63, 3]
 
-  diverted$E240 = waterInput[240, 3] + waterInput[242, 3]*nodesInput[87, 3]
+  diverted$E237 = waterInput[237, 3]*nodesInput[269, 2]
 
-  diverted$E241 = waterInput[241, 3]
+  diverted$E238 = waterInput[238, 3]*nodesInput[63, 2]
 
-  diverted$E242 = waterInput[242, 3] + waterInput[241, 3]*nodesInput[303, 3]
+  diverted$E239 = 0
 
-  diverted$E243 = waterInput[243, 3]
+  diverted$E240 = waterInput[240, 3]*nodesInput[46, 2] + waterInput[242, 3]*nodesInput[87, 3] + waterInput[243, 3]*nodesInput[124, 3] + waterInput[242, 3]*nodesInput[87, 3] + waterInput[244, 3]*nodesInput[302, 3]
 
-  diverted$E244 = waterInput[244, 3] + waterInput[261, 3]*nodesInput[271, 3]
+  diverted$E241 = waterInput[241, 3]*nodesInput[303, 2]
 
-  diverted$E245 = waterInput[245, 3]
+  diverted$E242 = waterInput[242, 3]*nodesInput[87, 2] + waterInput[241, 3]*nodesInput[303, 3] + waterInput[245, 3]*nodesInput[126, 3] + waterInput[246, 3]*nodesInput[105, 3]
 
-  diverted$E246 = waterInput[246, 3] + waterInput[258, 3]*nodesInput[209, 3]
+  diverted$E243 = waterInput[243, 3]*nodesInput[124, 2]
 
-  diverted$E247 = waterInput[247, 3] + waterInput[249, 3]*nodesInput[295, 3]
+  diverted$E244 = waterInput[244, 3]*nodesInput[302, 2]
 
-  diverted$E248 = waterInput[248, 3] + waterInput[250, 3]*nodesInput[301, 3]
+  diverted$E245 = waterInput[245, 3]*nodesInput[126, 2] + waterInput[261, 3]*nodesInput[271, 3] + waterInput[262, 3]*nodesInput[276, 3] + waterInput[263, 3]*nodesInput[210, 3]
 
-  diverted$E249 = waterInput[249, 3]
+  diverted$E246 = waterInput[246, 3]*nodesInput[105, 2] + waterInput[258, 3]*nodesInput[209, 3] + waterInput[255, 3]*nodesInput[155, 3]
 
-  diverted$E250 = waterInput[250, 3]
+  diverted$E247 = waterInput[247, 3]*nodesInput[46, 2] + waterInput[248, 3]*nodesInput[90, 3] + waterInput[249, 3]*nodesInput[295, 3] + waterInput[251, 3]*nodesInput[118, 3]
 
-  diverted$E251 = waterInput[251, 3]
+  diverted$E248 = waterInput[248, 3]*nodesInput[90, 2] + waterInput[250, 3]*nodesInput[301, 3] + waterInput[252, 3]*nodesInput[91, 3]
 
-  diverted$E252 = waterInput[252, 3] + waterInput[253, 3]*nodesInput[125, 3]
+  diverted$E249 = waterInput[249, 3]*nodesInput[295, 2]
 
-  diverted$E253 = waterInput[253, 3] + waterInput[256, 3]*nodesInput[156, 3]
+  diverted$E250 = waterInput[250, 3]*nodesInput[301, 2]
 
-  diverted$E254 = waterInput[254, 3]
+  diverted$E251 = waterInput[251, 3]*nodesInput[118, 2]
 
-  diverted$E255 = waterInput[255, 3]
+  diverted$E252 = waterInput[252, 3]*nodesInput[91, 2] + waterInput[253, 3]*nodesInput[125, 3]
 
-  diverted$E256 = waterInput[256, 3] + waterInput[257, 3]*nodesInput[160, 3]
+  diverted$E253 = waterInput[253, 3]*nodesInput[125, 2] + waterInput[256, 3]*nodesInput[156, 3] + waterInput[254, 3]*nodesInput[270, 3]
 
-  diverted$E257 = waterInput[257, 3] + waterInput[267, 3]*nodesInput[64, 3]
+  diverted$E254 = waterInput[254, 3]*nodesInput[270, 2]
 
-  diverted$E258 = waterInput[258, 3] + waterInput[259, 3]*nodesInput[153, 3]
+  diverted$E255 = waterInput[255, 3]*nodesInput[155, 2]
 
-  diverted$E259 = waterInput[259, 3]
+  diverted$E256 = waterInput[256, 3]*nodesInput[156, 2] + waterInput[257, 3]*nodesInput[160, 3]
 
-  diverted$E260 = waterInput[260, 3] + waterInput[266, 3]*nodesInput[274, 3]
+  diverted$E257 = waterInput[257, 3]*nodesInput[160, 2] + waterInput[267, 3]*nodesInput[64, 3]
 
-  diverted$E261 = waterInput[261, 3]
+  diverted$E258 = waterInput[258, 3]*nodesInput[209, 2] + waterInput[259, 3]*nodesInput[153, 3]
 
-  diverted$E262 = waterInput[262, 3] + waterInput[265, 3]*nodesInput[272, 3]
+  diverted$E259 = waterInput[259, 3]*nodesInput[153, 2]
 
-  diverted$E263 = waterInput[263, 3] + waterInput[270, 3]*nodesInput[275, 3]
+  diverted$E260 = waterInput[260, 3]*nodesInput[211, 2] + waterInput[266, 3]*nodesInput[274, 3] + waterInput[264, 3]*nodesInput[273, 3] + waterInput[268, 3]*nodesInput[152, 3]
 
-  diverted$E264 = waterInput[264, 3]
+  diverted$E261 = waterInput[261, 3]*nodesInput[271, 2]
 
-  diverted$E265 = waterInput[265, 3]
+  diverted$E262 = waterInput[262, 3]*nodesInput[276, 2] + waterInput[265, 3]*nodesInput[272, 3]
 
-  diverted$E266 = waterInput[266, 3]
+  diverted$E263 = waterInput[263, 3]*nodesInput[210, 2] + waterInput[270, 3]*nodesInput[275, 3]
 
-  diverted$E267 = waterInput[267, 3]
+  diverted$E264 = waterInput[264, 3]*nodesInput[273, 2]
 
-  diverted$E268 = waterInput[268, 3] + waterInput[269, 3]*nodesInput[70, 3]
+  diverted$E265 = waterInput[265, 3]*nodesInput[272, 2]
 
-  diverted$E269 = waterInput[269, 3]
+  diverted$E266 = waterInput[266, 3]*nodesInput[274, 2]
 
-  diverted$E270 = waterInput[270, 3]
+  diverted$E267 = waterInput[267, 3]*nodesInput[64, 2]
 
-  # diverted$E271
+  diverted$E268 = waterInput[268, 3]*nodesInput[152, 2] + waterInput[269, 3]*nodesInput[70, 3]
 
-  diverted$E272 = waterInput[272, 3] + waterInput[273, 3]*nodesInput[82, 3]
+  diverted$E269 = waterInput[269, 3]*nodesInput[70, 2]
 
-  diverted$E273 = waterInput[273, 3]
+  diverted$E270 = waterInput[270, 3]*nodesInput[275, 2]
 
-  diverted$E274 = waterInput[274, 3] + waterInput[275, 3]*nodesInput[79, 3]
+  diverted$E271 = 0
 
-  diverted$E275 = waterInput[275, 3] + waterInput[277, 3]*nodesInput[80, 3]
+  diverted$E272 = 0
 
-  diverted$E276 = waterInput[276, 3]
+  diverted$E273 = waterInput[273, 3]*nodesInput[82, 2]
 
-  diverted$E277 = waterInput[277, 3]
+  diverted$E274 = 0
 
-  diverted$E278 = waterInput[278, 3] + waterInput[280, 3]*nodesInput[104, 3]
+  diverted$E275 = waterInput[275, 3]*nodesInput[271, 2] + waterInput[277, 3]*nodesInput[80, 3] + waterInput[276, 3]*nodesInput[127, 3]
 
-  diverted$E279 =  waterInput[279, 3]
+  diverted$E276 = waterInput[276, 3]*nodesInput[127, 2]
 
-  diverted$E280 = waterInput[280, 3]
+  diverted$E277 = waterInput[277, 3]*nodesInput[80, 2]
 
-  # diverted$E281 =  list()
-  # diverted$E281 = waterInput[281, 3]*nodesInput[104, c(8:11)]
+  diverted$E278 = 0
 
-  diverted$E282 = waterInput[282, 3] + waterInput[286, 3]*nodesInput[169, 3]
+  diverted$E279 =  waterInput[279, 3]*nodesInput[133, 2]
 
-  diverted$E283 = waterInput[283, 3]
+  diverted$E280 = waterInput[280, 104]
 
-  diverted$E284 = waterInput[284, 3]
+  diverted$E281 = 0
 
-  diverted$E285 = waterInput[285, 3]
+  diverted$E282 = 0
 
-  diverted$E286 = waterInput[286, 3]
+  diverted$E283 = waterInput[283, 3]*nodesInput[304, 2]
 
-  diverted$E287 = waterInput[287, 3]
+  diverted$E284 = waterInput[284, 3]*nodesInput[305, 2]
 
-  diverted$E288 = waterInput[288, 3] + waterInput[289, 3]*nodesInput[162, 3]
+  diverted$E285 = waterInput[285, 3]*nodesInput[306, 2]
 
-  diverted$E289 = waterInput[289, 3] + waterInput[290, 3]*nodesInput[163, 3]
+  diverted$E286 = waterInput[286, 3]*nodesInput[169, 2]
 
-  diverted$E290 = waterInput[290, 3] + waterInput[292, 3]*nodesInput[189, 3]
+  diverted$E287 = 0
 
-  diverted$E291 = waterInput[291, 3] + waterInput[293, 3]*nodesInput[219, 3]
+  diverted$E288 = waterInput[288, 3]*nodesInput[157, 2] + waterInput[289, 3]*nodesInput[162, 3]
 
-  diverted$E292 = waterInput[292, 3]
+  diverted$E289 = waterInput[289, 3]*nodesInput[162, 2] + waterInput[290, 3]*nodesInput[163, 3] + waterInput[291, 3]*nodesInput[163, 3]
 
-  diverted$E293 = waterInput[293, 3]
+  diverted$E290 = waterInput[290, 3]*nodesInput[163, 2] + waterInput[292, 3]*nodesInput[189, 3]
 
-  diverted$E294 = waterInput[294, 3] + waterInput[295, 3]*nodesInput[308, 3]
+  diverted$E291 = waterInput[291, 3]*nodesInput[163, 2] + waterInput[293, 3]*nodesInput[219, 3]
 
-  diverted$E295 = waterInput[295, 3]
+  diverted$E292 = waterInput[292, 3]*nodesInput[189, 2]
+
+  diverted$E293 = waterInput[293, 3]*nodesInput[219, 2]
+
+  diverted$E294 = 0
+
+  diverted$E295 = waterInput[295, 3]*nodesInput[308, 2]
 
   diverted$E296 = waterInput[296, 3] + waterInput[297, 3]*nodesInput[84, 3]
 
-  diverted$E297 = waterInput[297, 3] + waterInput[298, 3]*nodesInput[219, 3]
+  diverted$E297 = waterInput[297, 3]*nodesInput[84, 2] + waterInput[298, 3]*nodesInput[213, 3]
 
-  diverted$E298 = waterInput[298, 3]
+  diverted$E298 = waterInput[298, 3]*nodesInput[213, 2]
 
-  diverted$E299 = waterInput[299, 3] + waterInput[301, 3]*nodesInput[85, 3]
+  diverted$E299 = 0
 
-  # diverted$E300 =  list() Basin not included in GIS data
+  # Basin not included in GIS data
   # diverted$E300 = waterInput[300, 3]*nodesInput[307, c(8:11)]*waterInput[299, 3]*nodesInput[2, c(8:11)]
 
-  diverted$E301 = waterInput[301, 3] + waterInput[302, 3]*nodesInput[99, 3]
+  diverted$E301 = waterInput[301, 3]*nodesInput[307, 2] + waterInput[301, 3]*nodesInput[85, 2]
 
-  diverted$E302 = waterInput[302, 3] + waterInput[303, 3]*nodesInput[129, 3]
+  diverted$E302 = waterInput[302, 3]*nodesInput[99, 2] + waterInput[303, 3]*nodesInput[129, 3]
 
-  diverted$E303 = waterInput[303, 3] + waterInput[304, 3]*nodesInput[145, 3]
+  diverted$E303 = waterInput[303, 3]*nodesInput[129, 2] + waterInput[304, 3]*nodesInput[145, 3]
 
-  diverted$E304 = waterInput[304, 3]
+  diverted$E304 = waterInput[304, 3]*nodesInput[145, 2]
 
-  diverted$E305 = waterInput[305, 3]
+  diverted$E305 = waterInput[305, 3]*nodesInput[76, 2]
 
-  diverted$E306 = waterInput[306, 3] + waterInput[307, 3]*nodesInput[277, 3]
+  diverted$E306 = waterInput[306, 3]*nodesInput[137, 2] + waterInput[307, 3]*nodesInput[277, 3] + waterInput[308, 3]*nodesInput[65, 3]
 
-  diverted$E307 = waterInput[305, 3]
+  diverted$E307 = waterInput[307, 3]*nodesInput[277, 2]
 
-  diverted$E308 = waterInput[306, 3]*nodesInput[65, c(8:11)]*waterInput[297, 3]*nodesInput[84, c(8:11)]*waterInput[296, 3]*nodesInput[3, c(8:11)]
+  diverted$E308 = waterInput[308, 3]*nodesInput[65, 2]
 
   # -------------------------------------------------------------------
   # Save output in dataframe
