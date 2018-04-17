@@ -31,17 +31,18 @@ watersheds = watersheds[ ,-16]
 watershedsWaterInput = watersheds[ ,c(1,2,7)]
 waterInput.mat= as.matrix(watershedsWaterInput)
 
-nodes = nodes
-nodes = nodes[ ,c(1, 8:18)]
-nodes0 = nodes[1, ]
-nodes = nodes[-1, ]
-nodes = rbind(nodes, nodes0)
-nodes.mat = as.matrix(nodes[ ,-2])
+nodes = eastMaui::nodes
+nodescurr = nodes[ ,c(1, 9:18)]
+nodes00 = nodescurr[1, ]
+nodes2 = nodescurr[-1, ]
+nodescurr = rbind(nodes2, nodes00)
+nodes.mat = as.matrix(nodescurr[ ,-2])
 
 # ----------------------------------------------------------------------------------
 # Create nodes.mat for all values = 1
 
-nodes1 = nodes
+nodes1 = eastMaui::nodes
+nodes1 = nodes1[ ,c(1, 9:18)]
 nodes1[ , c(3:12)] <- 1
 # View(nodes1)
 
@@ -52,7 +53,8 @@ nodes1.mat[ , c(3:11)] = as.numeric(nodes1.mat[ , c(3:11)] )
 # ----------------------------------------------------------------------------------
 # Create nodes.mat for all values = 0
 
-nodes0 = nodes
+nodes0 = eastMaui::nodes
+nodes0 = nodes0[ ,c(1, 8:18)]
 nodes0[which(nodes0$NodeType == "MinorDiversion"), c(3:12)] <- 0
 nodes0[which(nodes0$NodeType == "MajorDiversion"), c(3:12)] <- 0
 nodes0.mat = as.matrix(nodes0[ ,-2])
@@ -153,13 +155,14 @@ scenario.1tw = as.data.frame(t(scenario.1w))
 scenario.0tw = as.data.frame(t(scenario.0w))
 
 scenario.cw = tibble::rownames_to_column(scenario.cw, var = "rowname")
+colnames(scenario.cw)[2] = "MixedScen"
 scenario.0tw = rownames_to_column(scenario.0tw)
-
-colnames(scenario.1tw) = "All_1"
+scenario.1tw = rownames_to_column(scenario.1tw, var = "rowname")
+colnames(scenario.1tw) = c("rowname", "All_1")
 colnames(scenario.0tw) = c("rowname","All_0")
 
 scenario.testw = merge(scenario.cw, scenario.0tw, by = "rowname" ) %>%
-  merge(scenario.1tw) %>%
+  left_join(scenario.1tw) %>%
   separate(rowname, into = c("E", "Wshed"), sep = "^([E])")
 
 # match basinID to watershed
@@ -262,14 +265,14 @@ Wshed.tab
 
 **Space for interpretation of preceding plots and table**.
 
-#### Water Diversion results
+#### Water Diversion results - Water shunted to diversions grouped by watershed
 ```{r Output water by watershed}
 
 # output = summary of water by watershed
 
 outputw = scenario.testw %>%
   group_by(WshedID) %>%      #LINE to change GROUP ID var
-  summarise_at(vars(c(4:6)), sum)
+  summarise_at(vars(mixed:All_1), sum)
 
 # *******************************************
 # calculate percent change from output
@@ -311,18 +314,18 @@ Wshed.outw.long$lPercentChange[is.infinite(Wshed.outw.long$lPercentChange)]<- 0
 
 
 # barplots
-ggplot(Wshed.outw, aes(x = Wshed, y = log(totalDiv.All0))) +
+ggplot(Wshed.outw, aes(x = Wshed, y = (totalDiv.All0))) +
   geom_bar(stat = 'identity') +
   scale_x_continuous(expand = c(0,0)) +
   scale_y_continuous(expand = c(0,0)) +
-  labs(y = "log(All 0)") +
+  labs(y = "All 0") +
   theme_classic()+
   ggtitle("Watershed Diversions - Baseline")
 
-ggplot(Wshed.outw.long, aes(x = Wshed, y = lPercentChange, fill = NodeValue)) +
+ggplot(Wshed.outw.long, aes(x = Wshed, y = PercentChange, fill = NodeValue)) +
   geom_bar( stat = 'identity', position = 'dodge') +
   ylim(0, 1.2*max(Wshed.outw.long$lPercentChange)) +
-  labs(y = "log(PercentChange)") +
+  labs(y = "PercentChange") +
   theme_classic() +
   ggtitle("Watershed Diversions - New Scenarios")
 
