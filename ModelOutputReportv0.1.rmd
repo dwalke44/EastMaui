@@ -1,0 +1,561 @@
+---
+title: "East Maui Irrigation Model Report"
+author: "Trutta Environmental Solutions, LLC"
+output: word_document
+---
+
+```{r setup, include=FALSE, echo=FALSE, warning=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+knitr::opts_chunk$set(warning = FALSE)
+library(eastMaui)
+library(tidyverse)
+library(gridExtra)
+library(knitr)
+library(readxl)
+
+
+path = "~/Programming/Trutta/HSHEP/EMaui/EMpackage/eastMaui/rawData"
+
+percent <- function(x, digits = 2, format = "f", ...) {
+  paste0(formatC(100 * x, format = format, digits = digits, ...), "%")
+}
+
+```
+
+## Methods
+
+**Add text here to explain methods**
+
+
+```{r input generation}
+# 
+watersheds = read_excel(paste(path, "/watersheds.xlsx", sep = ""))
+
+# Water calculations input
+watershedsWaterInput = watersheds[ ,c(1,2,8)]
+waterInput.mat= as.matrix(watershedsWaterInput)
+
+# Habitat calculations input matrix
+habitatInput.mat = data.matrix(watersheds)
+habitatInput.mat = habitatInput.mat[, -6]
+
+
+# nodes.compare = eastMaui::nodes1
+
+nodes = read_excel(paste(path, "/nodes_mixed.xlsx", sep = ""))
+nodes = nodes[ ,-c(2:7)]
+nodes0 = read_excel(paste(path, "/nodes_fulldiv.xlsx", sep = ""))
+nodes0 = nodes0[ ,-c(2:7)]
+nodes1 = read_excel(paste(path, "/DiversionInputMix5.xlsx", sep = ""))
+nodes1 = nodes1[ ,-c(2:7)]
+nodes.mat = data.matrix(nodes)
+nodes0.mat = data.matrix(nodes0)
+nodes1.mat = data.matrix(nodes1)
+
+# calc upstream/downstream effect for each node
+# for habitat calculations
+nodesh = nodes
+nodes0h = nodes0
+nodes1h = nodes1
+
+nodesh$dsImpact = nodesh$DnEntrain*nodesh$DnBarrier*nodesh$DnHab*nodesh$DnOther
+nodes0h$dsImpact = nodes0h$DnEntrain*nodes0h$DnBarrier*nodes0h$DnHab*nodes0h$DnOther
+nodes1h$dsImpact = nodes1h$DnEntrain*nodes1h$DnBarrier*nodes1h$DnHab*nodes1h$DnOther
+
+nodesh$usImpact = nodesh$UpEntrain*nodesh$UpBarrier*nodesh$UpOther*nodesh$UpHab
+nodes0h$usImpact = nodes0h$UpEntrain*nodes0h$UpBarrier*nodes0h$UpOther*nodes0h$UpHab
+nodes1h$usImpact = nodes1h$UpEntrain*nodes1h$UpBarrier*nodes1h$UpOther*nodes1h$UpHab
+
+nodesh$passage = nodesh$dsImpact*nodesh$usImpact
+nodes0h$passage = nodes0h$dsImpact*nodes0h$usImpact
+nodes1h$passage = nodes1h$dsImpact*nodes1h$usImpact
+
+nodesh.mat = data.frame(nodesh)
+nodes0h.mat = data.frame(nodes0h)
+nodes1h.mat = data.frame(nodes1h)
+
+```
+
+
+### Habitat calculations
+**Explanatory text about hab calcs**
+
+```{r Scenarios - habitat}
+
+# Run scenarios
+
+scenario.current = basin.fun(nodes.mat, habitatInput.mat)
+
+scenario.1 = basin.fun(nodes1.mat, habitatInput.mat)
+
+scenario.0 = basin.fun(nodes0.mat, habitatInput.mat)
+
+# --------------------------------------------------------------------------------------------------
+# append outputs
+
+scenario.c = as.data.frame(t(scenario.current))
+scenario.1t = as.data.frame(t(scenario.1))
+scenario.0t = as.data.frame(t(scenario.0))
+
+scenario.c = tibble::rownames_to_column(scenario.c, var = "rowname")
+
+colnames(scenario.1t) = paste("1", colnames(scenario.1t), sep = "_")
+colnames(scenario.0t) = paste("0", colnames(scenario.0t), sep = "_")
+
+scenario.test = bind_cols(scenario.c, scenario.0t) %>%
+  bind_cols(scenario.1t) %>%
+  separate(rowname, into = c("E", "Wshed"), sep = "^([E])")
+
+# match basinID to watershed
+
+colnames(scenario.test)[1] = 'Wshed'
+colnames(scenario.test)[2] = "BASINID"
+
+scenario.test$BASINID = as.numeric(scenario.test$BASINID)
+scenario.test$Wshed = as.numeric(scenario.test$Wshed)
+wsheds = watersheds[ ,c(1,2)]
+
+scenario.test = left_join(scenario.test, wsheds, by = "BASINID")
+wsheds = scenario.test[ , 27]
+scenario.test = scenario.test[ , -27]
+scenario.test$Wshed = wsheds
+# write_xlsx(scenario.test, "scenario_test.xlsx")
+
+# Watershed totals for each scenario
+for(i in 1:nrow(scenario.test)){
+  scenario.test$Wshed.total[i] = sum(scenario.test[i, c(3:10)])
+}
+for(i in 1:nrow(scenario.test)){
+  scenario.test$Wshed.total1[i] = sum(scenario.test[i ,c(19:26)])
+}
+for(i in 1:nrow(scenario.test)){
+  scenario.test$Wshed.total0[i] = sum(scenario.test[i ,c(11:18)])
+}
+
+# generate new ID variables
+# scenario.test$IDx1 = sample(1:3, nrow(scenario.test), replace = TRUE)
+# scenario.test$IDx2 = sample(1:5, nrow(scenario.test), replace = TRUE)
+
+# scenario.test = scenario.test[ , c(1,2,30,31, 3:29)]
+```
+
+### Water diversion calculations
+**Explanatory text about water calcs**
+
+
+```{r Scenarios - diversions}
+
+# waterInput = waterInput.mat
+
+scenario.currentw = as.data.frame(diversion.fun(nodes.mat, waterInput.mat))
+
+scenario.1w = as.data.frame(diversion.fun(nodes1.mat, waterInput.mat))
+
+scenario.0w = as.data.frame(diversion.fun(nodes0.mat, waterInput.mat))
+
+# --------------------------------------------------------------------------------------------------
+# append outputs
+scenario.currentw = scenario.currentw[1, ]
+scenario.1w = scenario.1w[1,]
+scenario.0w = scenario.0w[1,]
+
+scenario.cw = as.data.frame(t(scenario.currentw))
+scenario.1tw = as.data.frame(t(scenario.1w))
+scenario.0tw = as.data.frame(t(scenario.0w))
+
+scenario.cw = tibble::rownames_to_column(scenario.cw, var = "rowname")
+colnames(scenario.cw)[2] = "MixedScen"
+scenario.0tw = rownames_to_column(scenario.0tw)
+scenario.1tw = rownames_to_column(scenario.1tw, var = "rowname")
+colnames(scenario.1tw) = c("rowname", "All_1")
+colnames(scenario.0tw) = c("rowname","All_0")
+
+scenario.testw = merge(scenario.cw, scenario.0tw, by = "rowname" ) %>%
+  left_join(scenario.1tw) %>%
+  separate(rowname, into = c("E", "Wshed"), sep = "^([E])")
+
+# match basinID to watershed
+
+colnames(scenario.testw)[1] = 'Wshed'
+colnames(scenario.testw)[2] = "BASINID"
+colnames(scenario.testw)[3] = "mixed"
+scenario.testw$BASINID = as.numeric(scenario.testw$BASINID)
+scenario.testw$Wshed = as.numeric(scenario.testw$Wshed)
+wsheds = watersheds[ ,c(1,2)]
+
+scenario.testw = left_join(scenario.testw, wsheds, by = "BASINID")
+scenario.testw = scenario.testw[ ,-1]
+scenario.testw = scenario.testw[ ,c(5,1:4)]
+
+# generate new ID variables
+# scenario.testw$IDx1 = sample(1:3, nrow(scenario.testw), replace = TRUE)
+# scenario.testw$IDx2 = sample(1:5, nrow(scenario.testw), replace = TRUE)
+# scenario.testw = scenario.testw[ ,c(1:2,6:7, 3:5)]
+
+
+
+```
+
+
+
+## Output
+
+### Grouping variable = Basin
+#### Habitat results
+```{r Output habitat by basin}
+
+dat = scenario.test
+groups = eastMaui::inputs2
+match1 = groups[ ,c(1:9)]
+match2 = dat[ ,c(2:29)]
+dat1 = left_join(match1, match2, by = 'BASINID')
+
+# kable(dat1, digits = 1, align = 'c')
+# writexl::write_xlsx(dat1, paste(path, "/All_basin_data.xlsx", sep = ""))
+
+
+
+
+```
+
+
+### Amount of water present in each basin
+```{r Water Output by Diversion ID}
+# Water in Basins
+groups = watersheds
+match1 = groups[ ,c(1:9)]
+scenario.currentw = as.data.frame(basinWater.fun(nodes.mat, waterInput.mat))
+
+scenario.1w = as.data.frame(basinWater.fun(nodes1.mat, waterInput.mat))
+
+scenario.0w = as.data.frame(basinWater.fun(nodes0.mat, waterInput.mat))
+
+# --------------------------------------------------------------------------------------------------
+# append outputs
+scenario.currentw = scenario.currentw[1, ]
+scenario.1w = scenario.1w[1,]
+scenario.0w = scenario.0w[1,]
+
+scenario.cw = as.data.frame(t(scenario.currentw))
+scenario.1tw = as.data.frame(t(scenario.1w))
+scenario.0tw = as.data.frame(t(scenario.0w))
+
+scenario.cw = tibble::rownames_to_column(scenario.cw, var = "rowname")
+colnames(scenario.cw)[2] = "MixedScen"
+scenario.0tw = rownames_to_column(scenario.0tw)
+scenario.1tw = rownames_to_column(scenario.1tw, var = "rowname")
+colnames(scenario.1tw) = c("rowname", "All_1")
+colnames(scenario.0tw) = c("rowname","All_0")
+
+scenario.testw = merge(scenario.cw, scenario.0tw, by = "rowname" ) %>%
+  left_join(scenario.1tw) %>%
+  separate(rowname, into = c("E", "Wshed"), sep = "^([E])")
+
+# match basinID to watershed
+
+colnames(scenario.testw)[1] = 'Wshed'
+colnames(scenario.testw)[2] = "BASINID"
+colnames(scenario.testw)[3] = "mixed"
+scenario.testw$BASINID = as.numeric(scenario.testw$BASINID)
+scenario.testw$Wshed = as.numeric(scenario.testw$Wshed)
+wsheds = watersheds[ ,c(1,2)]
+
+scenario.testw = left_join(scenario.testw, wsheds, by = "BASINID")
+scenario.testw = scenario.testw[ ,-1]
+scenario.testw = scenario.testw[ ,c(5,1:4)]
+
+basins = scenario.testw[ ,c(2:5)]
+datw = left_join(match1, basins, by = "BASINID")
+datw$BFQ = watersheds$BFQ95
+
+# bf% - all water in basins/ all_1
+writexl::write_xlsx(datw, paste(path, "/WaterInBasinsv0.6.2.xlsx", sep = ""))
+
+datj = watersheds[ ,c(2,9:16)]
+# 
+# # calculate X for input to functions below
+# dat.sp = left_join(datw, datj, by = "BASINID") 
+# dat.sp$divert.mixed = ((dat.sp$mixed-dat.sp$BFQ)/dat.sp$BFQ)*100
+# dat.sp$divert.0 = ((dat.sp$All_0-dat.sp$BFQ)/dat.sp$BFQ)*100
+# dat.sp$divert.1 = ((dat.sp$All_1-dat.sp$BFQ)/dat.sp$BFQ)*100
+# dat.sp$divert.mixed1 = dat.sp$mixed/dat.sp$BFQ
+# dat.sp$divert.01 = dat.sp$All_0/dat.sp$BFQ
+# dat.sp$divert.11 = dat.sp$All_1/dat.sp$BFQ
+
+# calculate water mediated effect on habitat for each basin
+allsp.hab = function(x){
+  y = (1-(0.0000681*((100-x)^2) - 0.00032*(100-x)))
+  return(y)  
+}
+ab.hab = function(x){
+  y = (1-(0.00004678*((100-x)^2) + 0.000313*(100-x)))
+  return(y)
+}
+
+# calculate effected habitat for each species
+
+dat.sp$ASeffect.mix = other.sp(dat.sp$divert.mixed)
+dat.sp$ASeffect.0 = other.sp(dat.sp$divert.0)
+dat.sp$ASeffect.1 = other.sp(dat.sp$divert.1)
+
+dat.sp$ABeffect.mix = ab.hab(dat.sp$divert.mixed)
+dat.sp$ABeffect.0 = ab.hab(dat.sp$divert.0)
+dat.sp$ABeffect.1 = ab.hab(dat.sp$divert.1)
+
+```
+### Grouping Variable = Irrigation Ditches
+```{r Calculate irrigation ditch outputs}
+addDitches = read_excel('~/Programming/Trutta/HSHEP/Emaui/fixNodesDitches.xlsx', sheet = 1)
+addDitches = addDitches[ ,c(2,3)]
+colnames(addDitches)[1]<- "BASINID"
+ditch.dat = left_join(datw, addDitches, by = "BASINID")
+View(ditch.dat)
+div.mixed = nodes[, c(1:2)]
+colnames(div.mixed)<- c("DSN1", "water.div.mix")
+div.0 = nodes0[ ,c(1:2)]
+colnames(div.0)<- c("DSN1", "water.div.0")
+div.1 = nodes1[ ,c(1:2)]
+colnames(div.1)<- c("DSN1", "water.div.1")
+
+ditch.dat1 = left_join(ditch.dat, div.mixed, by = "DSN1") %>% 
+  left_join(div.0, by = "DSN1") %>%
+  left_join(div.1, by = "DSN1")
+writexl::write_xlsx(ditch.dat1, paste(getwd(), "/eastMaui/rawData/ditchVolumes.xlsx", sep = ""))
+
+```
+
+### Grouping Variable = Watersheds
+#### Habitat results
+```{r Output habitat by watershed}
+# output = summary of habitat by watershed and by species
+WshedID = unique(scenario.test$Wshed)
+WshedCount = c(1:n_distinct(WshedID))
+summaries = tibble(WshedID, WshedCount)
+species.abbvs = c("AB", "AS", "ES", "LC", "MG", "NG", "SH", "SS")
+
+output = scenario.test %>%
+  group_by(Wshed) %>%      #LINE to change GROUP ID var
+  summarise_at(vars(c(4:27)), sum)
+
+label = output[, 1]
+All0 = round(output[ ,c(10:17)], 2)
+# original = round(original, 2)
+percentChangeMixed = ((output[ ,c(2:9)]- output[ ,c(10:17)])/output[ ,c(10:17)])*100
+percentChangeAll1 = ((output[ ,c(18:25)]- output[ ,c(10:17)])/output[ ,c(10:17)])*100
+
+scenario.changes = bind_cols(label,All0,percentChangeMixed, percentChangeAll1)
+scenario.changes[is.na(scenario.changes)]<- 0
+
+# *******************************************
+# summaries by Wshed
+Wshed = c(1:n_distinct(scenario.changes))
+totalHab.All0 = rowSums(All0)
+totalHab.All0[is.na(totalHab.All0)]<- 0
+totalHab.mixed = rowSums(output[ ,c(2:9)])
+totalHab.mixed[is.na(totalHab.mixed)]<- 0
+totalHab.All1 = rowSums(output[ ,c(18:25)])
+totalHab.All1[is.na(totalHab.All1)]<- 0
+Wshed.out = data.frame(Wshed, totalHab.All0, totalHab.mixed, totalHab.All1)
+
+Wshed.out$percentDelta.mixed = ((Wshed.out[, 3]-Wshed.out[ ,2])/Wshed.out[,2])*100
+Wshed.out$percentDelta.mixed[is.na(Wshed.out$percentDelta.mixed)]<- 0
+Wshed.out$percentDelta1 = ((Wshed.out[, 4]-Wshed.out[ ,2])/Wshed.out[,2])*100
+Wshed.out$percentDelta1[is.na(Wshed.out$percentDelta1)]<- 0
+Wshed.out$percentDelta.mixed[is.infinite(Wshed.out$percentDelta.mixed)]<- 0
+Wshed.out$percentDelta1[is.infinite(Wshed.out$percentDelta1)]<- 0
+
+Wshed.long = gather(Wshed.out, `percentDelta.mixed`, `percentDelta1`,  key = "NodeValue", value = "PercentChange")
+Wshed.long$PercentChange[is.infinite(Wshed.long$PercentChange)]<- 0
+Wshed.long$lPercentChange = log(Wshed.long$PercentChange)
+Wshed.long$lPercentChange[is.infinite(Wshed.long$lPercentChange)]<- 0
+Wshed.long$lPercentChange[is.infinite(Wshed.long$lPercentChange)]<- 0
+
+ggplot(Wshed.out, aes(x = Wshed, y = (`totalHab.All0`))) +
+  geom_bar(stat = 'identity') +
+  scale_x_continuous(expand = c(0,0)) +
+  scale_y_continuous(expand = c(0,0)) +
+  labs(y = "(All 0)") +
+  theme_classic()+
+  ggtitle("Watershed habitat summary - Baseline")
+
+ggplot(Wshed.long, aes(x = Wshed, y = PercentChange, fill = NodeValue)) +
+  geom_bar( stat = 'identity', position = 'dodge') +
+  ylim(0, 1.2*max(Wshed.long$PercentChange)) +
+  labs(y = "(PercentChange)") +
+  theme_classic() +
+  ggtitle("Watershed Habitat Changes under New Scenarios")
+
+# generate summary table
+colnames(Wshed.out)[2:6] = c("Total Habitat 0", "Total Habitat Mixed", "Total Habitat 1", "Percent Change Mixed", "Percent Change 1")
+
+Wshed.out$`Percent Change Mixed`=percent(Wshed.out$`Percent Change Mixed`)
+
+Wshed.out$`Percent Change 1`=percent(Wshed.out$`Percent Change 1`)
+
+Wshed.tab = kable(Wshed.out, digits = 1, align = 'c',
+                  caption = "Summary of Habitat Changes by Watershed")
+Wshed.tab
+```
+
+**Space for interpretation of preceding plots and table**.
+
+#### Water Diversion results - Water shunted to diversions grouped by watershed
+```{r Output water by watershed}
+
+# output = summary of water by watershed
+
+outputw = scenario.testw %>%
+  group_by(WshedID) %>%      #LINE to change GROUP ID var
+  summarise_at(vars(mixed:All_1), sum)
+
+# *******************************************
+# calculate percent change from output
+label = outputw[ ,1]
+All0 = outputw[ ,3]
+colnames(All0)[1] = "All0"
+percentChangeMixed = ((outputw[ ,c(2)]- outputw[ ,c(3)])/outputw[ ,c(3)])*100
+percentChangeAll1 = ((outputw[ ,c(4)]- outputw[ ,c(3)])/outputw[ ,c(3)])*100
+
+scenario.changesw = bind_cols(label,All0,percentChangeMixed, percentChangeAll1)
+scenario.changesw[is.na(scenario.changesw)]<- 0
+colnames(scenario.changesw)[3]<- c("pChangeMixed")
+colnames(scenario.changesw)[4]<- c("pChangeAll1")
+
+# *******************************************
+# summaries by watersheds
+Wshed = c(1:n_distinct(scenario.changesw))
+totalDiv.All0 = rowSums(All0)
+totalDiv.All0[is.na(totalDiv.All0)]<- 0
+totalDiv.mixed = rowSums(outputw[ ,c(2)])
+totalDiv.mixed[is.na(totalDiv.mixed)]<- 0
+totalDiv.All1 = rowSums(outputw[ ,c(4)])
+totalDiv.All1[is.na(totalDiv.All1)]<- 0
+Wshed.outw = data.frame(Wshed, totalDiv.All0, totalDiv.mixed, totalDiv.All1)
+
+Wshed.outw$percentDelta.Mixed = ((Wshed.outw[, 3]-Wshed.outw[ ,2])/Wshed.outw[,2])*100
+Wshed.outw$percentDelta.Mixed[is.na(Wshed.outw$percentDelta.Mixed)]<- 0
+Wshed.outw$percentDelta1 = ((Wshed.outw[, 4]-Wshed.outw[ ,2])/Wshed.outw[,2])*100
+Wshed.outw$percentDelta1[is.na(Wshed.outw$percentDelta1)]<- 0
+Wshed.outw$percentDelta.Mixed[is.infinite(Wshed.outw$percentDelta.Mixed)]<- 0
+Wshed.outw$percentDelta1[is.infinite(Wshed.outw$percentDelta1)]<- 0
+# reshape data to plot percent delta
+
+Wshed.outw.long = gather(Wshed.outw, `percentDelta.Mixed`, `percentDelta1`,  key = "NodeValue", value = "PercentChange")
+Wshed.outw.long$PercentChange[is.infinite(Wshed.outw.long$PercentChange)]<- 0
+Wshed.outw.long$lPercentChange = log(Wshed.outw.long$PercentChange)
+Wshed.outw.long$lPercentChange[is.infinite(Wshed.outw.long$lPercentChange)]<- 0
+Wshed.outw.long$lPercentChange[is.infinite(Wshed.outw.long$lPercentChange)]<- 0
+
+
+# barplots
+ggplot(Wshed.outw, aes(x = Wshed, y = (totalDiv.All0))) +
+  geom_bar(stat = 'identity') +
+  scale_x_continuous(expand = c(0,0)) +
+  scale_y_continuous(expand = c(0,0)) +
+  labs(y = "All 0") +
+  theme_classic()+
+  ggtitle("Watershed Diversions - Baseline")
+
+ggplot(Wshed.outw.long, aes(x = Wshed, y = PercentChange, fill = NodeValue)) +
+  geom_bar( stat = 'identity', position = 'dodge') +
+  ylim(0, 1.2*max(Wshed.outw.long$lPercentChange)) +
+  labs(y = "PercentChange") +
+  theme_classic() +
+  ggtitle("Watershed Diversions - New Scenarios")
+
+# summary table
+colnames(Wshed.outw)[2:6] = c("Total Diverted - All 0", "Total Diverted - Mixed", "Total Diverted - All 1", "Percent Change - Mixed", "Percent Change - All 1")
+
+Wshed.outw$`Percent Change - Mixed`= percent(Wshed.outw$`Percent Change - Mixed`)
+Wshed.outw$`Percent Change - All 1`= percent(Wshed.outw$`Percent Change - All 1`)
+
+Wshed.outw.tab = kable(Wshed.outw, digits = 1, align = 'c',
+                       caption = "Summary of Water Diversions by Watershed")
+Wshed.outw.tab
+
+```
+
+
+**Space for interpretation of preceding plots and table**.
+
+#### Habitat results by species, grouped by Watershed
+```{r Habitat output by species}
+
+species.abbvs = c("AB", "AS", "ES", "LC", "MG", "NG", "SH", "SS")
+
+AB = scenario.changes[ ,c(1,2,10,18)]
+AS = scenario.changes[ ,c(1,3,11,19)]
+ES = scenario.changes[ ,c(1,4,12,20)]
+LC = scenario.changes[ ,c(1,5,13,21)]
+MG = scenario.changes[ ,c(1,6,14,22)]
+NG = scenario.changes[ ,c(1,7,15,23)]
+SH = scenario.changes[ ,c(1,8,16,24)]
+SS = scenario.changes[ ,c(1,9,17,25)]
+species.list = list(AB,AS,ES,LC,MG,NG,SH,SS)
+species.plots = list()
+
+# list of barplots
+for(i in 1:length(species.list)){
+  colnames(species.list[[i]])<- c("Wshed", "All 0", "Mixed", "All 1")
+  
+  species.list[[i]][,5] = ((species.list[[i]][ ,2]-species.list[[i]][,3])/species.list[[i]][,3])*100
+  species.list[[i]][,6] = ((species.list[[i]][ ,4]-species.list[[i]][,3])/species.list[[i]][,3])*100
+  colnames(species.list[[i]])[c(5,6)]<-c("PercentChangeMixed", "PercentChangeAll1")
+  species.list[[i]][is.na(species.list[[i]])]<- 0
+  
+  dat.long = gather(species.list[[i]], "PercentChangeMixed", "PercentChangeAll1", key = "NodeValue", value = "PercentChange")
+  dat.long$lPercentChange = log(dat.long$PercentChange)
+  dat.long$lPercentChange[is.na(dat.long$lPercentChange)]<- 0
+  dat.long$lPercentChange[is.infinite(dat.long$lPercentChange)]<- 0
+  
+  
+  g.sp = ggplot(dat.long, aes(x = Wshed, y = lPercentChange, fill = NodeValue )) +
+    geom_bar( stat = 'identity', position = 'dodge') +
+    theme_classic() +
+    ggtitle(paste0("Species: ", species.abbvs[i], "; Grouped by: ", colnames(scenario.changes)[1], sep = " "))
+  species.plots[[i]] <- g.sp
+
+}
+
+# list of tables
+species.tabs = list()
+for(i in 1:length(species.list)){
+  species.list[[i]]$PercentChangeMixed = percent(species.list[[i]]$PercentChangeMixed)
+  species.list[[i]]$PercentChangeAll1 = percent(species.list[[i]]$PercentChangeAll1)
+  df = as.data.frame(species.list[[i]])
+  df$Mixed[is.infinite(df$Mixed)]<- 0
+  df$`All 1`[is.infinite(df$`All 1`)]<- 0
+  # summary tables for each species
+  IDvar.tab = kable(df, digits = 1, align = 'c')
+  
+  species.tabs[[i]]<- IDvar.tab
+  
+}
+
+species.plots[[1]]
+species.tabs[[1]]
+
+species.plots[[2]]
+species.tabs[[2]]
+
+species.plots[[3]]
+species.tabs[[3]]
+
+species.plots[[4]]
+species.tabs[[4]]
+
+species.plots[[5]]
+species.tabs[[5]]
+
+species.plots[[6]]
+species.tabs[[6]]
+
+species.plots[[7]]
+species.tabs[[7]]
+
+species.plots[[8]]
+species.tabs[[8]]
+
+```
+
+**Space for interpretation of preceding plots and tables**.
