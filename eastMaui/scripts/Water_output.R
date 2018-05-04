@@ -5,7 +5,7 @@
 diversion.fun = function(nodesInput, waterInput){
   diverted = list()
 
-  diverted$E001 = waterInput[1, 3]*nodesInput[49, 2] + waterInput[2, 3]*nodesInput[49, 3]
+  diverted$E001 = waterInput[1, 3]*nodesInput[39, 2] + waterInput[2, 3]*nodesInput[49, 3]
 
   diverted$E002 = waterInput[2, 3]*nodesInput[49, 2] + waterInput[3, 3]*nodesInput[228, 3] + waterInput[4, 3]*nodesInput[196, 3]
 
@@ -15,7 +15,8 @@ diversion.fun = function(nodesInput, waterInput){
 
   diverted$E005 = waterInput[5, 3]*nodesInput[42, 2] + waterInput[6, 3]*nodesInput[50, 3]
 
-  diverted$E006 = waterInput[6, 3]*nodesInput[50, 2] + waterInput[7, 3]*nodesInput[229, 3]
+  # nodesInput[50, ...] = spring, so cfs is added, not siphoned off
+  diverted$E006 = waterInput[6, 3]+nodesInput[50, 2] + waterInput[7, 3]*nodesInput[229, 3]
 
   diverted$E007 = waterInput[7, 3]*nodesInput[229, 2] + waterInput[9, 3]*nodesInput[192, 3] + waterInput[8, 3]*nodesInput[193, 3] + waterInput[10, 3]*nodesInput[194, 3]
 
@@ -27,7 +28,8 @@ diversion.fun = function(nodesInput, waterInput){
 
   diverted$E011 = waterInput[11, 3]*nodesInput[44, 2] + waterInput[12, 3]*nodesInput[51, 3]
 
-  diverted$E012 = waterInput[12, 3]*nodesInput[51, 2] + waterInput[13, 3]*nodesInput[195, 3] + waterInput[14, 3]*nodesInput[186, 3]
+  # nodesInput[51, ...] = spring, so cfs is added, not siphoned off
+  diverted$E012 = waterInput[12, 3]+nodesInput[51, 2] + waterInput[13, 3]*nodesInput[195, 3] + waterInput[14, 3]*nodesInput[186, 3]
 
   diverted$E013 = waterInput[13, 3]*nodesInput[195, 2] + waterInput[16, 3]*nodesInput[188, 3]
 
@@ -309,7 +311,7 @@ diversion.fun = function(nodesInput, waterInput){
 
   diverted$E152 = waterInput[152, 3]*nodesInput[107, 2] + waterInput[153, 3]*nodesInput[212, 3] + waterInput[154, 3]*nodesInput[294, 3] + waterInput[155, 3]*nodesInput[176, 3]
 
-  diverted$E153 =waterInput[153, 3]*nodesInput[212, 2]
+  diverted$E153 = waterInput[153, 3]*nodesInput[212, 2]
 
   diverted$E154 = waterInput[154, 3]*nodesInput[294, 2]
 
@@ -331,7 +333,7 @@ diversion.fun = function(nodesInput, waterInput){
 
   diverted$E163 = waterInput[163, 3]*nodesInput[172, 2] + waterInput[166, 3]*nodesInput[77, 3]
 
-  diverted$E164 =  waterInput[164, 3]*nodesInput[73, 2] + waterInput[165, 3]*nodesInput[97, 3]
+  diverted$E164 = waterInput[164, 3]*nodesInput[73, 2] + waterInput[165, 3]*nodesInput[97, 3]
 
   diverted$E165 = waterInput[165, 3]*nodesInput[97, 2]
 
@@ -561,9 +563,10 @@ diversion.fun = function(nodesInput, waterInput){
 
   diverted$E277 = waterInput[277, 3]*nodesInput[80, 2]
 
-  diverted$E278 = waterInput[278, 3]*nodesInput[0, 2] + waterInput[280, 3]*nodesInput[104, 3]
+  # converted nodeID = 0 to nodeID = 311
+  diverted$E278 = waterInput[278, 3]*nodesInput[311, 2] + waterInput[280, 3]*nodesInput[104, 3]
 
-  diverted$E279 =  waterInput[279, 3]*nodesInput[133, 2]
+  diverted$E279 = waterInput[279, 3]*nodesInput[133, 2]
 
   diverted$E280 = waterInput[280, 3]*nodesInput[104, 2]
 

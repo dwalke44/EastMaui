@@ -376,7 +376,7 @@ basinWater.fun = function(nodesInput, waterInput){
   inStream$E057 = waterInput[57 ,3] + spsk$E058
   inDitch$n053 = inStream$E058 - spsk$E058
 
-  # node 52 = sink.
+  # node 52 = sink
   spsk$E056s = inStream$E056*nodesInput[52,3] + nodesInput[52,13]
   spsk$E056 = ifelse(spsk$E056s<0, 0, spsk$E056s)
 
