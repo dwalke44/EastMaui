@@ -1,6 +1,10 @@
 #' @export
 
 basin.fun = function(nodesInput, wshedInput, waterImpactedHab){
+  # wshedInput = amount of habitat for fish/inverts
+  # nodesInput = passage value through nodes for connectivity
+  # waterImpactedHab = percent change of habitat from natural condition
+
   poutput = list()
   wphabAll = list()
   wphabAB = list()
@@ -8,16 +12,16 @@ basin.fun = function(nodesInput, wshedInput, waterImpactedHab){
   WshedHabABsp = list()
 
 # --------------------Watershed 1 -------------------------------------------
-  poutput$E001 = wshedInput[1, c(8:15)]*nodesInput[39, (16)]
+  poutput$E001 = wshedInput[1, c(13:20)]*nodesInput[39, (16)]
 
-  poutput$E002 = wshedInput[2, c(8:15)]*nodesInput[49, (16)]*
+  poutput$E002 = wshedInput[2, c(13:20)]*nodesInput[49, (16)]*
     nodesInput[39, (16)]
 
-  poutput$E003 = wshedInput[3, c(8:15)]*nodesInput[228, (16)]*
+  poutput$E003 = wshedInput[3, c(13:20)]*nodesInput[228, (16)]*
     nodesInput[49, (16)]*
     nodesInput[39, (16)]
 
-  poutput$E004 = wshedInput[4, c(8:15)]*nodesInput[196, (16)]*
+  poutput$E004 = wshedInput[4, c(13:20)]*nodesInput[196, (16)]*
     nodesInput[49, (16)]*
     nodesInput[39, (16)]
 
@@ -38,26 +42,26 @@ basin.fun = function(nodesInput, wshedInput, waterImpactedHab){
   WshedHabABsp$w001 = wphabAB$a001+ wphabAB$a002 + wphabAB$a003 +
     wphabAB$a004
   # --------------------Watershed 2 -------------------------------------------
-  poutput$E005 = wshedInput[5, c(8:15)]*nodesInput[42, (16)]
+  poutput$E005 = wshedInput[5, c(13:20)]*nodesInput[42, (16)]
 
-  poutput$E006 = wshedInput[6, c(8:15)]*nodesInput[50, (16)]*
+  poutput$E006 = wshedInput[6, c(13:20)]*nodesInput[50, (16)]*
     nodesInput[42, (16)]
 
-  poutput$E007 = wshedInput[7, c(8:15)]*nodesInput[229, (16)]*
+  poutput$E007 = wshedInput[7, c(13:20)]*nodesInput[229, (16)]*
     nodesInput[50, (16)]*
     nodesInput[42, (16)]
 
-  poutput$E008 = wshedInput[8, c(8:15)]*nodesInput[193, (16)]*
+  poutput$E008 = wshedInput[8, c(13:20)]*nodesInput[193, (16)]*
     nodesInput[229, (16)]*
     nodesInput[50, (16)]*
     nodesInput[42, (16)]
 
-  poutput$E009 = wshedInput[9, c(8:15)]*nodesInput[192, (16)] *
+  poutput$E009 = wshedInput[9, c(13:20)]*nodesInput[192, (16)] *
     nodesInput[229, (16)]*
     nodesInput[50, (16)]*
     nodesInput[42, (16)]
 
-  poutput$E010 = wshedInput[10, c(8:15)]*nodesInput[194, (16)]*
+  poutput$E010 = wshedInput[10, c(13:20)]*nodesInput[194, (16)]*
     nodesInput[229, (16)]*
     nodesInput[50, (16)]*
     nodesInput[42, (16)]
@@ -85,26 +89,26 @@ basin.fun = function(nodesInput, wshedInput, waterImpactedHab){
 
   # --------------------Watershed 3 -------------------------------------------
 
-  poutput$E011 = wshedInput[11, c(8:15)]*nodesInput[44, (16)]
+  poutput$E011 = wshedInput[11, c(13:20)]*nodesInput[44, (16)]
 
-  poutput$E012 = wshedInput[12, c(8:15)]*nodesInput[51, (16)]*
+  poutput$E012 = wshedInput[12, c(13:20)]*nodesInput[51, (16)]*
     nodesInput[44, (16)]
 
-  poutput$E013 = wshedInput[13, c(8:15)]*nodesInput[195, (16)]*
+  poutput$E013 = wshedInput[13, c(13:20)]*nodesInput[195, (16)]*
     nodesInput[51, (16)]*
     nodesInput[44, (16)]
 
-  poutput$E014 = wshedInput[14, c(8:15)]*nodesInput[186, (16)]*
+  poutput$E014 = wshedInput[14, c(13:20)]*nodesInput[186, (16)]*
     nodesInput[51, (16)]*
     nodesInput[44, (16)]
 
-  poutput$E015 = wshedInput[15, c(8:15)]*nodesInput[187, (16)]*
+  poutput$E015 = wshedInput[15, c(13:20)]*nodesInput[187, (16)]*
     nodesInput[188, (16)]*
     nodesInput[195, (16)]*
     nodesInput[51, (16)]*
     nodesInput[44, (16)]
 
-  poutput$E016 = wshedInput[16, c(8:15)]*nodesInput[188, (16)]*
+  poutput$E016 = wshedInput[16, c(13:20)]*nodesInput[188, (16)]*
     nodesInput[195, (16)]*
     nodesInput[51, (16)]*
     nodesInput[44, (16)]
@@ -131,9 +135,9 @@ basin.fun = function(nodesInput, wshedInput, waterImpactedHab){
 
   # --------------------Watershed 4 -------------------------------------------
 
-  poutput$E017 = wshedInput[17, c(8:15)]*nodesInput[43, (16)]
+  poutput$E017 = wshedInput[17, c(13:20)]*nodesInput[43, (16)]
 
-  poutput$E018 = wshedInput[18, c(8:15)]*nodesInput[230, (16)]*
+  poutput$E018 = wshedInput[18, c(13:20)]*nodesInput[230, (16)]*
     nodesInput[43, (16)]
 
   wphabAll$a017 = poutput$E017[2:8]*allsp.hab(waterImpactedHab[17])
@@ -147,18 +151,18 @@ basin.fun = function(nodesInput, wshedInput, waterImpactedHab){
 
   # --------------------Watershed 5 -------------------------------------------
 
-  poutput$E019 = wshedInput[19, c(8:15)]*nodesInput[41, (16)]
+  poutput$E019 = wshedInput[19, c(13:20)]*nodesInput[41, (16)]
 
-  poutput$E020 = wshedInput[20, c(8:15)]*nodesInput[232, (16)]*
+  poutput$E020 = wshedInput[20, c(13:20)]*nodesInput[232, (16)]*
     nodesInput[41, (16)]
 
-  poutput$E021 = wshedInput[21, c(8:15)]*nodesInput[231, (16)]*
+  poutput$E021 = wshedInput[21, c(13:20)]*nodesInput[231, (16)]*
     nodesInput[41, (16)]
 
-  poutput$E022 = wshedInput[22, c(8:15)]*nodesInput[185, (16)]*
+  poutput$E022 = wshedInput[22, c(13:20)]*nodesInput[185, (16)]*
     nodesInput[41, (16)]
 
-  poutput$E023 = wshedInput[23, c(8:15)]*nodesInput[184, (16)]*
+  poutput$E023 = wshedInput[23, c(13:20)]*nodesInput[184, (16)]*
     nodesInput[41, (16)]
 
   wphabAll$a019 = poutput$E019[2:8]*allsp.hab(waterImpactedHab[19])
@@ -181,18 +185,18 @@ basin.fun = function(nodesInput, wshedInput, waterImpactedHab){
 
    # --------------------Watershed 6 -------------------------------------------
 
-  poutput$E024 = wshedInput[24, c(8:15)]*nodesInput[40, (16)]
+  poutput$E024 = wshedInput[24, c(13:20)]*nodesInput[40, (16)]
 
-  poutput$E025 = wshedInput[25, c(8:15)]*nodesInput[233, (16)]*
+  poutput$E025 = wshedInput[25, c(13:20)]*nodesInput[233, (16)]*
     nodesInput[40, (16)]
 
-  poutput$E026 = wshedInput[26, c(8:15)]*nodesInput[234, (16)]*
+  poutput$E026 = wshedInput[26, c(13:20)]*nodesInput[234, (16)]*
     nodesInput[40, (16)]
 
-  poutput$E027 = wshedInput[27, c(8:15)]*nodesInput[182, (16)]*
+  poutput$E027 = wshedInput[27, c(13:20)]*nodesInput[182, (16)]*
     nodesInput[40, (16)]
 
-  poutput$E028 = wshedInput[28, c(8:15)]*nodesInput[183, (16)]*
+  poutput$E028 = wshedInput[28, c(13:20)]*nodesInput[183, (16)]*
     nodesInput[40, (16)]
 
   wphabAll$a019 = poutput$E019[2:8]*allsp.hab(waterImpactedHab[19])
@@ -215,22 +219,22 @@ basin.fun = function(nodesInput, wshedInput, waterImpactedHab){
 
   # --------------------Watershed 7 -------------------------------------------
 
-  poutput$E029 = wshedInput[29, c(8:15)]*nodesInput[38, (16)]
+  poutput$E029 = wshedInput[29, c(13:20)]*nodesInput[38, (16)]
 
-  poutput$E030 = wshedInput[30, c(8:15)]*nodesInput[237, (16)]*
+  poutput$E030 = wshedInput[30, c(13:20)]*nodesInput[237, (16)]*
     nodesInput[38, (16)]
 
-  poutput$E031 = wshedInput[31, c(8:15)]*nodesInput[236, (16)]*
+  poutput$E031 = wshedInput[31, c(13:20)]*nodesInput[236, (16)]*
     nodesInput[38, (16)]
 
-  poutput$E032 = wshedInput[32, c(8:15)]*nodesInput[235, (16)]*
+  poutput$E032 = wshedInput[32, c(13:20)]*nodesInput[235, (16)]*
     nodesInput[38, (16)]
 
-  poutput$E033 = wshedInput[33, c(8:15)]*nodesInput[180, (16)]*
+  poutput$E033 = wshedInput[33, c(13:20)]*nodesInput[180, (16)]*
     nodesInput[235, (16)]*
     nodesInput[38, (16)]
 
-  poutput$E034 = wshedInput[34, c(8:15)]*nodesInput[191, (16)]*
+  poutput$E034 = wshedInput[34, c(13:20)]*nodesInput[191, (16)]*
     nodesInput[38, (16)]
 
 
@@ -255,9 +259,9 @@ basin.fun = function(nodesInput, wshedInput, waterImpactedHab){
     wphabAB$a032+ wphabAB$a033 + wphabAB$a034
   # --------------------Watershed 8 -------------------------------------------
 
-  poutput$E035 = wshedInput[35, c(8:15)]*nodesInput[37, (16)]
+  poutput$E035 = wshedInput[35, c(13:20)]*nodesInput[37, (16)]
 
-  poutput$E036 = wshedInput[36, c(8:15)]*nodesInput[190, (16)]*
+  poutput$E036 = wshedInput[36, c(13:20)]*nodesInput[190, (16)]*
     nodesInput[37, (16)]
 
   wphabAll$a035 = poutput$E035[2:8]*allsp.hab(waterImpactedHab[35])
@@ -271,9 +275,9 @@ basin.fun = function(nodesInput, wshedInput, waterImpactedHab){
 
   # --------------------Watershed 9 -------------------------------------------
 
-  poutput$E037 = wshedInput[37, c(8:15)]*nodesInput[36, (16)]
+  poutput$E037 = wshedInput[37, c(13:20)]*nodesInput[36, (16)]
 
-  poutput$E038 = wshedInput[38, c(8:15)]*nodesInput[223, (16)]*nodesInput[36, (16)]
+  poutput$E038 = wshedInput[38, c(13:20)]*nodesInput[223, (16)]*nodesInput[36, (16)]
 
   wphabAll$a037 = poutput$E037[2:8]*allsp.hab(waterImpactedHab[37])
   wphabAB$a037= poutput$E037[1]*ab.hab(waterImpactedHab[37])
@@ -285,23 +289,23 @@ basin.fun = function(nodesInput, wshedInput, waterImpactedHab){
   WshedHabABsp$w009 = wphabAB$a037 + wphabAB$a038
   # --------------------Watershed 10 -------------------------------------------
 
-  poutput$E039 = wshedInput[39, c(8:15)]*nodesInput[35, (16)]
+  poutput$E039 = wshedInput[39, c(13:20)]*nodesInput[35, (16)]
 
-  poutput$E040 = wshedInput[40, c(8:15)]*nodesInput[218, (16)]*
+  poutput$E040 = wshedInput[40, c(13:20)]*nodesInput[218, (16)]*
     nodesInput[35, (16)]
 
-  poutput$E041 = wshedInput[41, c(8:15)]*nodesInput[220, (16)]*
+  poutput$E041 = wshedInput[41, c(13:20)]*nodesInput[220, (16)]*
     nodesInput[35, (16)]
 
-  poutput$E042 = wshedInput[42, c(8:15)]*nodesInput[238, (16)]*
+  poutput$E042 = wshedInput[42, c(13:20)]*nodesInput[238, (16)]*
     nodesInput[217, (16)]*
     nodesInput[35, (16)]
 
-  poutput$E043 = wshedInput[43, c(8:15)]*
+  poutput$E043 = wshedInput[43, c(13:20)]*
     nodesInput[227, (16)]*
     nodesInput[35, (16)]
 
-  poutput$E044 = wshedInput[44 ,c(8:15)]*nodesInput[217, (16)]*
+  poutput$E044 = wshedInput[44 ,c(13:20)]*nodesInput[217, (16)]*
     nodesInput[35, (16)]
 
 
@@ -324,43 +328,44 @@ basin.fun = function(nodesInput, wshedInput, waterImpactedHab){
 
   WshedHabABsp$w010 = wphabAB$a039 + wphabAB$a040 + wphabAB$a041+
     wphabAB$a042+ wphabAB$a043 + wphabAB$a044
+
    # --------------------Watershed 11 -------------------------------------------
 
-  poutput$E045 = wshedInput[45 ,c(8:15)]*nodesInput[34, (16)]
-  + wshedInput[46, c(8:15)]*nodesInput[54, (16)]
+  poutput$E045 = wshedInput[45 ,c(13:20)]*nodesInput[34, (16)]
+  + wshedInput[46, c(13:20)]*nodesInput[54, (16)]
 
-  poutput$E046 = wshedInput[46 ,c(8:15)]*nodesInput[54, (16)]*
+  poutput$E046 = wshedInput[46 ,c(13:20)]*nodesInput[54, (16)]*
     nodesInput[34, (16)]
 
-  poutput$E047 = wshedInput[47 ,c(8:15)]*nodesInput[240, (16)]*
+  poutput$E047 = wshedInput[47 ,c(13:20)]*nodesInput[240, (16)]*
     nodesInput[54, (16)]*
     nodesInput[34, (16)]
 
-  poutput$E048 = wshedInput[48 ,c(8:15)]*nodesInput[239, (16)]*
+  poutput$E048 = wshedInput[48 ,c(13:20)]*nodesInput[239, (16)]*
     nodesInput[54, (16)]*
     nodesInput[34, (16)]
 
-  poutput$E049 = wshedInput[49 ,c(8:15)]*nodesInput[241, (16)]*
+  poutput$E049 = wshedInput[49 ,c(13:20)]*nodesInput[241, (16)]*
     nodesInput[54, (16)]*
     nodesInput[34, (16)]
 
-  poutput$E050 = wshedInput[50 ,c(8:15)]*nodesInput[242, (16)]*
+  poutput$E050 = wshedInput[50 ,c(13:20)]*nodesInput[242, (16)]*
     nodesInput[54, (16)]*
     nodesInput[34, (16)]
 
-  poutput$E051 = wshedInput[51 ,c(8:15)]*nodesInput[243, (16)]*
+  poutput$E051 = wshedInput[51 ,c(13:20)]*nodesInput[243, (16)]*
     nodesInput[54, (16)]*
     nodesInput[34, (16)]
 
-  poutput$E052 = wshedInput[52 ,c(8:15)]*nodesInput[222, (16)]*
+  poutput$E052 = wshedInput[52 ,c(13:20)]*nodesInput[222, (16)]*
     nodesInput[54, (16)]*
     nodesInput[34, (16)]
 
-  poutput$E053 = wshedInput[53 ,c(8:15)]*nodesInput[225, (16)]*
+  poutput$E053 = wshedInput[53 ,c(13:20)]*nodesInput[225, (16)]*
     nodesInput[54, (16)]*
     nodesInput[34, (16)]
 
-  poutput$E054 = wshedInput[54 ,c(8:15)]*nodesInput[224, (16)]*
+  poutput$E054 = wshedInput[54 ,c(13:20)]*nodesInput[224, (16)]*
     nodesInput[54, (16)]*
     nodesInput[34, (16)]
 
@@ -398,44 +403,44 @@ basin.fun = function(nodesInput, wshedInput, waterImpactedHab){
   # --------------------Watershed 12 -------------------------------------------
 
 
-  poutput$E055 = wshedInput[55 ,c(8:15)]*nodesInput[32, (16)]
+  poutput$E055 = wshedInput[55 ,c(13:20)]*nodesInput[32, (16)]
 
-  poutput$E056 = wshedInput[56 ,c(8:15)]*nodesInput[52, (16)]*
+  poutput$E056 = wshedInput[56 ,c(13:20)]*nodesInput[52, (16)]*
     nodesInput[32, (16)]
 
-  poutput$E057 = wshedInput[57 ,c(8:15)]*nodesInput[47, (16)]*
+  poutput$E057 = wshedInput[57 ,c(13:20)]*nodesInput[47, (16)]*
     nodesInput[32, (16)]
 
-  poutput$E058 = wshedInput[58 ,c(8:15)]*nodesInput[53, (16)]*
+  poutput$E058 = wshedInput[58 ,c(13:20)]*nodesInput[53, (16)]*
     nodesInput[47, (16)]*
     nodesInput[32, (16)]
 
-  poutput$E059 = wshedInput[59 ,c(8:15)]*nodesInput[207, (16)]*
+  poutput$E059 = wshedInput[59 ,c(13:20)]*nodesInput[207, (16)]*
     nodesInput[53, (16)]*
     nodesInput[47, (16)]*
     nodesInput[32, (16)]
 
-  poutput$E060 = wshedInput[60 ,c(8:15)]*nodesInput[208, (16)]*
+  poutput$E060 = wshedInput[60 ,c(13:20)]*nodesInput[208, (16)]*
     nodesInput[53, (16)]*
     nodesInput[47, (16)]*
     nodesInput[32, (16)]
 
-  poutput$E061 = wshedInput[61 ,c(8:15)]*nodesInput[215, (16)]*
+  poutput$E061 = wshedInput[61 ,c(13:20)]*nodesInput[215, (16)]*
     nodesInput[53, (16)]*
     nodesInput[47, (16)]*
     nodesInput[32, (16)]
 
-  poutput$E062 = wshedInput[62 ,c(8:15)]*nodesInput[205, (16)]*
+  poutput$E062 = wshedInput[62 ,c(13:20)]*nodesInput[205, (16)]*
     nodesInput[53, (16)]*
     nodesInput[47, (16)]*
     nodesInput[32, (16)]
 
-  poutput$E063 = wshedInput[63 ,c(8:15)]*nodesInput[214, (16)]*
+  poutput$E063 = wshedInput[63 ,c(13:20)]*nodesInput[214, (16)]*
     nodesInput[53, (16)]*
     nodesInput[47, (16)]*
     nodesInput[32, (16)]
 
-  poutput$E064 = wshedInput[64 ,c(8:15)]*nodesInput[226, (16)]*
+  poutput$E064 = wshedInput[64 ,c(13:20)]*nodesInput[226, (16)]*
     nodesInput[52, (16)]*
     nodesInput[32, (16)]
 
@@ -470,21 +475,21 @@ basin.fun = function(nodesInput, wshedInput, waterImpactedHab){
     wphabAB$a062+ wphabAB$a063 + wphabAB$a064
   # --------------------Watershed 13 -------------------------------------------
 
-  poutput$E065 = wshedInput[65 ,c(8:15)]*nodesInput[31, (16)]
+  poutput$E065 = wshedInput[65 ,c(13:20)]*nodesInput[31, (16)]
 
-  poutput$E066 = wshedInput[66 ,c(8:15)]*nodesInput[244, (16)]*
+  poutput$E066 = wshedInput[66 ,c(13:20)]*nodesInput[244, (16)]*
     nodesInput[31, (16)]
 
-  poutput$E067 = wshedInput[67 ,c(8:15)]*nodesInput[245, (16)]*
+  poutput$E067 = wshedInput[67 ,c(13:20)]*nodesInput[245, (16)]*
     nodesInput[31, (16)]
 
-  poutput$E068 = wshedInput[68 ,c(8:15)]*nodesInput[247, (16)]*
+  poutput$E068 = wshedInput[68 ,c(13:20)]*nodesInput[247, (16)]*
     nodesInput[31, (16)]
 
-  poutput$E069 = wshedInput[69 ,c(8:15)]*nodesInput[246, (16)]*
+  poutput$E069 = wshedInput[69 ,c(13:20)]*nodesInput[246, (16)]*
     nodesInput[31, (16)]
 
-  poutput$E070 = wshedInput[70 ,c(8:15)]*nodesInput[221, (16)]*
+  poutput$E070 = wshedInput[70 ,c(13:20)]*nodesInput[221, (16)]*
     nodesInput[31, (16)]
 
   wphabAll$a065 = poutput$E065[2:8]*allsp.hab(waterImpactedHab[65])
@@ -508,27 +513,27 @@ basin.fun = function(nodesInput, wshedInput, waterImpactedHab){
 
   # --------------------Watershed 14 -------------------------------------------
 
-  poutput$E071 = wshedInput[71 ,c(8:15)]*nodesInput[30, (16)]
+  poutput$E071 = wshedInput[71 ,c(13:20)]*nodesInput[30, (16)]
 
-  poutput$E072 = wshedInput[72 ,c(8:15)]*nodesInput[281, (16)]*
+  poutput$E072 = wshedInput[72 ,c(13:20)]*nodesInput[281, (16)]*
     nodesInput[30, (16)]
 
-  poutput$E073 = wshedInput[73 ,c(8:15)]*nodesInput[249, (16)]*
+  poutput$E073 = wshedInput[73 ,c(13:20)]*nodesInput[249, (16)]*
     nodesInput[30, (16)]
 
-  poutput$E074 = wshedInput[74 ,c(8:15)]*nodesInput[198, (16)]*
+  poutput$E074 = wshedInput[74 ,c(13:20)]*nodesInput[198, (16)]*
     nodesInput[30, (16)]
 
-  poutput$E075 = wshedInput[75 ,c(8:15)]*nodesInput[206, (16)]*
+  poutput$E075 = wshedInput[75 ,c(13:20)]*nodesInput[206, (16)]*
     nodesInput[30, (16)]
 
-  poutput$E076 = wshedInput[76 ,c(8:15)]*nodesInput[199, (16)]*
+  poutput$E076 = wshedInput[76 ,c(13:20)]*nodesInput[199, (16)]*
     nodesInput[30, (16)]
 
-  poutput$E077 = wshedInput[77 ,c(8:15)]*nodesInput[200, (16)]*
+  poutput$E077 = wshedInput[77 ,c(13:20)]*nodesInput[200, (16)]*
     nodesInput[30, (16)]
 
-  poutput$E078 = wshedInput[78 ,c(8:15)]*nodesInput[181, (16)]*
+  poutput$E078 = wshedInput[78 ,c(13:20)]*nodesInput[181, (16)]*
     nodesInput[30, (16)]
 
 
@@ -556,53 +561,53 @@ basin.fun = function(nodesInput, wshedInput, waterImpactedHab){
     wphabAB$a074 + wphabAB$a075 + wphabAB$a076+ wphabAB$a077+ wphabAB$a078
   # --------------------Watershed 15 -------------------------------------------
 
-  poutput$E079 = wshedInput[79 ,c(8:15)]*nodesInput[29, (16)]
+  poutput$E079 = wshedInput[79 ,c(13:20)]*nodesInput[29, (16)]
 
-  poutput$E080 = wshedInput[80 ,c(8:15)]*nodesInput[284, (16)]*
+  poutput$E080 = wshedInput[80 ,c(13:20)]*nodesInput[284, (16)]*
     nodesInput[29, (16)]
 
-  poutput$E081 = wshedInput[81 ,c(8:15)]*nodesInput[285, (16)]*
+  poutput$E081 = wshedInput[81 ,c(13:20)]*nodesInput[285, (16)]*
     nodesInput[29, (16)]
 
-  poutput$E082 = wshedInput[82 ,c(8:15)]*nodesInput[113, (16)]*
+  poutput$E082 = wshedInput[82 ,c(13:20)]*nodesInput[113, (16)]*
     nodesInput[285, (16)]*
     nodesInput[29, (16)]
 
-  poutput$E083 = wshedInput[83 ,c(8:15)]*nodesInput[280, (16)]*
+  poutput$E083 = wshedInput[83 ,c(13:20)]*nodesInput[280, (16)]*
     nodesInput[113, (16)]*
     nodesInput[285, (16)]*
     nodesInput[29, (16)]
 
-  poutput$E084 = wshedInput[84 ,c(8:15)]*nodesInput[278, (16)]*
+  poutput$E084 = wshedInput[84 ,c(13:20)]*nodesInput[278, (16)]*
     nodesInput[113, (16)]*
     nodesInput[285, (16)]*
     nodesInput[29, (16)]
 
-  poutput$E085 = wshedInput[85 ,c(8:15)]*nodesInput[111, (16)]*
+  poutput$E085 = wshedInput[85 ,c(13:20)]*nodesInput[111, (16)]*
     nodesInput[113, (16)]*
     nodesInput[285, (16)]*
     nodesInput[29, (16)]
 
-  poutput$E086 = wshedInput[86 ,c(8:15)]*nodesInput[252, (16)]*
+  poutput$E086 = wshedInput[86 ,c(13:20)]*nodesInput[252, (16)]*
     nodesInput[111, (16)]*
     nodesInput[113, (16)]*
     nodesInput[285, (16)]*
     nodesInput[29, (16)]
 
-  poutput$E087 = wshedInput[87 ,c(8:15)]*nodesInput[250, (16)]*
+  poutput$E087 = wshedInput[87 ,c(13:20)]*nodesInput[250, (16)]*
     nodesInput[111, (16)]*
     nodesInput[113, (16)]*
     nodesInput[285, (16)]*
     nodesInput[29, (16)]
 
-  poutput$E088 = wshedInput[88 ,c(8:15)]*nodesInput[251, (16)]*
+  poutput$E088 = wshedInput[88 ,c(13:20)]*nodesInput[251, (16)]*
     nodesInput[252, (16)]*
     nodesInput[111, (16)]*
     nodesInput[113, (16)]*
     nodesInput[285, (16)]*
     nodesInput[29, (16)]
 
-  poutput$E089 = wshedInput[89 ,c(8:15)]*nodesInput[197, (16)]*
+  poutput$E089 = wshedInput[89 ,c(13:20)]*nodesInput[197, (16)]*
     nodesInput[111, (16)]*
     nodesInput[113, (16)]*
     nodesInput[285, (16)]*
@@ -643,16 +648,16 @@ basin.fun = function(nodesInput, wshedInput, waterImpactedHab){
     wphabAB$a086 + wphabAB$a087 + wphabAB$a088+ wphabAB$a089
   # --------------------Watershed 16 -------------------------------------------
 
-  poutput$E090 = wshedInput[90 ,c(8:15)]*nodesInput[27, (16)]
+  poutput$E090 = wshedInput[90 ,c(13:20)]*nodesInput[27, (16)]
 
-  poutput$E091 = wshedInput[91 ,c(8:15)]*nodesInput[119, (16)]*
+  poutput$E091 = wshedInput[91 ,c(13:20)]*nodesInput[119, (16)]*
     nodesInput[27, (16)]
 
-  poutput$E092 = wshedInput[92 ,c(8:15)]*nodesInput[279, (16)]*
+  poutput$E092 = wshedInput[92 ,c(13:20)]*nodesInput[279, (16)]*
     nodesInput[119, (16)]*
     nodesInput[27, (16)]
 
-  poutput$E093  = wshedInput[93 ,c(8:15)]*nodesInput[72, (16)]*
+  poutput$E093  = wshedInput[93 ,c(13:20)]*nodesInput[72, (16)]*
     nodesInput[279, (16)]*
     nodesInput[119, (16)]*
     nodesInput[27, (16)]
@@ -674,35 +679,35 @@ basin.fun = function(nodesInput, wshedInput, waterImpactedHab){
 
   # --------------------Watershed 17 -------------------------------------------
 
-  poutput$E094 = wshedInput[94 ,c(8:15)]*nodesInput[28, (16)]
+  poutput$E094 = wshedInput[94 ,c(13:20)]*nodesInput[28, (16)]
 
-  poutput$E095 = wshedInput[95 ,c(8:15)]*nodesInput[109, (16)]*
+  poutput$E095 = wshedInput[95 ,c(13:20)]*nodesInput[109, (16)]*
     nodesInput[28, (16)]
 
-  poutput$E096 = wshedInput[96 ,c(8:15)]*nodesInput[256, (16)]*
+  poutput$E096 = wshedInput[96 ,c(13:20)]*nodesInput[256, (16)]*
     nodesInput[109, (16)]*
     nodesInput[28, (16)]
 
-  poutput$E097 = wshedInput[97 ,c(8:15)]*nodesInput[255, (16)]*
+  poutput$E097 = wshedInput[97 ,c(13:20)]*nodesInput[255, (16)]*
     nodesInput[109, (16)]*
     nodesInput[28, (16)]
 
-  poutput$E098 = wshedInput[98 ,c(8:15)]*nodesInput[254, (16)]*
+  poutput$E098 = wshedInput[98 ,c(13:20)]*nodesInput[254, (16)]*
     nodesInput[109, (16)]*
     nodesInput[28, (16)]
 
-  poutput$E099 = wshedInput[99 ,c(8:15)]*nodesInput[100, (16)]*
+  poutput$E099 = wshedInput[99 ,c(13:20)]*nodesInput[100, (16)]*
     nodesInput[28, (16)]
 
-  poutput$E100 = wshedInput[100,c(8:15)]*nodesInput[253, (16)]*
+  poutput$E100 = wshedInput[100,c(13:20)]*nodesInput[253, (16)]*
     nodesInput[100, (16)]*
     nodesInput[28, (16)]
 
-  poutput$E101 = wshedInput[101,c(8:15)]*nodesInput[201, (16)]*
+  poutput$E101 = wshedInput[101,c(13:20)]*nodesInput[201, (16)]*
     nodesInput[100, (16)]*
     nodesInput[28, (16)]
 
-  poutput$E102 = wshedInput[102,c(8:15)]*nodesInput[73, (16)]*
+  poutput$E102 = wshedInput[102,c(13:20)]*nodesInput[73, (16)]*
     nodesInput[201, (16)]*
     nodesInput[100, (16)]*
     nodesInput[28, (16)]
@@ -737,21 +742,21 @@ basin.fun = function(nodesInput, wshedInput, waterImpactedHab){
 
   # --------------------Watershed 18 -------------------------------------------
 
-  poutput$E103 = wshedInput[103,c(8:15)]*nodesInput[26, (16)]
+  poutput$E103 = wshedInput[103,c(13:20)]*nodesInput[26, (16)]
 
-  poutput$E104 = wshedInput[104,c(8:15)]*nodesInput[289, (16)]*
+  poutput$E104 = wshedInput[104,c(13:20)]*nodesInput[289, (16)]*
     nodesInput[26, (16)]
 
-  poutput$E105 = wshedInput[105,c(8:15)]*nodesInput[286, (16)]*
+  poutput$E105 = wshedInput[105,c(13:20)]*nodesInput[286, (16)]*
     nodesInput[26, (16)]
 
-  poutput$E106 = wshedInput[106,c(8:15)]*nodesInput[288, (16)]*
+  poutput$E106 = wshedInput[106,c(13:20)]*nodesInput[288, (16)]*
     nodesInput[26, (16)]
 
-  poutput$E107 = wshedInput[107,c(8:15)]*nodesInput[112, (16)]*
+  poutput$E107 = wshedInput[107,c(13:20)]*nodesInput[112, (16)]*
     nodesInput[26, (16)]
 
-  poutput$E350 = wshedInput[309, c(8:15)]*nodesInput[287, (16)]*
+  poutput$E350 = wshedInput[309, c(13:20)]*nodesInput[287, (16)]*
     nodesInput[26, (16)]
 
   wphabAll$a103 = poutput$E103[2:8]*allsp.hab(waterImpactedHab[103])
@@ -767,41 +772,41 @@ basin.fun = function(nodesInput, wshedInput, waterImpactedHab){
   wphabAll$a350= poutput$E350[2:8]*allsp.hab(waterImpactedHab[305])
   wphabAB$a350 = poutput$E350[1]*ab.hab(waterImpactedHab[305])
 
-  WshedHabAllsp$w019 = wphabAll$a103 + wphabAll$a104 + wphabAll$a105
+  WshedHabAllsp$w018 = wphabAll$a103 + wphabAll$a104 + wphabAll$a105
     wphabAll$a106+ wphabAll$a107+wphabAll$a350
 
-  WshedHabABsp$w019 = wphabAB$a103 + wphabAB$a104 + wphabAB$a105+
+  WshedHabABsp$w018 = wphabAB$a103 + wphabAB$a104 + wphabAB$a105+
     wphabAB$a106+wphabAB$a107+ wphabAB$a350
 
   # --------------------Watershed 19 -------------------------------------------
 
-  poutput$E108 = wshedInput[108,c(8:15)]*nodesInput[25, (16)]
+  poutput$E108 = wshedInput[108,c(13:20)]*nodesInput[25, (16)]
 
-  poutput$E109 = wshedInput[109,c(8:15)]*nodesInput[132, (16)]*
+  poutput$E109 = wshedInput[109,c(13:20)]*nodesInput[132, (16)]*
     nodesInput[25, (16)]
 
-  poutput$E110 = wshedInput[110,c(8:15)]*nodesInput[257, (16)]*
+  poutput$E110 = wshedInput[110,c(13:20)]*nodesInput[257, (16)]*
     nodesInput[132, (16)]*
    nodesInput[25, (16)]
 
-  poutput$E111 = wshedInput[111,c(8:15)]*nodesInput[258, (16)]*
+  poutput$E111 = wshedInput[111,c(13:20)]*nodesInput[258, (16)]*
     nodesInput[132, (16)]*
     nodesInput[25, (16)]
 
-  poutput$E112 = wshedInput[112,c(8:15)]*nodesInput[114, (16)]*
+  poutput$E112 = wshedInput[112,c(13:20)]*nodesInput[114, (16)]*
     nodesInput[132, (16)]*
     nodesInput[25, (16)]
 
-  poutput$E113 = wshedInput[113,c(8:15)]*nodesInput[74, (16)]*
+  poutput$E113 = wshedInput[113,c(13:20)]*nodesInput[74, (16)]*
     nodesInput[132, (16)]*
     nodesInput[25, (16)]
 
-  poutput$E114 = wshedInput[114,c(8:15)]*nodesInput[71, (16)]*
+  poutput$E114 = wshedInput[114,c(13:20)]*nodesInput[71, (16)]*
     nodesInput[114, (16)]*
     nodesInput[132, (16)]*
     nodesInput[25, (16)]
 
-  poutput$E115 = wshedInput[115,c(8:15)]*nodesInput[139, (16)]*
+  poutput$E115 = wshedInput[115,c(13:20)]*nodesInput[139, (16)]*
     nodesInput[74, (16)]*
     nodesInput[132, (16)]*
     nodesInput[25, (16)]
@@ -832,50 +837,50 @@ basin.fun = function(nodesInput, wshedInput, waterImpactedHab){
 
   # --------------------Watershed 20 -------------------------------------------
 
-  poutput$E116 = wshedInput[116,c(8:15)]*nodesInput[24, (16)]
+  poutput$E116 = wshedInput[116,c(13:20)]*nodesInput[24, (16)]
 
-  poutput$E117 = wshedInput[117,c(8:15)]*nodesInput[290, (16)]*
+  poutput$E117 = wshedInput[117,c(13:20)]*nodesInput[290, (16)]*
     nodesInput[24, (16)]
 
-  poutput$E118 = wshedInput[118,c(8:15)]*nodesInput[110, (16)]*
+  poutput$E118 = wshedInput[118,c(13:20)]*nodesInput[110, (16)]*
     nodesInput[24, (16)]
 
-  poutput$E119 = wshedInput[119, c(8:15)]*nodesInput[130, (16)]*
+  poutput$E119 = wshedInput[119, c(13:20)]*nodesInput[130, (16)]*
     nodesInput[110, (16)]*
     nodesInput[24, (16)]
 
-  poutput$E120 = wshedInput[120, c(8:15)]*nodesInput[135, (16)]*
+  poutput$E120 = wshedInput[120, c(13:20)]*nodesInput[135, (16)]*
     nodesInput[130, (16)]*
     nodesInput[110, (16)]*
     nodesInput[24, (16)]
 
-  poutput$E121 = wshedInput[121, c(8:15)]*nodesInput[115, (16)]*
+  poutput$E121 = wshedInput[121, c(13:20)]*nodesInput[115, (16)]*
     nodesInput[135, (16)]*
     nodesInput[130, (16)]*
     nodesInput[110, (16)]*
     nodesInput[24, (16)]
 
-  poutput$E122 = wshedInput[122, c(8:15)]*nodesInput[116, (16)]*
+  poutput$E122 = wshedInput[122, c(13:20)]*nodesInput[116, (16)]*
     nodesInput[135, (16)]*
     nodesInput[130, (16)]*
     nodesInput[110, (16)]*
     nodesInput[24, (16)]
 
-  poutput$E123 = wshedInput[123, c(8:15)]*nodesInput[67, (16)]*
+  poutput$E123 = wshedInput[123, c(13:20)]*nodesInput[67, (16)]*
     nodesInput[116, (16)]*
     nodesInput[135, (16)]*
     nodesInput[130, (16)]*
     nodesInput[110, (16)]*
     nodesInput[24, (16)]
 
-  poutput$E124 = wshedInput[124, c(8:15)]*nodesInput[68, (16)]*
+  poutput$E124 = wshedInput[124, c(13:20)]*nodesInput[68, (16)]*
     nodesInput[115, (16)]*
     nodesInput[135, (16)]*
     nodesInput[130, (16)]*
     nodesInput[110, (16)]*
     nodesInput[24, (16)]
 
-  poutput$E125 = wshedInput[125, c(8:15)]*nodesInput[61, (16)]*
+  poutput$E125 = wshedInput[125, c(13:20)]*nodesInput[61, (16)]*
     nodesInput[68, (16)]*
     nodesInput[115, (16)]*
     nodesInput[135, (16)]*
@@ -915,9 +920,9 @@ basin.fun = function(nodesInput, wshedInput, waterImpactedHab){
 
   # --------------------Watershed 21 -------------------------------------------
 
-  poutput$E126 = wshedInput[126, c(8:15)]*nodesInput[23, (16)]
+  poutput$E126 = wshedInput[126, c(13:20)]*nodesInput[23, (16)]
 
-  poutput$E127 = wshedInput[127, c(8:15)]*nodesInput[128, (16)]*
+  poutput$E127 = wshedInput[127, c(13:20)]*nodesInput[128, (16)]*
     nodesInput[23, (16)]
 
   wphabAll$a126= poutput$E126[2:8]*allsp.hab(waterImpactedHab[126])
@@ -929,21 +934,21 @@ basin.fun = function(nodesInput, wshedInput, waterImpactedHab){
   WshedHabABsp$w021 = wphabAB$a126 + wphabAB$a127
   # --------------------Watershed 22 -------------------------------------------
 
-  poutput$E128 = wshedInput[128, c(8:15)]*nodesInput[22, (16)]
+  poutput$E128 = wshedInput[128, c(13:20)]*nodesInput[22, (16)]
 
-  poutput$E129 = wshedInput[129, c(8:15)]*nodesInput[101, (16)]*
+  poutput$E129 = wshedInput[129, c(13:20)]*nodesInput[101, (16)]*
     nodesInput[22, (16)]
 
-  poutput$E130 = wshedInput[130, c(8:15)]*nodesInput[136, (16)]*
+  poutput$E130 = wshedInput[130, c(13:20)]*nodesInput[136, (16)]*
     nodesInput[101, (16)]*
     nodesInput[22, (16)]
 
-  poutput$E131 = wshedInput[131, c(8:15)]*nodesInput[282, (16)]*
+  poutput$E131 = wshedInput[131, c(13:20)]*nodesInput[282, (16)]*
     nodesInput[136, (16)]*
     nodesInput[101, (16)]*
     nodesInput[22, (16)]
 
-  poutput$E132 = wshedInput[132, c(8:15)]*nodesInput[60, (16)]*
+  poutput$E132 = wshedInput[132, c(13:20)]*nodesInput[60, (16)]*
     nodesInput[282, (16)]*
     nodesInput[136, (16)]*
     nodesInput[101, (16)]*
@@ -969,80 +974,80 @@ basin.fun = function(nodesInput, wshedInput, waterImpactedHab){
 
   # --------------------Watershed 23 -------------------------------------------
 
-  poutput$E133 = wshedInput[133, c(8:15)]*nodesInput[21, (16)]
+  poutput$E133 = wshedInput[133, c(13:20)]*nodesInput[21, (16)]
 
-  poutput$E134 = wshedInput[134, c(8:15)]*nodesInput[291, (16)]*
+  poutput$E134 = wshedInput[134, c(13:20)]*nodesInput[291, (16)]*
     nodesInput[21, (16)]
 
-  poutput$E135 = wshedInput[135, c(8:15)]*nodesInput[102, (16)]*
+  poutput$E135 = wshedInput[135, c(13:20)]*nodesInput[102, (16)]*
     nodesInput[21, (16)]
 
-  poutput$E136 = wshedInput[136, c(8:15)]*nodesInput[106, (16)]*
+  poutput$E136 = wshedInput[136, c(13:20)]*nodesInput[106, (16)]*
     nodesInput[21, (16)]
 
-  poutput$E137 = wshedInput[137, c(8:15)]*nodesInput[103, (16)]*
+  poutput$E137 = wshedInput[137, c(13:20)]*nodesInput[103, (16)]*
     nodesInput[21, (16)]
 
-  poutput$E138 = wshedInput[138, c(8:15)]*nodesInput[293, (16)]*
+  poutput$E138 = wshedInput[138, c(13:20)]*nodesInput[293, (16)]*
     nodesInput[106, (16)]*
     nodesInput[21, (16)]
 
-  poutput$E139 = wshedInput[139, c(8:15)]*nodesInput[203, (16)]*
+  poutput$E139 = wshedInput[139, c(13:20)]*nodesInput[203, (16)]*
     nodesInput[293, (16)]*
     nodesInput[106, (16)]*
     nodesInput[21, (16)]
 
-  poutput$E140 = wshedInput[140, c(8:15)]*nodesInput[204, (16)]*
+  poutput$E140 = wshedInput[140, c(13:20)]*nodesInput[204, (16)]*
     nodesInput[103, (16)]*
     nodesInput[21, (16)]
 
-  poutput$E141 = wshedInput[141, c(8:15)]*nodesInput[167, (16)]*
+  poutput$E141 = wshedInput[141, c(13:20)]*nodesInput[167, (16)]*
     nodesInput[203, (16)]*
     nodesInput[293, (16)]*
     nodesInput[106, (16)]*
     nodesInput[21, (16)]
 
-  poutput$E142 = wshedInput[142, c(8:15)]*nodesInput[179, (16)]*
+  poutput$E142 = wshedInput[142, c(13:20)]*nodesInput[179, (16)]*
     nodesInput[203, (16)]*
     nodesInput[293, (16)]*
     nodesInput[106, (16)]*
     nodesInput[21, (16)]
 
-  poutput$E143 = wshedInput[143, c(8:15)]*nodesInput[166, (16)]*
+  poutput$E143 = wshedInput[143, c(13:20)]*nodesInput[166, (16)]*
     nodesInput[204, (16)]*
     nodesInput[103, (16)]*
     nodesInput[21, (16)]
 
-  poutput$E144 = wshedInput[144, c(8:15)]*nodesInput[165, (16)]*
+  poutput$E144 = wshedInput[144, c(13:20)]*nodesInput[165, (16)]*
     nodesInput[204, (16)]*
     nodesInput[103, (16)]*
     nodesInput[21, (16)]
 
-  poutput$E145 = wshedInput[145, c(8:15)]*nodesInput[164, (16)]*
+  poutput$E145 = wshedInput[145, c(13:20)]*nodesInput[164, (16)]*
     nodesInput[204, (16)]*
     nodesInput[103, (16)]*
     nodesInput[21, (16)]
 
-  poutput$E146 = wshedInput[146, c(8:15)]*nodesInput[56, (16)]*
+  poutput$E146 = wshedInput[146, c(13:20)]*nodesInput[56, (16)]*
     nodesInput[164, (16)]*
     nodesInput[204, (16)]*
     nodesInput[103, (16)]*
     nodesInput[21, (16)]
 
-  poutput$E147 = wshedInput[147, c(8:15)]*nodesInput[62, (16)]*
+  poutput$E147 = wshedInput[147, c(13:20)]*nodesInput[62, (16)]*
     nodesInput[166, (16)]*
     nodesInput[204, (16)]*
     nodesInput[103, (16)]*
     nodesInput[21, (16)]
 
-  poutput$E148 = wshedInput[148, c(8:15)]*nodesInput[83, (16)]*
+  poutput$E148 = wshedInput[148, c(13:20)]*nodesInput[83, (16)]*
     nodesInput[179, (16)]*
     nodesInput[203, (16)]*
     nodesInput[293, (16)]*
     nodesInput[106, (16)]*
     nodesInput[21, (16)]
 
-  poutput$E149 = wshedInput[149, c(8:15)]*nodesInput[81, (16)]*
+  poutput$E149 = wshedInput[149, c(13:20)]*nodesInput[81, (16)]*
     nodesInput[204, (16)]*
     nodesInput[103, (16)]*
     nodesInput[21, (16)]
@@ -1093,27 +1098,27 @@ basin.fun = function(nodesInput, wshedInput, waterImpactedHab){
     wphabAB$a146+wphabAB$a147+ wphabAB$a148+wphabAB$a149
   # --------------------Watershed 24 -------------------------------------------
 
-  poutput$E150 = wshedInput[150, c(8:15)]*nodesInput[20, (16)]
+  poutput$E150 = wshedInput[150, c(13:20)]*nodesInput[20, (16)]
 
-  poutput$E151 = wshedInput[151, c(8:15)]*nodesInput[292, (16)]*
+  poutput$E151 = wshedInput[151, c(13:20)]*nodesInput[292, (16)]*
     nodesInput[20, (16)]
 
-  poutput$E152 = wshedInput[152, c(8:15)]*nodesInput[107, (16)]*
+  poutput$E152 = wshedInput[152, c(13:20)]*nodesInput[107, (16)]*
     nodesInput[20, (16)]
 
-  poutput$E153 =wshedInput[153, c(8:15)]*nodesInput[212, (16)]*
+  poutput$E153 =wshedInput[153, c(13:20)]*nodesInput[212, (16)]*
     nodesInput[107, (16)]*
     nodesInput[20, (16)]
 
-  poutput$E154 = wshedInput[154, c(8:15)]*nodesInput[294, (16)]*
+  poutput$E154 = wshedInput[154, c(13:20)]*nodesInput[294, (16)]*
     nodesInput[107, (16)]*
     nodesInput[20, (16)]
 
-  poutput$E155 = wshedInput[155, c(8:15)]*nodesInput[176, (16)]*
+  poutput$E155 = wshedInput[155, c(13:20)]*nodesInput[176, (16)]*
     nodesInput[107, (16)]*
     nodesInput[20, (16)]
 
-  poutput$E156 = wshedInput[156, c(8:15)]*nodesInput[88, (16)]*
+  poutput$E156 = wshedInput[156, c(13:20)]*nodesInput[88, (16)]*
     nodesInput[176, (16)]*
     nodesInput[107, (16)]*
     nodesInput[20, (16)]
@@ -1142,58 +1147,58 @@ basin.fun = function(nodesInput, wshedInput, waterImpactedHab){
 
   # --------------------Watershed 25 -------------------------------------------
 
-  poutput$E157 = wshedInput[157, c(8:15)]*nodesInput[19, (16)]
+  poutput$E157 = wshedInput[157, c(13:20)]*nodesInput[19, (16)]
 
-  poutput$E158 = wshedInput[158, c(8:15)]*nodesInput[202, (16)]*
+  poutput$E158 = wshedInput[158, c(13:20)]*nodesInput[202, (16)]*
     nodesInput[19, (16)]
 
-  poutput$E159 = wshedInput[159, c(8:15)]*nodesInput[94, (16)]*
+  poutput$E159 = wshedInput[159, c(13:20)]*nodesInput[94, (16)]*
     nodesInput[202, (16)]*
     nodesInput[19, (16)]
 
-  poutput$E160 = wshedInput[160, c(8:15)]*nodesInput[159, (16)]*
+  poutput$E160 = wshedInput[160, c(13:20)]*nodesInput[159, (16)]*
     nodesInput[94, (16)]*
     nodesInput[202, (16)]*
     nodesInput[19, (16)]
 
-  poutput$E161 = wshedInput[161, c(8:15)]*nodesInput[171, (16)]*
+  poutput$E161 = wshedInput[161, c(13:20)]*nodesInput[171, (16)]*
     nodesInput[159, (16)]*
     nodesInput[94, (16)]*
     nodesInput[202, (16)]*
     nodesInput[19, (16)]
 
-  poutput$E162 = wshedInput[162, c(8:15)]*nodesInput[75, (16)]*
+  poutput$E162 = wshedInput[162, c(13:20)]*nodesInput[75, (16)]*
     nodesInput[94, (16)]*
     nodesInput[202, (16)]*
     nodesInput[19, (16)]
 
-  poutput$E163 = wshedInput[163, c(8:15)]*nodesInput[172, (16)]*
+  poutput$E163 = wshedInput[163, c(13:20)]*nodesInput[172, (16)]*
     nodesInput[75, (16)]*
     nodesInput[94, (16)]*
     nodesInput[202, (16)]*
     nodesInput[19, (16)]
 
-  poutput$E164 =  wshedInput[164, c(8:15)]*nodesInput[173, (16)]*
+  poutput$E164 =  wshedInput[164, c(13:20)]*nodesInput[173, (16)]*
     nodesInput[75, (16)]*
     nodesInput[94, (16)]*
     nodesInput[202, (16)]*
     nodesInput[19, (16)]
 
-  poutput$E165 = wshedInput[165, c(8:15)]*nodesInput[97, (16)]*
+  poutput$E165 = wshedInput[165, c(13:20)]*nodesInput[97, (16)]*
     nodesInput[173, (16)]*
     nodesInput[75, (16)]*
     nodesInput[94, (16)]*
     nodesInput[202, (16)]*
     nodesInput[19, (16)]
 
-  poutput$E166 = wshedInput[166, c(8:15)]*nodesInput[77, (16)]*
+  poutput$E166 = wshedInput[166, c(13:20)]*nodesInput[77, (16)]*
     nodesInput[172, (16)]*
     nodesInput[75, (16)]*
     nodesInput[94, (16)]*
     nodesInput[202, (16)]*
     nodesInput[19, (16)]
 
-  poutput$E167 = wshedInput[167, c(8:15)]*nodesInput[78, (16)]*
+  poutput$E167 = wshedInput[167, c(13:20)]*nodesInput[78, (16)]*
     nodesInput[171, (16)]*
     nodesInput[159, (16)]*
     nodesInput[94, (16)]*
@@ -1235,40 +1240,40 @@ basin.fun = function(nodesInput, wshedInput, waterImpactedHab){
 
   # --------------------Watershed 26 -------------------------------------------
 
-  poutput$E168 = wshedInput[168, c(8:15)]*nodesInput[18, (16)]
+  poutput$E168 = wshedInput[168, c(13:20)]*nodesInput[18, (16)]
 
-  poutput$E169 = wshedInput[169, c(8:15)]*nodesInput[154, (16)]*
+  poutput$E169 = wshedInput[169, c(13:20)]*nodesInput[154, (16)]*
     nodesInput[18, (16)]
 
-  poutput$E170 = wshedInput[170, c(8:15)]*nodesInput[69, (16)]*
+  poutput$E170 = wshedInput[170, c(13:20)]*nodesInput[69, (16)]*
     nodesInput[154, (16)]*
     nodesInput[18, (16)]
 
-  poutput$E171 = wshedInput[171, c(8:15)]*nodesInput[95, (16)]*
+  poutput$E171 = wshedInput[171, c(13:20)]*nodesInput[95, (16)]*
     nodesInput[69, (16)]*
     nodesInput[154, (16)]*
     nodesInput[18, (16)]
 
-  poutput$E172 = wshedInput[172, c(8:15)]*nodesInput[177, (16)]*
+  poutput$E172 = wshedInput[172, c(13:20)]*nodesInput[177, (16)]*
     nodesInput[95, (16)]*
     nodesInput[69, (16)]*
     nodesInput[154, (16)]*
     nodesInput[18, (16)]
 
-  poutput$E173 = wshedInput[173, c(8:15)]*nodesInput[310, (16)]*
+  poutput$E173 = wshedInput[173, c(13:20)]*nodesInput[310, (16)]*
     nodesInput[95, (16)]*
     nodesInput[69, (16)]*
     nodesInput[154, (16)]*
     nodesInput[18, (16)]
 
-  poutput$E174 = wshedInput[174, c(8:15)]*nodesInput[89, (16)]*
+  poutput$E174 = wshedInput[174, c(13:20)]*nodesInput[89, (16)]*
     nodesInput[177, (16)]*
     nodesInput[95, (16)]*
     nodesInput[69, (16)]*
     nodesInput[154, (16)]*
     nodesInput[18, (16)]
 
-  poutput$E175 = wshedInput[175, c(8:15)]*nodesInput[92, (16)]*
+  poutput$E175 = wshedInput[175, c(13:20)]*nodesInput[92, (16)]*
     nodesInput[310, (16)]*
     nodesInput[95, (16)]*
     nodesInput[69, (16)]*
@@ -1301,12 +1306,12 @@ basin.fun = function(nodesInput, wshedInput, waterImpactedHab){
 
   # --------------------Watershed 27 -------------------------------------------
 
-  poutput$E176 = wshedInput[176, c(8:15)]*nodesInput[17, (16)]
+  poutput$E176 = wshedInput[176, c(13:20)]*nodesInput[17, (16)]
 
-  poutput$E177 = wshedInput[177, c(8:15)]*nodesInput[86, (16)]*
+  poutput$E177 = wshedInput[177, c(13:20)]*nodesInput[86, (16)]*
     nodesInput[17, (16)]
 
-  poutput$E178 = wshedInput[178, c(8:15)]*nodesInput[178, (16)]*
+  poutput$E178 = wshedInput[178, c(13:20)]*nodesInput[178, (16)]*
     nodesInput[86, (16)]*
     nodesInput[17, (16)]
 
@@ -1322,48 +1327,48 @@ basin.fun = function(nodesInput, wshedInput, waterImpactedHab){
 
   # --------------------Watershed 28 -------------------------------------------
 
-  poutput$E179 = wshedInput[179, c(8:15)]*nodesInput[16, (16)]
+  poutput$E179 = wshedInput[179, c(13:20)]*nodesInput[16, (16)]
 
-  poutput$E180 = wshedInput[180, c(8:15)]*nodesInput[134, (16)]*
+  poutput$E180 = wshedInput[180, c(13:20)]*nodesInput[134, (16)]*
    nodesInput[16, (16)]
 
-  poutput$E181 = wshedInput[181, c(8:15)]*nodesInput[55, (16)]*
+  poutput$E181 = wshedInput[181, c(13:20)]*nodesInput[55, (16)]*
     nodesInput[134, (16)]*
     nodesInput[16, (16)]
 
-  poutput$E182 = wshedInput[182, c(8:15)]*nodesInput[263, (16)]*
+  poutput$E182 = wshedInput[182, c(13:20)]*nodesInput[263, (16)]*
     nodesInput[55, (16)]*
     nodesInput[134, (16)]*
     nodesInput[16, (16)]
 
-  poutput$E183 = wshedInput[183, c(8:15)]*nodesInput[262, (16)]*
+  poutput$E183 = wshedInput[183, c(13:20)]*nodesInput[262, (16)]*
     nodesInput[263, (16)]*
     nodesInput[55, (16)]*
     nodesInput[134, (16)]*
     nodesInput[16, (16)]
 
-  poutput$E184 = wshedInput[184, c(8:15)]*nodesInput[261, (16)]*
+  poutput$E184 = wshedInput[184, c(13:20)]*nodesInput[261, (16)]*
     nodesInput[55, (16)]*
     nodesInput[134, (16)]*
     nodesInput[16, (16)]
 
-  poutput$E185 = wshedInput[185, c(8:15)]*nodesInput[149, (16)]*
+  poutput$E185 = wshedInput[185, c(13:20)]*nodesInput[149, (16)]*
     nodesInput[55, (16)]*
     nodesInput[134, (16)]*
     nodesInput[16, (16)]
 
-  poutput$E186 = wshedInput[186, c(8:15)]*nodesInput[259, (16)]*
+  poutput$E186 = wshedInput[186, c(13:20)]*nodesInput[259, (16)]*
     nodesInput[260, (16)]*
     nodesInput[55, (16)]*
     nodesInput[134, (16)]*
     nodesInput[16, (16)]
 
-  poutput$E187 = wshedInput[187, c(8:15)]*nodesInput[260, (16)]*
+  poutput$E187 = wshedInput[187, c(13:20)]*nodesInput[260, (16)]*
     nodesInput[55, (16)]*
     nodesInput[134, (16)]*
     nodesInput[16, (16)]
 
-  poutput$E188 = wshedInput[188, c(8:15)]*nodesInput[93, (16)]*
+  poutput$E188 = wshedInput[188, c(13:20)]*nodesInput[93, (16)]*
     nodesInput[269, (16)]*
     nodesInput[55, (16)]*
     nodesInput[134, (16)]*
@@ -1400,58 +1405,58 @@ basin.fun = function(nodesInput, wshedInput, waterImpactedHab){
 
   # --------------------Watershed 29 -------------------------------------------
 
-  poutput$E189 = wshedInput[189, c(8:15)]*nodesInput[15, (16)]
+  poutput$E189 = wshedInput[189, c(13:20)]*nodesInput[15, (16)]
 
-  poutput$E190 = wshedInput[190, c(8:15)]*nodesInput[131, (16)]*
+  poutput$E190 = wshedInput[190, c(13:20)]*nodesInput[131, (16)]*
     nodesInput[15, (16)]
 
-  poutput$E191 = wshedInput[191, c(8:15)]*nodesInput[299, (16)]*
+  poutput$E191 = wshedInput[191, c(13:20)]*nodesInput[299, (16)]*
     nodesInput[131, (16)]*
     nodesInput[15, (16)]
 
-  poutput$E192 = wshedInput[192, c(8:15)]*nodesInput[298, (16)]*
+  poutput$E192 = wshedInput[192, c(13:20)]*nodesInput[298, (16)]*
     nodesInput[131, (16)]*
     nodesInput[15, (16)]
 
-  poutput$E193 = wshedInput[193, c(8:15)]*nodesInput[265, (16)]*
+  poutput$E193 = wshedInput[193, c(13:20)]*nodesInput[265, (16)]*
     nodesInput[298, (16)]*
     nodesInput[131, (16)]*
     nodesInput[15, (16)]
 
-  poutput$E194 = wshedInput[194, c(8:15)]*nodesInput[123, (16)]*
+  poutput$E194 = wshedInput[194, c(13:20)]*nodesInput[123, (16)]*
     nodesInput[15, (16)]
 
-  poutput$E195 = wshedInput[195, c(8:15)]*nodesInput[297, (16)]*
+  poutput$E195 = wshedInput[195, c(13:20)]*nodesInput[297, (16)]*
     nodesInput[123, (16)]*
     nodesInput[15, (16)]
 
-  poutput$E196 = wshedInput[196, c(8:15)]*nodesInput[296, (16)]*
+  poutput$E196 = wshedInput[196, c(13:20)]*nodesInput[296, (16)]*
     nodesInput[123, (16)]*
     nodesInput[15, (16)]
 
-  poutput$E197 = wshedInput[197, c(8:15)]*nodesInput[146, (16)]*
+  poutput$E197 = wshedInput[197, c(13:20)]*nodesInput[146, (16)]*
     nodesInput[123, (16)]*
     nodesInput[15, (16)]
 
-  poutput$E198 = wshedInput[198, c(8:15)]*nodesInput[66, (16)]*
+  poutput$E198 = wshedInput[198, c(13:20)]*nodesInput[66, (16)]*
     nodesInput[123, (16)]*
     nodesInput[15, (16)]
 
-  poutput$E199 = wshedInput[199, c(8:15)]*nodesInput[264, (16)]*
+  poutput$E199 = wshedInput[199, c(13:20)]*nodesInput[264, (16)]*
     nodesInput[66, (16)]*
     nodesInput[123, (16)]*
     nodesInput[15, (16)]
 
-  poutput$E200 = wshedInput[200, c(8:15)]*nodesInput[144, (16)]*
+  poutput$E200 = wshedInput[200, c(13:20)]*nodesInput[144, (16)]*
     nodesInput[123, (16)]*
     nodesInput[15, (16)]
 
-  poutput$E201 = wshedInput[201, c(8:15)]*nodesInput[168, (16)]*
+  poutput$E201 = wshedInput[201, c(13:20)]*nodesInput[168, (16)]*
     nodesInput[144, (16)]*
     nodesInput[123, (16)]*
     nodesInput[15, (16)]
 
-  poutput$E202 = wshedInput[202, c(8:15)]*nodesInput[98, (16)]*
+  poutput$E202 = wshedInput[202, c(13:20)]*nodesInput[98, (16)]*
     nodesInput[168, (16)]*
     nodesInput[144, (16)]*
     nodesInput[123, (16)]*
@@ -1499,7 +1504,7 @@ basin.fun = function(nodesInput, wshedInput, waterImpactedHab){
 
   # --------------------Watershed 30 -------------------------------------------
 
-  poutput$E203 = wshedInput[203, c(8:15)]*nodesInput[14, (16)]
+  poutput$E203 = wshedInput[203, c(13:20)]*nodesInput[14, (16)]
 
   wphabAll$a203= poutput$E203[2:8]*allsp.hab(waterImpactedHab[203])
   wphabAB$a203 = poutput$E203[1]*ab.hab(waterImpactedHab[203])
@@ -1509,28 +1514,28 @@ basin.fun = function(nodesInput, wshedInput, waterImpactedHab){
 
   # --------------------Watershed 31 -------------------------------------------
 
-  poutput$E204 = wshedInput[204, c(8:15)]*nodesInput[13, (16)]
+  poutput$E204 = wshedInput[204, c(13:20)]*nodesInput[13, (16)]
 
-  poutput$E205 = wshedInput[205, c(8:15)]*nodesInput[122, (16)]*
+  poutput$E205 = wshedInput[205, c(13:20)]*nodesInput[122, (16)]*
     nodesInput[13, (16)]
 
   # poutput$E206 =  list()
   # poutput$E206 = MISSING FROM GIS FILoutput$ES
 
-  poutput$E207 = wshedInput[207, c(8:15)]*nodesInput[143, (16)]*
+  poutput$E207 = wshedInput[207, c(13:20)]*nodesInput[143, (16)]*
     nodesInput[122, (16)]*
     nodesInput[13, (16)]
 
-  poutput$E208 = wshedInput[208, c(8:15)]*nodesInput[142, (16)]*
+  poutput$E208 = wshedInput[208, c(13:20)]*nodesInput[142, (16)]*
     nodesInput[122, (16)]*
     nodesInput[13, (16)]
 
-  poutput$E209 = wshedInput[209, c(8:15)]*nodesInput[108, (16)]*
+  poutput$E209 = wshedInput[209, c(13:20)]*nodesInput[108, (16)]*
     nodesInput[142, (16)]*
     nodesInput[122, (16)]*
     nodesInput[13, (16)]
 
-  poutput$E210 = wshedInput[210, c(8:15)]*nodesInput[266, (16)]*
+  poutput$E210 = wshedInput[210, c(13:20)]*nodesInput[266, (16)]*
     nodesInput[108, (16)]*
     nodesInput[142, (16)]*
     nodesInput[122, (16)]*
@@ -1558,16 +1563,16 @@ basin.fun = function(nodesInput, wshedInput, waterImpactedHab){
 
   # --------------------Watershed 32 -------------------------------------------
 
-  poutput$E211 = wshedInput[211, c(8:15)]*nodesInput[309, (16)]
+  poutput$E211 = wshedInput[211, c(13:20)]*nodesInput[309, (16)]
 
-  poutput$E212 = wshedInput[212, c(8:15)]*nodesInput[120, (16)]*
+  poutput$E212 = wshedInput[212, c(13:20)]*nodesInput[120, (16)]*
     nodesInput[309, (16)]
 
-  poutput$E213 = wshedInput[213, c(8:15)]*nodesInput[175, (16)]*
+  poutput$E213 = wshedInput[213, c(13:20)]*nodesInput[175, (16)]*
     nodesInput[120, (16)]*
     nodesInput[309, (16)]
 
-  poutput$E214 = wshedInput[214, c(8:15)]*nodesInput[174, (16)]*
+  poutput$E214 = wshedInput[214, c(13:20)]*nodesInput[174, (16)]*
     nodesInput[120, (16)]*
     nodesInput[309, (16)]
 
@@ -1587,7 +1592,7 @@ basin.fun = function(nodesInput, wshedInput, waterImpactedHab){
     wphabAB$a213+ wphabAB$a214
   # --------------------Watershed 33 -------------------------------------------
 
-  poutput$E215 = wshedInput[215, c(8:15)]*nodesInput[12, (16)]
+  poutput$E215 = wshedInput[215, c(13:20)]*nodesInput[12, (16)]
 
   wphabAll$a215= poutput$E215[2:8]*allsp.hab(waterImpactedHab[215])
   wphabAB$a215= poutput$E215[1]*ab.hab(waterImpactedHab[215])
@@ -1597,33 +1602,33 @@ basin.fun = function(nodesInput, wshedInput, waterImpactedHab){
 
   # --------------------Watershed 34 -------------------------------------------
 
-  poutput$E216 = wshedInput[216, c(8:15)]*nodesInput[11, (16)]
+  poutput$E216 = wshedInput[216, c(13:20)]*nodesInput[11, (16)]
 
-  poutput$E217 = wshedInput[217, c(8:15)]*nodesInput[121, (16)]*
+  poutput$E217 = wshedInput[217, c(13:20)]*nodesInput[121, (16)]*
     nodesInput[11, (16)]
 
-  poutput$E218 = wshedInput[218, c(8:15)]*nodesInput[300, (16)]*
+  poutput$E218 = wshedInput[218, c(13:20)]*nodesInput[300, (16)]*
     nodesInput[121, (16)]*
     nodesInput[11, (16)]
 
-  poutput$E219 = wshedInput[219, c(8:15)]*nodesInput[141, (16)]*
+  poutput$E219 = wshedInput[219, c(13:20)]*nodesInput[141, (16)]*
     nodesInput[121, (16)]*
     nodesInput[11, (16)]
 
-  poutput$E220 = wshedInput[220, c(8:15)]*nodesInput[141, (16)]*
+  poutput$E220 = wshedInput[220, c(13:20)]*nodesInput[141, (16)]*
     nodesInput[121, (16)]*
     nodesInput[11, (16)]
 
-  poutput$E221 = wshedInput[221, c(8:15)]*nodesInput[140, (16)]*
+  poutput$E221 = wshedInput[221, c(13:20)]*nodesInput[140, (16)]*
     nodesInput[141, (16)]*
     nodesInput[121, (16)]*
     nodesInput[11, (16)]
 
-  poutput$E222 = wshedInput[222, c(8:15)]*nodesInput[147, (16)]*
+  poutput$E222 = wshedInput[222, c(13:20)]*nodesInput[147, (16)]*
     nodesInput[121, (16)]*
     nodesInput[11, (16)]
 
-  poutput$E223 = wshedInput[223, c(8:15)]*nodesInput[268, (16)]*
+  poutput$E223 = wshedInput[223, c(13:20)]*nodesInput[268, (16)]*
     nodesInput[138, (16)]*
     nodesInput[158, (16)]*
     nodesInput[140, (16)]*
@@ -1631,27 +1636,27 @@ basin.fun = function(nodesInput, wshedInput, waterImpactedHab){
     nodesInput[121, (16)]*
     nodesInput[11, (16)]
 
-  poutput$E224 = wshedInput[224, c(8:15)]*nodesInput[158, (16)]*
+  poutput$E224 = wshedInput[224, c(13:20)]*nodesInput[158, (16)]*
     nodesInput[140, (16)]*
     nodesInput[141, (16)]*
     nodesInput[121, (16)]*
     nodesInput[11, (16)]
 
-  poutput$E225 = wshedInput[225, c(8:15)]*nodesInput[148, (16)]*
+  poutput$E225 = wshedInput[225, c(13:20)]*nodesInput[148, (16)]*
     nodesInput[158, (16)]*
     nodesInput[140, (16)]*
     nodesInput[141, (16)]*
     nodesInput[121, (16)]*
     nodesInput[11, (16)]
 
-  poutput$E226 = wshedInput[226, c(8:15)]*nodesInput[138, (16)]*
+  poutput$E226 = wshedInput[226, c(13:20)]*nodesInput[138, (16)]*
     nodesInput[158, (16)]*
     nodesInput[140, (16)]*
     nodesInput[141, (16)]*
     nodesInput[121, (16)]*
     nodesInput[11, (16)]
 
-  poutput$E227 = wshedInput[227, c(8:15)]*nodesInput[57, (16)]*
+  poutput$E227 = wshedInput[227, c(13:20)]*nodesInput[57, (16)]*
     nodesInput[148, (16)]*
     nodesInput[158, (16)]*
     nodesInput[140, (16)]*
@@ -1659,12 +1664,12 @@ basin.fun = function(nodesInput, wshedInput, waterImpactedHab){
     nodesInput[121, (16)]*
     nodesInput[11, (16)]
 
-  poutput$E228 = wshedInput[228, c(8:15)]*nodesInput[59, (16)]*
+  poutput$E228 = wshedInput[228, c(13:20)]*nodesInput[59, (16)]*
     nodesInput[147, (16)]*
     nodesInput[121, (16)]*
     nodesInput[11, (16)]
 
-  poutput$E229 = wshedInput[229, c(8:15)]*nodesInput[58, (16)]*
+  poutput$E229 = wshedInput[229, c(13:20)]*nodesInput[58, (16)]*
     nodesInput[138, (16)]*
     nodesInput[158, (16)]*
     nodesInput[140, (16)]*
@@ -1713,39 +1718,39 @@ basin.fun = function(nodesInput, wshedInput, waterImpactedHab){
 
   # --------------------Watershed 35 -------------------------------------------
 
-  poutput$E230 = wshedInput[230, c(8:15)]*nodesInput[7, (16)]
+  poutput$E230 = wshedInput[230, c(13:20)]*nodesInput[7, (16)]
 
-  poutput$E231 = wshedInput[231, c(8:15)]*nodesInput[96, (16)]*
+  poutput$E231 = wshedInput[231, c(13:20)]*nodesInput[96, (16)]*
     nodesInput[7, (16)]
 
-  poutput$E232 = wshedInput[232, c(8:15)]*nodesInput[170, (16)]*
+  poutput$E232 = wshedInput[232, c(13:20)]*nodesInput[170, (16)]*
     nodesInput[96, (16)]*
     nodesInput[7, (16)]
 
-  poutput$E233 = wshedInput[233, c(8:15)]*nodesInput[161, (16)]*
+  poutput$E233 = wshedInput[233, c(13:20)]*nodesInput[161, (16)]*
     nodesInput[96, (16)]*
     nodesInput[7, (16)]
 
-  poutput$E234 = wshedInput[234, c(8:15)]*nodesInput[117, (16)]*
+  poutput$E234 = wshedInput[234, c(13:20)]*nodesInput[117, (16)]*
     nodesInput[96, (16)]*
     nodesInput[7, (16)]
 
-  poutput$E235 = wshedInput[235, c(8:15)]*nodesInput[150, (16)]*
+  poutput$E235 = wshedInput[235, c(13:20)]*nodesInput[150, (16)]*
     nodesInput[117, (16)]*
     nodesInput[96, (16)]*
     nodesInput[7, (16)]
 
-  poutput$E236 = wshedInput[236, c(8:15)]*nodesInput[151, (16)]*
+  poutput$E236 = wshedInput[236, c(13:20)]*nodesInput[151, (16)]*
     nodesInput[117, (16)]*
     nodesInput[96, (16)]*
     nodesInput[7, (16)]
 
-  poutput$E237 = wshedInput[237, c(8:15)]*nodesInput[269, (16)]*
+  poutput$E237 = wshedInput[237, c(13:20)]*nodesInput[269, (16)]*
     nodesInput[117, (16)]*
     nodesInput[96, (16)]*
     nodesInput[7, (16)]
 
-  poutput$E238 = wshedInput[238, c(8:15)]*nodesInput[63, (16)]*
+  poutput$E238 = wshedInput[238, c(13:20)]*nodesInput[63, (16)]*
     nodesInput[151, (16)]*
     nodesInput[117, (16)]*
     nodesInput[96, (16)]*
@@ -1781,90 +1786,90 @@ basin.fun = function(nodesInput, wshedInput, waterImpactedHab){
 
   # --------------------Watershed 36 -------------------------------------------
 
-  poutput$E239 = wshedInput[239, c(8:15)]*nodesInput[10, (16)]
+  poutput$E239 = wshedInput[239, c(13:20)]*nodesInput[10, (16)]
 
-  poutput$E240 = wshedInput[240, c(8:15)]*nodesInput[46, (16)]*
+  poutput$E240 = wshedInput[240, c(13:20)]*nodesInput[46, (16)]*
     nodesInput[10, (16)]
 
-  poutput$E241 = wshedInput[241, c(8:15)]*nodesInput[303, (16)]*
+  poutput$E241 = wshedInput[241, c(13:20)]*nodesInput[303, (16)]*
     nodesInput[87, (16)]*
     nodesInput[46, (16)]*
     nodesInput[10, (16)]
 
-  poutput$E242 = wshedInput[242, c(8:15)]*nodesInput[87, (16)]*
+  poutput$E242 = wshedInput[242, c(13:20)]*nodesInput[87, (16)]*
     nodesInput[46, (16)]*
     nodesInput[10, (16)]
 
-  poutput$E243 = wshedInput[243, c(8:15)]*nodesInput[124, (16)]*
+  poutput$E243 = wshedInput[243, c(13:20)]*nodesInput[124, (16)]*
     nodesInput[46, (16)]*
     nodesInput[10, (16)]
 
-  poutput$E244 = wshedInput[244, c(8:15)]*nodesInput[302, (16)]*
+  poutput$E244 = wshedInput[244, c(13:20)]*nodesInput[302, (16)]*
     nodesInput[46, (16)]*
     nodesInput[10, (16)]
 
-  poutput$E245 = wshedInput[245, c(8:15)]*nodesInput[126, (16)]*
+  poutput$E245 = wshedInput[245, c(13:20)]*nodesInput[126, (16)]*
     nodesInput[87, (16)]*
     nodesInput[46, (16)]*
     nodesInput[10, (16)]
 
-  poutput$E246 = wshedInput[246, c(8:15)]*nodesInput[105, (16)]*
+  poutput$E246 = wshedInput[246, c(13:20)]*nodesInput[105, (16)]*
     nodesInput[87, (16)]*
     nodesInput[46, (16)]*
     nodesInput[10, (16)]
 
-  poutput$E247 = wshedInput[247, c(8:15)]*nodesInput[46, (16)]*
+  poutput$E247 = wshedInput[247, c(13:20)]*nodesInput[46, (16)]*
     nodesInput[10, (16)]
 
-  poutput$E248 = wshedInput[248, c(8:15)]*nodesInput[90, (16)]*
+  poutput$E248 = wshedInput[248, c(13:20)]*nodesInput[90, (16)]*
     nodesInput[46, (16)]*
     nodesInput[10, (16)]
 
-  poutput$E249 = wshedInput[249, c(8:15)]*nodesInput[295, (16)]*
+  poutput$E249 = wshedInput[249, c(13:20)]*nodesInput[295, (16)]*
     nodesInput[46, (16)]*
     nodesInput[10, (16)]
 
-  poutput$E250 = wshedInput[250, c(8:15)]*nodesInput[301, (16)]*
+  poutput$E250 = wshedInput[250, c(13:20)]*nodesInput[301, (16)]*
     nodesInput[90, (16)]*
     nodesInput[46, (16)]*
     nodesInput[10, (16)]
 
-  poutput$E251 = wshedInput[251, c(8:15)]*nodesInput[118, (16)]*
+  poutput$E251 = wshedInput[251, c(13:20)]*nodesInput[118, (16)]*
     nodesInput[46, (16)]*
     nodesInput[10, (16)]
 
-  poutput$E252 = wshedInput[252, c(8:15)]*nodesInput[91, (16)]*
+  poutput$E252 = wshedInput[252, c(13:20)]*nodesInput[91, (16)]*
     nodesInput[90, (16)]*
     nodesInput[46, (16)]*
     nodesInput[10, (16)]
 
-  poutput$E253 = wshedInput[253, c(8:15)]*nodesInput[125, (16)]*
+  poutput$E253 = wshedInput[253, c(13:20)]*nodesInput[125, (16)]*
     nodesInput[91, (16)]*
     nodesInput[90, (16)]*
     nodesInput[46, (16)]*
     nodesInput[10, (16)]
 
-  poutput$E254 = wshedInput[254, c(8:15)]*nodesInput[270, (16)]*
+  poutput$E254 = wshedInput[254, c(13:20)]*nodesInput[270, (16)]*
     nodesInput[125, (16)]*
     nodesInput[91, (16)]*
     nodesInput[90, (16)]*
     nodesInput[46, (16)]*
     nodesInput[10, (16)]
 
-  poutput$E255 = wshedInput[255, c(8:15)]*nodesInput[155, (16)]*
+  poutput$E255 = wshedInput[255, c(13:20)]*nodesInput[155, (16)]*
     nodesInput[105, (16)]*
     nodesInput[87, (16)]*
     nodesInput[46, (16)]*
     nodesInput[10, (16)]
 
-  poutput$E256 = wshedInput[256, c(8:15)]*nodesInput[156, (16)]*
+  poutput$E256 = wshedInput[256, c(13:20)]*nodesInput[156, (16)]*
     nodesInput[125, (16)]*
     nodesInput[91, (16)]*
     nodesInput[90, (16)]*
     nodesInput[46, (16)]*
     nodesInput[10, (16)]
 
-  poutput$E257 = wshedInput[257, c(8:15)]*nodesInput[160, (16)]*
+  poutput$E257 = wshedInput[257, c(13:20)]*nodesInput[160, (16)]*
     nodesInput[156, (16)]*
     nodesInput[125, (16)]*
     nodesInput[91, (16)]*
@@ -1872,62 +1877,62 @@ basin.fun = function(nodesInput, wshedInput, waterImpactedHab){
     nodesInput[46, (16)]*
     nodesInput[10, (16)]
 
-  poutput$E258 = wshedInput[258, c(8:15)]*nodesInput[209, (16)]*
+  poutput$E258 = wshedInput[258, c(13:20)]*nodesInput[209, (16)]*
     nodesInput[105, (16)]*
     nodesInput[87, (16)]*
     nodesInput[46, (16)]*
     nodesInput[10, (16)]
 
-  poutput$E259 = wshedInput[259, c(8:15)]*nodesInput[153, (16)]*
+  poutput$E259 = wshedInput[259, c(13:20)]*nodesInput[153, (16)]*
     nodesInput[209, (16)]*
     nodesInput[105, (16)]*
     nodesInput[87, (16)]*
     nodesInput[46, (16)]*
     nodesInput[10, (16)]
 
-  poutput$E260 = wshedInput[260, c(8:15)]*nodesInput[211, (16)]*
+  poutput$E260 = wshedInput[260, c(13:20)]*nodesInput[211, (16)]*
     nodesInput[87, (16)]*
     nodesInput[46, (16)]*
     nodesInput[10, (16)]
 
-  poutput$E261 = wshedInput[261, c(8:15)]*nodesInput[271, (16)]*
+  poutput$E261 = wshedInput[261, c(13:20)]*nodesInput[271, (16)]*
     nodesInput[126, (16)]*
     nodesInput[87, (16)]*
     nodesInput[46, (16)]*
     nodesInput[10, (16)]
 
-  poutput$E262 = wshedInput[262, c(8:15)]*nodesInput[276, (16)]*
+  poutput$E262 = wshedInput[262, c(13:20)]*nodesInput[276, (16)]*
     nodesInput[126, (16)]*
     nodesInput[87, (16)]*
     nodesInput[46, (16)]*
     nodesInput[10, (16)]
 
-  poutput$E263 = wshedInput[263, c(8:15)]*nodesInput[210, (16)]
+  poutput$E263 = wshedInput[263, c(13:20)]*nodesInput[210, (16)]
     nodesInput[126, (16)]*
     nodesInput[87, (16)]*
     nodesInput[46, (16)]*
     nodesInput[10, (16)]
 
-  poutput$E264 = wshedInput[264, c(8:15)]*nodesInput[273, (16)]*
+  poutput$E264 = wshedInput[264, c(13:20)]*nodesInput[273, (16)]*
     nodesInput[211, (16)]*
     nodesInput[87, (16)]*
     nodesInput[46, (16)]*
     nodesInput[10, (16)]
 
-  poutput$E265 = wshedInput[265, c(8:15)]*nodesInput[272, (16)]*
+  poutput$E265 = wshedInput[265, c(13:20)]*nodesInput[272, (16)]*
     nodesInput[276, (16)]*
     nodesInput[126, (16)]*
     nodesInput[87, (16)]*
     nodesInput[46, (16)]*
     nodesInput[10, (16)]
 
-  poutput$E266 = wshedInput[266, c(8:15)]*nodesInput[274, (16)]*
+  poutput$E266 = wshedInput[266, c(13:20)]*nodesInput[274, (16)]*
     nodesInput[211, (16)]*
     nodesInput[87, (16)]*
     nodesInput[46, (16)]*
     nodesInput[10, (16)]
 
-  poutput$E267 = wshedInput[267, c(8:15)]*nodesInput[64, (16)]*
+  poutput$E267 = wshedInput[267, c(13:20)]*nodesInput[64, (16)]*
     nodesInput[160, (16)]*
     nodesInput[156, (16)]*
     nodesInput[125, (16)]*
@@ -1936,20 +1941,20 @@ basin.fun = function(nodesInput, wshedInput, waterImpactedHab){
     nodesInput[46, (16)]*
     nodesInput[10, (16)]
 
-  poutput$E268 = wshedInput[268, c(8:15)]*nodesInput[152, (16)]*
+  poutput$E268 = wshedInput[268, c(13:20)]*nodesInput[152, (16)]*
     nodesInput[211, (16)]*
     nodesInput[87, (16)]*
     nodesInput[46, (16)]*
     nodesInput[10, (16)]
 
-  poutput$E269 = wshedInput[269, c(8:15)]*nodesInput[70, (16)]*
+  poutput$E269 = wshedInput[269, c(13:20)]*nodesInput[70, (16)]*
     nodesInput[152, (16)]*
     nodesInput[211, (16)]*
     nodesInput[87, (16)]*
     nodesInput[46, (16)]*
     nodesInput[10, (16)]
 
-  poutput$E270 = wshedInput[270, c(8:15)]*nodesInput[275, (16)]*
+  poutput$E270 = wshedInput[270, c(13:20)]*nodesInput[275, (16)]*
     nodesInput[210, (16)]*
     nodesInput[126, (16)]*
     nodesInput[87, (16)]*
@@ -2045,7 +2050,7 @@ basin.fun = function(nodesInput, wshedInput, waterImpactedHab){
 
   # --------------------Watershed 37 -------------------------------------------
 
-  poutput$E271 = wshedInput[271, c(8:15)]*0
+  poutput$E271 = wshedInput[271, c(13:20)]*0
 
   wphabAll$a271= poutput$E271[2:8]*allsp.hab(waterImpactedHab[271])
   wphabAB$a271= poutput$E271[1]*ab.hab(waterImpactedHab[271])
@@ -2055,9 +2060,9 @@ basin.fun = function(nodesInput, wshedInput, waterImpactedHab){
 
   # --------------------Watershed 38 -------------------------------------------
 
-  poutput$E272 = wshedInput[272, c(8:15)]*nodesInput[6, (16)]
+  poutput$E272 = wshedInput[272, c(13:20)]*nodesInput[6, (16)]
 
-  poutput$E273 = wshedInput[273, c(8:15)]*nodesInput[82, (16)]*
+  poutput$E273 = wshedInput[273, c(13:20)]*nodesInput[82, (16)]*
     nodesInput[6, (16)]
 
   wphabAll$a272= poutput$E272[2:8]*allsp.hab(waterImpactedHab[272])
@@ -2070,16 +2075,16 @@ basin.fun = function(nodesInput, wshedInput, waterImpactedHab){
 
   # --------------------Watershed 39 -------------------------------------------
 
-  poutput$E274 = wshedInput[274, c(8:15)]*nodesInput[9, (16)]
+  poutput$E274 = wshedInput[274, c(13:20)]*nodesInput[9, (16)]
 
-  poutput$E275 = wshedInput[275, c(8:15)]*nodesInput[79, (16)]*
+  poutput$E275 = wshedInput[275, c(13:20)]*nodesInput[79, (16)]*
     nodesInput[9, (16)]
 
-  poutput$E276 = wshedInput[276, c(8:15)]*nodesInput[127, (16)]*
+  poutput$E276 = wshedInput[276, c(13:20)]*nodesInput[127, (16)]*
     nodesInput[79, (16)]*
     nodesInput[9, (16)]
 
-  poutput$E277 = wshedInput[277, c(8:15)]*nodesInput[80, (16)]*
+  poutput$E277 = wshedInput[277, c(13:20)]*nodesInput[80, (16)]*
     nodesInput[79, (16)]*
     nodesInput[9, (16)]
 
@@ -2098,12 +2103,12 @@ basin.fun = function(nodesInput, wshedInput, waterImpactedHab){
     wphabAB$a277
   # --------------------Watershed 40 -------------------------------------------
 
-  poutput$E278 = wshedInput[278, c(8:15)]*nodesInput[311, (16)]
+  poutput$E278 = wshedInput[278, c(13:20)]*nodesInput[311, (16)]
 
-  poutput$E279 =  wshedInput[279, c(8:15)]*nodesInput[133, (16)]*
+  poutput$E279 =  wshedInput[279, c(13:20)]*nodesInput[133, (16)]*
     nodesInput[311, (16)]
 
-  poutput$E280 = wshedInput[280, c(8:15)]*nodesInput[104, (16)]*
+  poutput$E280 = wshedInput[280, c(13:20)]*nodesInput[104, (16)]*
     nodesInput[311, (16)]
 
   wphabAll$a278= poutput$E278[2:8]*allsp.hab(waterImpactedHab[278])
@@ -2119,7 +2124,7 @@ basin.fun = function(nodesInput, wshedInput, waterImpactedHab){
 
   # --------------------Watershed 41 -------------------------------------------
 
-  poutput$E281 = wshedInput[281, c(8:15)]*nodesInput[104, (16)]
+  poutput$E281 = wshedInput[281, c(13:20)]*nodesInput[104, (16)]
 
   wphabAll$a281= poutput$E281[2:8]*allsp.hab(waterImpactedHab[281])
   wphabAB$a281= poutput$E281[1]*ab.hab(waterImpactedHab[281])
@@ -2129,18 +2134,18 @@ basin.fun = function(nodesInput, wshedInput, waterImpactedHab){
 
   # --------------------Watershed 42 -------------------------------------------
 
-  poutput$E282 = wshedInput[282, c(8:15)]*nodesInput[1, (16)]
+  poutput$E282 = wshedInput[282, c(13:20)]*nodesInput[1, (16)]
 
-  poutput$E283 = wshedInput[283, c(8:15)]*nodesInput[304, (16)]*
+  poutput$E283 = wshedInput[283, c(13:20)]*nodesInput[304, (16)]*
     nodesInput[1, (16)]
 
-  poutput$E284 = wshedInput[284, c(8:15)]*nodesInput[305, (16)]*
+  poutput$E284 = wshedInput[284, c(13:20)]*nodesInput[305, (16)]*
     nodesInput[1, (16)]
 
-  poutput$E285 = wshedInput[285, c(8:15)]*nodesInput[306, (16)]*
+  poutput$E285 = wshedInput[285, c(13:20)]*nodesInput[306, (16)]*
     nodesInput[1, (16)]
 
-  poutput$E286 = wshedInput[286, c(8:15)]*nodesInput[169, (16)]*
+  poutput$E286 = wshedInput[286, c(13:20)]*nodesInput[169, (16)]*
     nodesInput[1, (16)]
 
   wphabAll$a282= poutput$E282[2:8]*allsp.hab(waterImpactedHab[282])
@@ -2162,32 +2167,32 @@ basin.fun = function(nodesInput, wshedInput, waterImpactedHab){
 
   # --------------------Watershed 43 -------------------------------------------
 
-  poutput$E287 = wshedInput[287, c(8:15)]*nodesInput[4, (16)]
+  poutput$E287 = wshedInput[287, c(13:20)]*nodesInput[4, (16)]
 
-  poutput$E288 = wshedInput[288, c(8:15)]*nodesInput[157, (16)]*
+  poutput$E288 = wshedInput[288, c(13:20)]*nodesInput[157, (16)]*
     nodesInput[4, (16)]
 
-  poutput$E289 = wshedInput[289, c(8:15)]*nodesInput[162, (16)]*
+  poutput$E289 = wshedInput[289, c(13:20)]*nodesInput[162, (16)]*
     nodesInput[157, (16)]*
     nodesInput[4, (16)]
 
-  poutput$E290 = wshedInput[290, c(8:15)]*nodesInput[163, (16)]*
+  poutput$E290 = wshedInput[290, c(13:20)]*nodesInput[163, (16)]*
     nodesInput[162, (16)]*
     nodesInput[157, (16)]*
     nodesInput[4, (16)]
 
-  poutput$E291 = wshedInput[291, c(8:15)]*nodesInput[163, (16)]*
+  poutput$E291 = wshedInput[291, c(13:20)]*nodesInput[163, (16)]*
     nodesInput[162, (16)]*
     nodesInput[157, (16)]*
     nodesInput[4, (16)]
 
-  poutput$E292 = wshedInput[292, c(8:15)]*nodesInput[189, (16)]*
+  poutput$E292 = wshedInput[292, c(13:20)]*nodesInput[189, (16)]*
     nodesInput[163, (16)]*
     nodesInput[162, (16)]*
     nodesInput[157, (16)]*
     nodesInput[4, (16)]
 
-  poutput$E293 = wshedInput[293, c(8:15)]*nodesInput[219, (16)]*
+  poutput$E293 = wshedInput[293, c(13:20)]*nodesInput[219, (16)]*
     nodesInput[163, (16)]*
     nodesInput[162, (16)]*
     nodesInput[157, (16)]*
@@ -2218,9 +2223,9 @@ basin.fun = function(nodesInput, wshedInput, waterImpactedHab){
 
   # --------------------Watershed 44 -------------------------------------------
 
-  poutput$E294 = wshedInput[294, c(8:15)]*nodesInput[5, (16)]
+  poutput$E294 = wshedInput[294, c(13:20)]*nodesInput[5, (16)]
 
-  poutput$E295 = wshedInput[295, c(8:15)]*nodesInput[308, (16)]*
+  poutput$E295 = wshedInput[295, c(13:20)]*nodesInput[308, (16)]*
     nodesInput[5, (16)]
 
   wphabAll$a294= poutput$E294[2:8]*allsp.hab(waterImpactedHab[294])
@@ -2234,12 +2239,12 @@ basin.fun = function(nodesInput, wshedInput, waterImpactedHab){
 
   # --------------------Watershed 45 -------------------------------------------
 
-  poutput$E296 = wshedInput[296, c(8:15)]*nodesInput[3, (16)]
+  poutput$E296 = wshedInput[296, c(13:20)]*nodesInput[3, (16)]
 
-  poutput$E297 = wshedInput[297, c(8:15)]*nodesInput[84, (16)]*
+  poutput$E297 = wshedInput[297, c(13:20)]*nodesInput[84, (16)]*
     nodesInput[3, (16)]
 
-  poutput$E298 = wshedInput[298, c(8:15)]*nodesInput[213, (16)]*
+  poutput$E298 = wshedInput[298, c(13:20)]*nodesInput[213, (16)]*
     nodesInput[84, (16)]*
     nodesInput[3, (16)]
 
@@ -2252,44 +2257,44 @@ basin.fun = function(nodesInput, wshedInput, waterImpactedHab){
 
   WshedHabAllsp$w045 = wphabAll$a296+ wphabAll$a297+ wphabAll$a298
 
-  WshedHabABsp$w045 = wphabAB$a296 + wphabAll$a297+ wphabAll$a298
+  WshedHabABsp$w045 = wphabAB$a296 + wphabAB$a297+ wphabAB$a298
 
   # --------------------Watershed 46 -------------------------------------------
 
-  poutput$E299 = wshedInput[299, c(8:15)]*nodesInput[2, (16)]
+  poutput$E299 = wshedInput[299, c(13:20)]*nodesInput[2, (16)]
 
-  poutput$E300 = wshedInput[300, c(8:15)]*nodesInput[307, (16)]*
+  poutput$E300 = wshedInput[300, c(13:20)]*nodesInput[307, (16)]*
     nodesInput[2, (16)]
 
-  poutput$E301 = wshedInput[301, c(8:15)]*nodesInput[85, (16)]*
+  poutput$E301 = wshedInput[301, c(13:20)]*nodesInput[85, (16)]*
     nodesInput[2, (16)]
 
-  poutput$E302 = wshedInput[302, c(8:15)]*nodesInput[99, (16)]*
+  poutput$E302 = wshedInput[302, c(13:20)]*nodesInput[99, (16)]*
     nodesInput[85, (16)]*
     nodesInput[2, (16)]
 
-  poutput$E303 = wshedInput[303, c(8:15)]*nodesInput[129, (16)]*
+  poutput$E303 = wshedInput[303, c(13:20)]*nodesInput[129, (16)]*
     nodesInput[99, (16)]*
     nodesInput[85, (16)]*
     nodesInput[2, (16)]
 
-  poutput$E304 = wshedInput[304, c(8:15)]*nodesInput[145, (16)]*
+  poutput$E304 = wshedInput[304, c(13:20)]*nodesInput[145, (16)]*
     nodesInput[129, (16)]*
     nodesInput[99, (16)]*
     nodesInput[85, (16)]*
     nodesInput[2, (16)]
 
-  poutput$E305 = wshedInput[305, c(8:15)]*nodesInput[76, (16)]*
+  poutput$E305 = wshedInput[305, c(13:20)]*nodesInput[76, (16)]*
     nodesInput[2, (16)]
 
-  poutput$E306 = wshedInput[306, c(8:15)]*nodesInput[137, (16)]*
+  poutput$E306 = wshedInput[306, c(13:20)]*nodesInput[137, (16)]*
     nodesInput[2, (16)]
 
-  poutput$E307 = wshedInput[307, c(8:15)]*nodesInput[277, (16)]*
+  poutput$E307 = wshedInput[307, c(13:20)]*nodesInput[277, (16)]*
     nodesInput[137, (16)]*
     nodesInput[2, (16)]
 
-  poutput$E308 = wshedInput[308, c(8:15)]*nodesInput[65, (16)]*
+  poutput$E308 = wshedInput[308, c(13:20)]*nodesInput[65, (16)]*
     nodesInput[137, (16)]*
     nodesInput[2, (16)]
 
