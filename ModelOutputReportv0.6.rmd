@@ -1,0 +1,692 @@
+---
+title: "East Maui Irrigation Model Report"
+author: "Trutta Environmental Solutions, LLC"
+output: word_document
+---
+
+```{r setup, include=FALSE, echo=FALSE, warning=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+knitr::opts_chunk$set(warning = FALSE)
+library(eastMaui)
+library(tidyverse)
+library(gridExtra)
+library(knitr)
+library(readxl)
+library(openxlsx)
+
+
+inpath = "~/Programming/Trutta/HSHEP/EMaui/EMpackage/eastMaui/rawData"
+# required functions
+percent <- function(x, digits = 2, format = "f", ...) {
+  paste0(formatC(100 * x, format = format, digits = digits, ...), "%")
+}
+allsp.hab = function(x){
+  y = (1-(0.0000681*((100-x)^2) - 0.00032*(100-x)))
+  return(y)  
+}
+ab.hab = function(x){
+  y = (1-(0.00004678*((100-x)^2) + 0.000313*(100-x)))
+  return(y)
+}
+
+# read inputs in
+watersheds = read_excel(paste(inpath, "/watershedsFinal.xlsx", sep = ""))
+# watershedsOld = read_excel(paste(inpath, "/watersheds.xlsx", sep = ""))
+
+watershedsWaterInput = watersheds[ ,c(1,2,23)]
+watershedsWaterInput[is.na(watershedsWaterInput)]<- 0
+waterInput.mat= as.matrix(watershedsWaterInput)
+
+# Habitat calculations input matrix
+habitatInput.mat = data.matrix(watersheds)
+habitatInput.mat = habitatInput.mat[, -6]
+
+# nodes.compare = eastMaui::nodes1
+# nodesOld = read_excel(paste(inpath, "/nodes_mixed.xlsx", sep = ""))
+nodes = read_excel(paste(inpath, "/No Diversion.xlsx", sep = ""))
+nodes = nodes[ ,-c(2:7)]
+nodes0 = read_excel(paste(inpath, "/Sugar Diversion.xlsx", sep = ""))
+nodes0 = nodes0[ ,-c(2:7)]
+nodes1 = read_excel(paste(inpath, "/IIFS2008.xlsx", sep = ""))
+nodes1 = nodes1[ ,-c(2:7)]
+nodes2 = read_excel(paste(inpath, "/IIFS2008_plus_taro.xlsx", sep = ""))
+nodes2 = nodes2[ ,-c(2:7)]
+nodes3 = read_excel(paste(inpath, "/DiversionInputMix5v0.1.xlsx", sep = ""))
+nodes3 = nodes3[ ,-c(2:7)]
+nodes4 = read_excel(paste(inpath, "/DiversionInputMix5.xlsx", sep = ""))
+nodes4 = nodes4[ ,-c(2:7)]
+nodes5 = read_excel(paste(inpath, "/DiversionInputMix5.xlsx", sep = ""))
+nodes5 = nodes5[ ,-c(2:7)]
+nodes6 = read_excel(paste(inpath, "/DiversionInputMix5.xlsx", sep = ""))
+nodes6 = nodes6[ ,-c(2:7)]
+
+nodes = nodes[order(nodes$ID), ]
+nodes0 = nodes0[order(nodes0$ID), ]
+nodes1 = nodes1[order(nodes1$ID), ]
+nodes2 = nodes2[order(nodes2$ID), ]
+nodes3 = nodes3[order(nodes3$ID), ]
+nodes4 = nodes4[order(nodes4$ID), ]
+nodes5 = nodes5[order(nodes5$ID), ]
+nodes6 = nodes6[order(nodes6$ID), ]
+
+nodes.mat = data.matrix(nodes)
+nodes0.mat = data.matrix(nodes0)
+nodes1.mat = data.matrix(nodes1)
+nodes2.mat = data.matrix(nodes2)
+nodes3.mat = data.matrix(nodes3)
+nodes4.mat = data.matrix(nodes4)
+nodes5.mat = data.matrix(nodes5)
+nodes6.mat = data.matrix(nodes6)
+
+# calc upstream/downstream effect for each node
+# for habitat calculations
+nodesh = nodes
+nodes0h = nodes0
+nodes1h = nodes1
+nodes2h = nodes2
+nodes3h = nodes3
+nodes4h = nodes4
+nodes5h = nodes5
+nodes6h = nodes6
+
+nodesh$dsImpact = nodesh$DnEntrain*nodesh$DnBarrier*nodesh$DnHab*nodesh$DnOther
+nodes0h$dsImpact = nodes0h$DnEntrain*nodes0h$DnBarrier*nodes0h$DnHab*nodes0h$DnOther
+nodes1h$dsImpact = nodes1h$DnEntrain*nodes1h$DnBarrier*nodes1h$DnHab*nodes1h$DnOther
+nodes2h$dsImpact = nodes2h$DnEntrain*nodes2h$DnBarrier*nodes2h$DnHab*nodes2h$DnOther
+nodes3h$dsImpact = nodes3h$DnEntrain*nodes3h$DnBarrier*nodes3h$DnHab*nodes3h$DnOther
+nodes4h$dsImpact = nodes4h$DnEntrain*nodes4h$DnBarrier*nodes4h$DnHab*nodes4h$DnOther
+nodes5h$dsImpact = nodes5h$DnEntrain*nodes5h$DnBarrier*nodes5h$DnHab*nodes5h$DnOther
+nodes6h$dsImpact = nodes6h$DnEntrain*nodes6h$DnBarrier*nodes6h$DnHab*nodes6h$DnOther
+
+nodesh$usImpact = nodesh$UpEntrain*nodesh$UpBarrier*nodesh$UpOther*nodesh$UpHab
+nodes0h$usImpact = nodes0h$UpEntrain*nodes0h$UpBarrier*nodes0h$UpOther*nodes0h$UpHab
+nodes1h$usImpact = nodes1h$UpEntrain*nodes1h$UpBarrier*nodes1h$UpOther*nodes1h$UpHab
+nodes2h$usImpact = nodes2h$UpEntrain*nodes2h$UpBarrier*nodes2h$UpOther*nodes2h$UpHab
+nodes3h$usImpact = nodes3h$UpEntrain*nodes3h$UpBarrier*nodes3h$UpOther*nodes3h$UpHab
+nodes4h$usImpact = nodes4h$UpEntrain*nodes4h$UpBarrier*nodes4h$UpOther*nodes4h$UpHab
+nodes5h$usImpact = nodes5h$UpEntrain*nodes5h$UpBarrier*nodes5h$UpOther*nodes5h$UpHab
+nodes6h$usImpact = nodes6h$UpEntrain*nodes6h$UpBarrier*nodes6h$UpOther*nodes6h$UpHab
+
+nodesh$passage = nodesh$dsImpact*nodesh$usImpact
+nodes0h$passage = nodes0h$dsImpact*nodes0h$usImpact
+nodes1h$passage = nodes1h$dsImpact*nodes1h$usImpact
+nodes2h$passage = nodes2h$dsImpact*nodes2h$usImpact
+nodes3h$passage = nodes3h$dsImpact*nodes3h$usImpact
+nodes4h$passage = nodes4h$dsImpact*nodes4h$usImpact
+nodes5h$passage = nodes5h$dsImpact*nodes5h$usImpact
+nodes6h$passage = nodes6h$dsImpact*nodes6h$usImpact
+
+nodesh.mat = data.frame(nodesh)
+nodes0h.mat = data.frame(nodes0h)
+nodes1h.mat = data.frame(nodes1h)
+nodes2h.mat = data.frame(nodes2h)
+nodes3h.mat = data.frame(nodes3h)
+nodes4h.mat = data.frame(nodes4h)
+nodes5h.mat = data.frame(nodes5h)
+nodes6h.mat = data.frame(nodes6h)
+
+# --------------------------------------------------
+# --------------------------------------------------
+# Water diversion calculations
+# waterInput = waterInput.mat
+
+sets = c("inStream", "inWshed", "inDitch", "springs", "sinks", "WshedCheck")
+
+outpath = "~/Programming/Trutta/HSHEP/EMaui/EMpackage/eastMaui/outputs/"
+# ---------------------------------------------------
+# Run function w/ different scenarios
+test1 = basinWater.fun(nodes.mat, waterInput.mat) #natural
+test2 = basinWater.fun(nodes0.mat, waterInput.mat) #sugar
+test3 = basinWater.fun(nodes1.mat, waterInput.mat) #IIFS2008
+test4 = basinWater.fun(nodes2.mat, waterInput.mat) #IIFS2008+
+test5 = basinWater.fun(nodes3.mat, waterInput.mat) #mixed
+test6 = basinWater.fun(nodes4.mat, waterInput.mat) #mixed
+test7 = basinWater.fun(nodes5.mat, waterInput.mat) #mixed
+test8 = basinWater.fun(nodes6.mat, waterInput.mat) #mixed
+
+# ---------------------------------------------------
+instream1 = as.data.frame(test1$inStream)
+instream2 = as.data.frame(test2$inStream)
+instream3 = as.data.frame(test3$inStream)
+instream4 = as.data.frame(test4$inStream)
+instream5 = as.data.frame(test5$inStream)
+instream6 = as.data.frame(test6$inStream)
+instream7 = as.data.frame(test7$inStream)
+instream8 = as.data.frame(test8$inStream)
+
+instream = bind_rows(instream1, instream2, instream3, instream4, instream5, instream6, instream7, instream8)
+instream = t(instream)
+colnames(instream)<-c("natural", "sugar", "IIFS2008", "IIFS2008plus", "mixed","mixed","mixed","mixed")
+instream = as.data.frame(instream) %>%
+  rownames_to_column(var = "basinID") %>%
+  separate(basinID, into = c("E", "Basin"), sep = "^([E])")
+instream$Basin = as.numeric(instream$Basin)
+instream = instream[-53,]
+instream[75, 2] = 77
+
+add206 = c(0,206,0,0,0)
+names(add206) = c("E", "Basin", "mixed", "all0", "all1")
+instream = rbind(instream, add206)
+
+add271 = c(0,271,0,0,0)
+names(add271) = c("E", "Basin", "mixed", "all0", "all1")
+instream = rbind(instream, add271)
+add281 = c(0,281,0,0,0)
+names(add281) = c("E", "Basin", "mixed", "all0", "all1")
+instream = rbind(instream, add281)
+
+instreamOut = instream
+instreamOut = instreamOut[, -c(1, 2)]
+basins = instream$Basin
+instreamOut = instreamOut*0.646317
+instreamOut$BasinID = basins
+instreamOut = instreamOut[ ,c(9, 1:8)]
+instreamOut = instreamOut[order(instreamOut$BasinID), ]
+
+
+# ---- habitat calculation inputs----------------------
+instreamh = instream[order(instream$Basin), -1]
+instreamh = remove_rownames(instreamh) 
+
+
+instreamh.mat = data.matrix(instreamh)
+
+instreamh.nat = instreamh.mat[ ,2]
+instreamh.sugar = instreamh.mat[ ,3]
+instreamh.IIFS = instreamh.mat[ ,4]
+instreamh.IIFSplus = instreamh.mat[ ,5]
+instreamh.mix = instreamh.mat[ ,6]
+instreamh.mix1 = instreamh.mat[ ,7]
+instreamh.mix2 = instreamh.mat[ ,8]
+instreamh.mix3 = instreamh.mat[ ,9]
+
+
+waterImpactedHab.nat = (instreamh.nat/instreamh.nat)*100
+waterImpactedHab.nat[is.na(waterImpactedHab.nat)]<- 0
+waterImpactedHab.nat[is.infinite(waterImpactedHab.nat)]<- 0
+waterImpactedHab.sugar = (instreamh.sugar/instreamh.nat)*100
+waterImpactedHab.sugar[is.na(waterImpactedHab.sugar)]<- 0
+waterImpactedHab.sugar[is.infinite(waterImpactedHab.sugar)]<- 0
+waterImpactedHab.IIFS = (instreamh.IIFS/instreamh.nat)*100
+waterImpactedHab.IIFS[is.na(waterImpactedHab.IIFS)]<- 0
+waterImpactedHab.IIFS[is.infinite(waterImpactedHab.IIFS)]<- 0
+waterImpactedHab.IIFSplus = (instreamh.IIFSplus/instreamh.nat)*100
+waterImpactedHab.IIFSplus[is.na(waterImpactedHab.IIFSplus)]<- 0
+waterImpactedHab.IIFSplus[is.infinite(waterImpactedHab.IIFSplus)]<- 0
+waterImpactedHab.mix = (instreamh.mix/instreamh.nat)*100
+waterImpactedHab.mix[is.na(waterImpactedHab.mix)]<- 0
+waterImpactedHab.mix[is.infinite(waterImpactedHab.mix)]<- 0
+waterImpactedHab.mix1 = (instreamh.mix1/instreamh.nat)*100
+waterImpactedHab.mix1[is.na(waterImpactedHab.mix1)]<- 0
+waterImpactedHab.mix1[is.infinite(waterImpactedHab.mix1)]<- 0
+waterImpactedHab.mix2 = (instreamh.mix2/instreamh.nat)*100
+waterImpactedHab.mix2[is.na(waterImpactedHab.mix2)]<- 0
+waterImpactedHab.mix2[is.infinite(waterImpactedHab.mix2)]<- 0
+waterImpactedHab.mix3 = (instreamh.mix3/instreamh.nat)*100
+waterImpactedHab.mix3[is.na(waterImpactedHab.mix3)]<- 0
+waterImpactedHab.mix3[is.infinite(waterImpactedHab.mix3)]<- 0
+# -----------------------------------------------------
+inwshed1 = as.data.frame(test1$inWshed)
+inwshed2 = as.data.frame(test2$inWshed)
+inwshed3 = as.data.frame(test3$inWshed)
+inwshed4 = as.data.frame(test4$inWshed)
+inwshed5 = as.data.frame(test5$inWshed)
+inwshed6 = as.data.frame(test6$inWshed)
+inwshed7 = as.data.frame(test7$inWshed)
+inwshed8 = as.data.frame(test8$inWshed)
+
+inwshed = bind_rows(inwshed1, inwshed2, inwshed3, inwshed4, inwshed5, inwshed6, inwshed7, inwshed8)
+inwshed = t(inwshed)
+colnames(inwshed)<-c("natural", "sugar", "IIFS2008", "IIFS2008plus", "mixed","mixed","mixed","mixed")
+inwshed = as.data.frame(inwshed) %>%
+  rownames_to_column(var = "wshedID") %>%
+  separate(wshedID, into= c("w", "Wshed"), sep = "^([w])")
+inwshed$Wshed = as.numeric(inwshed$Wshed)
+inwshed = inwshed[, -1]
+
+# -----------------------------------------------------
+inditch1 = as.data.frame(test1$inDitch)
+inditch2 = as.data.frame(test2$inDitch)
+inditch3 = as.data.frame(test3$inDitch)
+inditch4 = as.data.frame(test4$inDitch)
+inditch5 = as.data.frame(test5$inDitch)
+inditch6 = as.data.frame(test6$inDitch)
+inditch7 = as.data.frame(test7$inDitch)
+inditch8 = as.data.frame(test8$inDitch)
+
+inditch1[which(inditch1<0)]<- 0
+inditch2[which(inditch2<0)]<- 0
+inditch3[which(inditch3<0)]<- 0
+inditch4[which(inditch4<0)]<- 0
+inditch5[which(inditch5<0)]<- 0
+inditch6[which(inditch6<0)]<- 0
+inditch7[which(inditch7<0)]<- 0
+inditch8[which(inditch8<0)]<- 0
+
+inditch = bind_rows(inditch1, inditch2, inditch3, inditch4, inditch5, inditch6, inditch7, inditch8)
+inditch = t(inditch)
+colnames(inditch)<-c("natural", "sugar", "IIFS2008", "IIFS2008plus", "mixed","mixed","mixed","mixed")
+
+inditch = as.data.frame(inditch) %>%
+  rownames_to_column(var = "ditchID") %>%
+  separate(ditchID, into = c("n", "NodeID"), sep = "^([n])")
+inditch$NodeID = as.numeric(inditch$NodeID)
+inditch = inditch[ , -1]
+
+# convert to mgd - millions of gallons per day
+inditch.mgd = inditch[ ,-1]
+inditch.mgd = inditch.mgd*0.646317
+inditch.mgd$NodeID = inditch[ ,1]
+inditch.mgd = inditch.mgd[ , c(9, 1:8)]
+inditch.mgd = inditch.mgd[order(inditch.mgd$NodeID),] %>% 
+  remove_rownames() 
+# ---------------------------------------------------
+wshedcheck1 = as.data.frame(test1$WshedCheck)
+wshedcheck2 = as.data.frame(test2$WshedCheck)
+wshedcheck3 = as.data.frame(test3$WshedCheck)
+wshedcheck4 = as.data.frame(test4$WshedCheck)
+wshedcheck5 = as.data.frame(test5$WshedCheck)
+wshedcheck6 = as.data.frame(test6$WshedCheck)
+wshedcheck7 = as.data.frame(test7$WshedCheck)
+wshedcheck8 = as.data.frame(test8$WshedCheck)
+
+check = bind_rows(wshedcheck1, wshedcheck2, wshedcheck3, wshedcheck4, wshedcheck5,wshedcheck6,wshedcheck7,wshedcheck8)
+check = t(check)
+colnames(check)<-c("natural", "sugar", "IIFS2008", "IIFS2008plus", "mixed","mixed","mixed","mixed")
+
+check = as.data.frame(check) %>%
+  rownames_to_column(var = "wshed") %>%
+  separate(wshed, into = c("w", "Wshed"), sep = "^([w])")
+check$Wshed = as.numeric(check$Wshed)
+check = check[, -1]
+
+# ----------------------------------------------
+
+springs1 = as.data.frame(test1$springs)
+springs2 = as.data.frame(test2$springs)
+springs3 = as.data.frame(test3$springs)
+springs4 = as.data.frame(test4$springs)
+springs5 = as.data.frame(test5$springs)
+springs6 = as.data.frame(test6$springs)
+springs7 = as.data.frame(test7$springs)
+springs8 = as.data.frame(test8$springs)
+
+springs = bind_rows(springs1, springs2, springs3, springs4, springs5, springs6, springs7, springs8)
+springs = t(springs)
+colnames(springs)<-c("natural", "sugar", "IIFS2008", "IIFS2008plus", "mixed","mixed","mixed","mixed")
+
+springs = as.data.frame(springs) %>%
+  rownames_to_column(var = "springID") %>%
+  separate(springID, into = c("E", "spring_ID"), sep = "^([E])")
+springs = springs[ , -1]
+
+# ----------------------------------------------
+
+sinks1 = as.data.frame(test1$sinks)
+sinks2 = as.data.frame(test2$sinks)
+sinks3 = as.data.frame(test3$sinks)
+sinks4 = as.data.frame(test4$sinks)
+sinks5 = as.data.frame(test5$sinks)
+sinks6 = as.data.frame(test6$sinks)
+sinks7 = as.data.frame(test7$sinks)
+sinks8 = as.data.frame(test8$sinks)
+
+sinks = bind_rows(sinks1, sinks2, sinks3, sinks4, sinks5, sinks6, sinks7, sinks8)
+sinks = t(sinks)
+
+colnames(sinks)<- c("natural", "sugar", "IIFS2008", "IIFS2008plus", "mixed","mixed","mixed","mixed")
+
+sinks = as.data.frame(sinks) %>%
+  rownames_to_column(var = "sinkID") %>%
+  separate(sinkID, into = c("E", "sink_ID"), sep = "^([E])")
+sinks = sinks[ , -1]
+# ---------------------------------------------------
+# prep inputs for export to final workbook
+waterOutput = watersheds
+
+
+nodespath = "~/Programming/Trutta/HSHEP/EMaui/EMpackage/eastMaui/rawData"
+nodesOutput = read_excel(paste(nodespath, "/nodes_for_output.xlsx", sep = ""))
+
+dsNodes = read_excel(paste(nodespath, "/BasinsAllGroups.xlsx", sep = ""))
+dsNodes = dsNodes[ ,c(1,2,25)]
+
+
+ditchNamespath = "~/Programming/Trutta/HSHEP/EMaui/EMpackage/eastMaui/rawData/Ditch Groups.xlsx"
+ditchnames = read_excel(ditchNamespath)
+
+# ---------------------------------------------
+# results
+output_list = list("watershedsInput" = waterOutput,
+                   "diversionsInput" = nodesOutput,
+                   "WshedCheck" = check,
+                   "inStream" = instream,
+                   "inWshed"= inwshed,
+                   "inDitch" = inditch,
+                   "springs" = springs,
+                   "sinks" = sinks)
+file = paste(outpath, "water_outputs.0.6.xlsx", sep = "")
+Sys.setenv("R_ZIPCMD" = "C:/RBuildTools/3.4/bin/zip.exe")
+write.xlsx(output_list, file = file)
+# ---------------------------------------------
+
+# --------------------------------------------
+# --------------------------------------------
+# Habitat Modeling - FISH
+htest1 = basin.fun(nodesh.mat, habitatInput.mat, waterImpactedHab.nat)
+htest2 = basin.fun(nodes0h.mat, habitatInput.mat, waterImpactedHab.sugar)
+htest3 = basin.fun(nodes1h.mat, habitatInput.mat, waterImpactedHab.IIFS)
+htest4 = basin.fun(nodes2h.mat, habitatInput.mat, waterImpactedHab.IIFSplus)
+htest5 = basin.fun(nodes3h.mat, habitatInput.mat, waterImpactedHab.mix)
+htest6 = basin.fun(nodes4h.mat, habitatInput.mat, waterImpactedHab.mix1)
+htest7 = basin.fun(nodes5h.mat, habitatInput.mat, waterImpactedHab.mix2)
+htest8 = basin.fun(nodes6h.mat, habitatInput.mat, waterImpactedHab.mix3)
+
+# calc hab by wshed
+AllSpHab1 = as.data.frame(htest1$WsedHabAllSp)
+AllSpHab2 = as.data.frame(htest2$WsedHabAllSp)
+AllSpHab3 = as.data.frame(htest3$WsedHabAllSp)
+AllSpHab4 = as.data.frame(htest4$WsedHabAllSp)
+AllSpHab5 = as.data.frame(htest5$WsedHabAllSp)
+AllSpHab6 = as.data.frame(htest6$WsedHabAllSp)
+AllSpHab7 = as.data.frame(htest7$WsedHabAllSp)
+AllSpHab8 = as.data.frame(htest8$WsedHabAllSp)
+ 
+AllSpHab1 = (t(AllSpHab1))
+AllSpHab2 = (t(AllSpHab2))
+AllSpHab3 = (t(AllSpHab3))
+AllSpHab4 = (t(AllSpHab4))
+AllSpHab5 = (t(AllSpHab5))
+AllSpHab6 = (t(AllSpHab6))
+AllSpHab7 = (t(AllSpHab7))
+AllSpHab8 = (t(AllSpHab8))
+
+ABSpHab1 = as.data.frame(htest1$WshedHabAB)
+ABSpHab2 = as.data.frame(htest2$WshedHabAB)
+ABSpHab3 = as.data.frame(htest3$WshedHabAB)
+ABSpHab4 = as.data.frame(htest4$WshedHabAB)
+ABSpHab5 = as.data.frame(htest5$WshedHabAB)
+ABSpHab6 = as.data.frame(htest6$WshedHabAB)
+ABSpHab7 = as.data.frame(htest7$WshedHabAB)
+ABSpHab8 = as.data.frame(htest8$WshedHabAB)
+ 
+ABSpHab1 = (t(ABSpHab1))
+ABSpHab2 = (t(ABSpHab2))
+ABSpHab3 = (t(ABSpHab3))
+ABSpHab4 = (t(ABSpHab4))
+ABSpHab5 = (t(ABSpHab5))
+ABSpHab6 = (t(ABSpHab6))
+ABSpHab7 = (t(ABSpHab7))
+ABSpHab8 = (t(ABSpHab8))
+
+
+AllSpHab.nat = data.frame(AllSpHab1, ABSpHab1)
+AllSpHab.nat$total = rowSums(AllSpHab.nat)
+AllSpHab.nat = remove_rownames(AllSpHab.nat)
+AllSpHab.sugar = data.frame(AllSpHab2, ABSpHab2)
+AllSpHab.sugar$total = rowSums(AllSpHab.sugar)
+AllSpHab.sugar = remove_rownames(AllSpHab.sugar)
+AllSpHab.IIFS = data.frame(AllSpHab3, ABSpHab3)
+AllSpHab.IIFS$total = rowSums(AllSpHab.IIFS)
+AllSpHab.IIFS = remove_rownames(AllSpHab.IIFS)
+AllSpHab.IIFSplus = data.frame(AllSpHab4, ABSpHab4)
+AllSpHab.IIFSplus$total = rowSums(AllSpHab.IIFSplus)
+AllSpHab.IIFSplus = remove_rownames(AllSpHab.IIFSplus)
+AllSpHab.mix = data.frame(AllSpHab5, ABSpHab5)
+AllSpHab.mix$total = rowSums(AllSpHab.mix)
+AllSpHab.mix = remove_rownames(AllSpHab.mix)
+AllSpHab.mix1 = data.frame(AllSpHab6, ABSpHab6)
+AllSpHab.mix1$total = rowSums(AllSpHab.mix1)
+AllSpHab.mix1 = remove_rownames(AllSpHab.mix1)
+AllSpHab.mix2 = data.frame(AllSpHab7, ABSpHab7)
+AllSpHab.mix2$total = rowSums(AllSpHab.mix2)
+AllSpHab.mix2 = remove_rownames(AllSpHab.mix2)
+AllSpHab.mix3 = data.frame(AllSpHab8, ABSpHab8)
+AllSpHab.mix3$total = rowSums(AllSpHab.mix3)
+AllSpHab.mix3 = remove_rownames(AllSpHab.mix3)
+
+
+# calc hab by basin
+AllSpBasHab1 = as.data.frame(htest1$WaterPassageHabAllSp)
+AllSpBasHab2 = as.data.frame(htest2$WaterPassageHabAllSp)
+AllSpBasHab3 = as.data.frame(htest3$WaterPassageHabAllSp)
+AllSpBasHab4 = as.data.frame(htest4$WaterPassageHabAllSp)
+AllSpBasHab5 = as.data.frame(htest5$WaterPassageHabAllSp)
+AllSpBasHab6 = as.data.frame(htest6$WaterPassageHabAllSp)
+AllSpBasHab7 = as.data.frame(htest7$WaterPassageHabAllSp)
+AllSpBasHab8 = as.data.frame(htest8$WaterPassageHabAllSp)
+ 
+AllSpBasHab1 = (t(AllSpBasHab1))
+AllSpBasHab2 = (t(AllSpBasHab2))
+AllSpBasHab3 = (t(AllSpBasHab3))
+AllSpBasHab4 = (t(AllSpBasHab4))
+AllSpBasHab5 = (t(AllSpBasHab5))
+AllSpBasHab6 = (t(AllSpBasHab6))
+AllSpBasHab7 = (t(AllSpBasHab7))
+AllSpBasHab8 = (t(AllSpBasHab8))
+
+ABSpBasHab1 = as.data.frame(htest1$WaterPassageHabAB)
+ABSpBasHab2 = as.data.frame(htest2$WaterPassageHabAB)
+ABSpBasHab3 = as.data.frame(htest3$WaterPassageHabAB)
+ABSpBasHab4 = as.data.frame(htest4$WaterPassageHabAB)
+ABSpBasHab5 = as.data.frame(htest5$WaterPassageHabAB)
+ABSpBasHab6 = as.data.frame(htest6$WaterPassageHabAB)
+ABSpBasHab7 = as.data.frame(htest7$WaterPassageHabAB)
+ABSpBasHab8 = as.data.frame(htest8$WaterPassageHabAB)
+ 
+ABSpBasHab1 = (t(ABSpBasHab1))
+ABSpBasHab2 = (t(ABSpBasHab2))
+ABSpBasHab3 = (t(ABSpBasHab3))
+ABSpBasHab4 = (t(ABSpBasHab4))
+ABSpBasHab5 = t((ABSpBasHab5))
+ABSpBasHab6 = (t(ABSpBasHab6))
+ABSpBasHab7 = (t(ABSpBasHab7))
+ABSpBasHab8 = (t(ABSpBasHab8))
+
+
+
+AllSpBasHab.nat = data.frame(AllSpBasHab1, ABSpBasHab1) 
+AllSpBasHab.nat$total = rowSums(AllSpBasHab.nat) 
+AllSpBasHab.nat = AllSpBasHab.nat %>%
+  rownames_to_column(var = "BasinID") %>%
+  separate(BasinID, into = c("A", "BasinID"), sep = "^([a])")
+AllSpBasHab.nat$BasinID = as.numeric(AllSpBasHab.nat$BasinID)
+AllSpBasHab.nat = AllSpBasHab.nat[ , -1]
+
+AllSpBasHab.sugar = data.frame(AllSpBasHab2, ABSpBasHab2)
+AllSpBasHab.sugar$total = rowSums(AllSpBasHab.sugar)
+AllSpBasHab.sugar = AllSpBasHab.sugar %>%
+  rownames_to_column(var = "BasinID") %>%
+  separate(BasinID, into = c("A", "BasinID"), sep = "^([a])")
+AllSpBasHab.sugar$BasinID = as.numeric(AllSpBasHab.sugar$BasinID)
+AllSpBasHab.sugar = AllSpBasHab.sugar[ , -1]
+
+AllSpBasHab.IIFS = data.frame(AllSpBasHab3, ABSpBasHab3)
+AllSpBasHab.IIFS$total = rowSums(AllSpBasHab.IIFS)
+AllSpBasHab.IIFS = AllSpBasHab.IIFS %>%
+  rownames_to_column(var = "BasinID") %>%
+  separate(BasinID, into = c("A", "BasinID"), sep = "^([a])")
+AllSpBasHab.IIFS$BasinID = as.numeric(AllSpBasHab.IIFS$BasinID)
+AllSpBasHab.IIFS = AllSpBasHab.IIFS[ , -1]
+
+AllSpBasHab.IIFSplus = data.frame(AllSpBasHab4, ABSpBasHab4)
+AllSpBasHab.IIFSplus$total = rowSums(AllSpBasHab.IIFSplus)
+AllSpBasHab.IIFSplus = AllSpBasHab.IIFSplus %>%
+  rownames_to_column(var = "BasinID") %>%
+  separate(BasinID, into = c("A", "BasinID"), sep = "^([a])")
+AllSpBasHab.IIFSplus$BasinID = as.numeric(AllSpBasHab.IIFSplus$BasinID)
+AllSpBasHab.IIFSplus = AllSpBasHab.IIFSplus[ , -1]
+
+AllSpBasHab.mix = data.frame(AllSpBasHab5, ABSpBasHab5)
+AllSpBasHab.mix$total = rowSums(AllSpBasHab.mix)
+AllSpBasHab.mix = AllSpBasHab.mix %>%
+  rownames_to_column(var = "BasinID") %>%
+  separate(BasinID, into = c("A", "BasinID"), sep = "^([a])")
+AllSpBasHab.mix$BasinID = as.numeric(AllSpBasHab.mix$BasinID)
+AllSpBasHab.mix = AllSpBasHab.mix[ , -1]
+
+AllSpBasHab.mix1 = data.frame(AllSpBasHab6, ABSpBasHab6)
+AllSpBasHab.mix1$total = rowSums(AllSpBasHab.mix1)
+AllSpBasHab.mix1 = AllSpBasHab.mix1 %>%
+  rownames_to_column(var = "BasinID") %>%
+  separate(BasinID, into = c("A", "BasinID"), sep = "^([a])")
+AllSpBasHab.mix1$BasinID = as.numeric(AllSpBasHab.mix1$BasinID)
+AllSpBasHab.mix1 = AllSpBasHab.mix1[ , -1]
+
+AllSpBasHab.mix2 = data.frame(AllSpBasHab7, ABSpBasHab7)
+AllSpBasHab.mix2$total = rowSums(AllSpBasHab.mix2)
+AllSpBasHab.mix2 = AllSpBasHab.mix2 %>%
+  rownames_to_column(var = "BasinID") %>%
+  separate(BasinID, into = c("A", "BasinID"), sep = "^([a])")
+AllSpBasHab.mix2$BasinID = as.numeric(AllSpBasHab.mix2$BasinID)
+AllSpBasHab.mix2 = AllSpBasHab.mix2[ , -1]
+
+AllSpBasHab.mix3 = data.frame(AllSpBasHab8, ABSpBasHab8)
+AllSpBasHab.mix3$total = rowSums(AllSpBasHab.mix3)
+AllSpBasHab.mix3 = AllSpBasHab.mix3 %>%
+  rownames_to_column(var = "BasinID") %>%
+  separate(BasinID, into = c("A", "BasinID"), sep = "^([a])")
+AllSpBasHab.mix3$BasinID = as.numeric(AllSpBasHab.mix3$BasinID)
+AllSpBasHab.mix3 = AllSpBasHab.mix3[ , -1]
+# ------------------------------------------------------------- 
+# Habitat calculations - INSECTS
+# -------------------------------------------------------------
+insects.nat = insectHab.fun(habInput, habFunInput, waterImpactedHab.nat)
+insects.sugar = insectHab.fun(habInput, habFunInput, waterImpactedHab.sugar)
+insects.IIFS = insectHab.fun(habInput, habFunInput, waterImpactedHab.IIFS)
+insects.IIFSplus = insectHab.fun(habInput, habFunInput, waterImpactedHab.IIFSplus)
+insects.mix = insectHab.fun(habInput, habFunInput, waterImpactedHab.mix)
+insects.mix1 = insectHab.fun(habInput, habFunInput, waterImpactedHab.mix1)
+insects.mix2 = insectHab.fun(habInput, habFunInput, waterImpactedHab.mix2)
+insects.mix3 = insectHab.fun(habInput, habFunInput, waterImpactedHab.mix3)
+
+AllSpBasHab.nat = left_join(AllSpBasHab.nat, insects.nat, by = "BasinID")
+AllSpBasHab.sugar = left_join(AllSpBasHab.sugar, insects.sugar, by = "BasinID")
+AllSpBasHab.IIFS = left_join(AllSpBasHab.IIFS, insects.IIFS, by = "BasinID")
+AllSpBasHab.IIFSplus = left_join(AllSpBasHab.IIFSplus, insects.IIFSplus, by = "BasinID")
+AllSpBasHab.mix = left_join(AllSpBasHab.mix, insects.mix, by = "BasinID")
+AllSpBasHab.mix1 = left_join(AllSpBasHab.mix1, insects.mix1, by = "BasinID")
+AllSpBasHab.mix2 = left_join(AllSpBasHab.mix2, insects.mix2, by = "BasinID")
+AllSpBasHab.mix3 = left_join(AllSpBasHab.mix3, insects.mix3, by = "BasinID")
+
+# match WshedID with Insect Basin habtiat data
+wsheds.i = watersheds[ ,c(1:3)]
+colnames(wsheds.i)[2]<- "BasinID"
+insects.nat = left_join(wsheds.i, insects.nat, by = "BasinID")
+insects.sugar = left_join(wsheds.i, insects.sugar, by = "BasinID")
+insects.IIFS = left_join(wsheds.i, insects.IIFS, by = "BasinID")
+insects.IIFSplus = left_join(wsheds.i, insects.IIFSplus, by = "BasinID")
+insects.mix = left_join(wsheds.i, insects.mix, by = "BasinID")
+insects.mix1 = left_join(wsheds.i, insects.mix1, by = "BasinID")
+insects.mix2 = left_join(wsheds.i, insects.mix2, by = "BasinID")
+insects.mix3 = left_join(wsheds.i, insects.mix3, by = "BasinID")
+
+# summarize
+insects.nat %>% group_by(WshedID) %>% summarise_at(vars(c(3:6)),sum) -> insects.nat.wsheds
+insects.sugar %>% group_by(WshedID) %>% summarise_at(vars(c(3:6)),sum) -> insects.sugar.wsheds
+insects.IIFS %>% group_by(WshedID) %>% summarise_at(vars(c(3:6)),sum) -> insects.IIFS.wsheds
+insects.IIFSplus %>% group_by(WshedID) %>% summarise_at(vars(c(3:6)),sum) -> insects.IIFSplus.wsheds
+insects.mix %>% group_by(WshedID) %>% summarise_at(vars(c(3:6)),sum) -> insects.nat.mix
+insects.mix1 %>% group_by(WshedID) %>% summarise_at(vars(c(3:6)),sum) -> insects.nat.mix1
+insects.mix2 %>% group_by(WshedID) %>% summarise_at(vars(c(3:6)),sum) -> insects.nat.mix2
+insects.mix3 %>% group_by(WshedID) %>% summarise_at(vars(c(3:6)),sum) -> insects.nat.mix3
+
+insectsHabOutput= left_join(insects.nat, insects.sugar, by = (c("WshedID", "BasinID", "Wshed_Name"))) %>% 
+  left_join(insects.IIFS, by = (c("WshedID", "BasinID", "Wshed_Name"))) %>% 
+  left_join(insects.IIFSplus, by = (c("WshedID", "BasinID", "Wshed_Name"))) %>%
+  left_join(insects.mix, by = (c("WshedID", "BasinID", "Wshed_Name"))) %>%
+  left_join(insects.mix1, by = (c("WshedID", "BasinID", "Wshed_Name"))) %>%
+  left_join(insects.mix2, by = (c("WshedID", "BasinID", "Wshed_Name"))) %>%
+  left_join(insects.mix3, by = (c("WshedID", "BasinID", "Wshed_Name"))) 
+
+# -----------------------------------------------------
+# 8 scenario output to excel workbook
+# -----------------------------------------------------
+colnames(nodesOutput)[1]<- "NodeID"
+nodesInfo = nodesOutput[, c(1,4,6,7)]
+inditch.mgd %>% left_join(nodesInfo, by = "NodeID") -> nodesOutput0
+nodesOutput0 = nodesOutput0[which(nodesOutput0$DiversionID %in% c(1:10)), ]
+
+nodesOutput0 %>%
+  group_by(DiversionID) %>%
+  summarise_at(vars(c(2:9)), sum)  %>%
+  left_join(ditchnames, by = "DiversionID")-> summByDiversion
+summByDiversion = summByDiversion[ ,c(1,10,2:9)]
+
+inwshedOut = inwshed[ ,-1]
+WshedID = inwshed[ ,1]
+inwshedOut.mgd = inwshedOut*0.646317
+inwshedOut.mgd$WshedID = WshedID
+wshedsOutput = left_join(wshedNames, inwshedOut.mgd, by = "WshedID")
+
+leasesByID = waterOutput[ ,c(2,4,7)]
+colnames(dsNodes)[3]<- "NodeID"
+leases = left_join(dsNodes, leasesByID, by = "BASINID") %>%
+  left_join(inditch.mgd, by = "NodeID") %>%
+  filter(NodeID<45 | NodeID>54) %>%
+  group_by(Lease_ID)
+leases = leases[complete.cases(leases), ]
+leases = leases %>% summarise_at(vars(c(5:12)), sum)
+
+taro = left_join(dsNodes, leasesByID, by = "BASINID") %>%
+  left_join(inditch.mgd, by = "NodeID") %>%
+  filter(NodeID<45 | NodeID>54) %>%
+  group_by(Taro_ID)
+taro = taro[complete.cases(taro),]
+taro = taro %>% summarise_at(vars(c(5:12)), sum)
+
+wshed.hab.total = data.frame(AllSpHab.nat[ ,9],
+                             AllSpHab.sugar[ ,9],
+                             AllSpHab.IIFS[ ,9],
+                             AllSpHab.IIFSplus[ ,9],
+                             AllSpHab.mix[ ,9],
+                             AllSpHab.mix1[ ,9],
+                             AllSpHab.mix2[ ,9],
+                             AllSpHab.mix3[ ,9])
+wshed.hab.total$WatershedName = wshedNames$Wshed_Name
+wshed.hab.total$WshedID = wshedNames$WshedID
+
+colnames(wshed.hab.total)[1:8]<- c("natural", "sugar", "IIFS",
+                                   "IIFSplus", "mixed", "mixed1", "mixed2",
+                                   "mixed3")
+wshed.hab.total = wshed.hab.total[ ,c(10,9, 1:8)]
+
+basin.hab.total = data.frame(AllSpBasHab.nat[ ,10],
+                             AllSpBasHab.nat[ ,10],
+                             AllSpBasHab.sugar[ ,10],
+                             AllSpBasHab.IIFS[ ,10],
+                             AllSpBasHab.IIFSplus[ ,10],
+                             AllSpBasHab.mix[ ,10],
+                             AllSpBasHab.mix1[ ,10],
+                             AllSpBasHab.mix2[ ,10],
+                             AllSpBasHab.mix3[ ,10])
+colnames(basin.hab.total) = c("BasinID", "natural", "sugar", "IIFS",
+                              "IIFSplus", "mixed", "mixed1", "mixed2",
+                              "mixed3")
+
+totalOutput8 = list("WaterInDiversion" = summByDiversion,
+                   "WaterInWatersheds" = wshedsOutput,
+                   "WaterInBasins" = instreamOut,
+                   "WaterInNodes" = nodesOutput0,
+                   "WaterByLease" = leases,
+                   "WaterInTaro" = taro,
+
+                   "HabitatInWatersheds" = wshed.hab.total,
+                   "HabitatInBasins" = basin.hab.total,
+                   "InsectsHab" = insectsHabOutput,
+                   "BasinHabNatural" = AllSpBasHab.nat,
+                   "BasinHabSugar" = AllSpBasHab.sugar,
+                   "BasinHabIIFS" = AllSpBasHab.IIFS,
+                   "BasinHabIIFS+" = AllSpBasHab.IIFSplus,
+                   "BasinHabMix" = AllSpBasHab.mix,
+                   "BasinHabMix1" = AllSpBasHab.mix1,
+                   "BasinHabMix2" = AllSpBasHab.mix2,
+                   "BasinHabMix3" = AllSpBasHab.mix3)
+file = paste(outpath, "total_output8.2.3.xlsx", sep = "")
+Sys.setenv("R_ZIPCMD" = "C:/RBuildTools/3.4/bin/zip.exe")
+openxlsx::write.xlsx(totalOutput8, file = file)
+
+```
+
+
+

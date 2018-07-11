@@ -19,9 +19,15 @@ basin.fun = function(nodesInput, wshedInput, waterImpactedHab){
 
   poutput$E003 = wshedInput[3, c(13:20)]*nodesInput[228, (16)]*
     nodesInput[49, (16)]*
-    nodesInput[39, (16)]
+    nodesInput[39, (16)]*
+    nodesInput[312, 16]
 
   poutput$E004 = wshedInput[4, c(13:20)]*nodesInput[196, (16)]*
+    nodesInput[49, (16)]*
+    nodesInput[39, (16)]*
+    nodesInput[312, 16]
+
+  poutput$E500 = wshedInput[310, c(13:20)]*nodesInput[312, 16]*
     nodesInput[49, (16)]*
     nodesInput[39, (16)]
 
@@ -33,14 +39,18 @@ basin.fun = function(nodesInput, wshedInput, waterImpactedHab){
 
   wphabAll$a003 = poutput$E003[2:8]*allsp.hab(waterImpactedHab[3])
   wphabAB$a003 = poutput$E003[1]*ab.hab(waterImpactedHab[3])
+
   wphabAll$a004 = poutput$E004[2:8]*allsp.hab(waterImpactedHab[4])
   wphabAB$a004 = poutput$E004[1]*ab.hab(waterImpactedHab[4])
 
+  wphabAll$a500 = poutput$E500[2:8]*allsp.hab(waterIMpactedHab[312])
+  wphabAB$a500 = poutput$E500[1]*ab.hab(waterImpactedHab[312])
+
   WshedHabAllsp$w001 = wphabAll$a001 + wphabAll$a002 + wphabAll$a003 +
-    wphabAll$a004
+    wphabAll$a004 + wphabAll$a500
 
   WshedHabABsp$w001 = wphabAB$a001+ wphabAB$a002 + wphabAB$a003 +
-    wphabAB$a004
+    wphabAB$a004 + wphabAB$a500
   # --------------------Watershed 2 -------------------------------------------
   poutput$E005 = wshedInput[5, c(13:20)]*nodesInput[42, (16)]
 
@@ -81,8 +91,8 @@ basin.fun = function(nodesInput, wshedInput, waterImpactedHab){
   wphabAB$a010 = poutput$E010[1]*ab.hab(waterImpactedHab[10])
 
 
-  WshedHabAllsp$w002 = wphabAll$a005 + wphabAll$a006 + wphabAll$a007
-  + wphabAll$a008 + wphabAll$a009 + wphabAll$a010
+  WshedHabAllsp$w002 = wphabAll$a005 + wphabAll$a006 + wphabAll$a007 +
+    wphabAll$a008 + wphabAll$a009 + wphabAll$a010
 
   WshedHabABsp$w002 = wphabAB$a005+ wphabAB$a006 + wphabAB$a007 +
     wphabAB$a008 + wphabAB$a009 + wphabAB$a010
@@ -211,11 +221,11 @@ basin.fun = function(nodesInput, wshedInput, waterImpactedHab){
   wphabAB$a023= poutput$E023[1]*ab.hab(waterImpactedHab[23])
 
 
-  WshedHabAllsp$w006 = wphabAll$a019 + wphabAll$a020 + wphabAll$a021+
+  WshedHabAllsp$w006 = wphabAll$a019 + wphabAll$a020 + wphabAll$a021 +
     wphabAll$a022 + wphabAll$a023
 
-  WshedHabABsp$w006 = wphabAB$a019 + wphabAB$a020 + wphabAB$a021+
-    wphabAB$a022+ wphabAB$a023
+  WshedHabABsp$w006 = wphabAB$a019 + wphabAB$a020 + wphabAB$a021 +
+    wphabAB$a022 + wphabAB$a023
 
   # --------------------Watershed 7 -------------------------------------------
 
@@ -252,60 +262,86 @@ basin.fun = function(nodesInput, wshedInput, waterImpactedHab){
   wphabAB$a034= poutput$E034[1]*ab.hab(waterImpactedHab[34])
 
 
-  WshedHabAllsp$w007 = wphabAll$a029 + wphabAll$a030 + wphabAll$a031+
+  WshedHabAllsp$w007 = wphabAll$a029 + wphabAll$a030 + wphabAll$a031 +
     wphabAll$a032 + wphabAll$a033 + wphabAll$a034
 
-  WshedHabABsp$w007 = wphabAB$a029 + wphabAB$a030 + wphabAB$a031+
+  WshedHabABsp$w007 = wphabAB$a029 + wphabAB$a030 + wphabAB$a031 +
     wphabAB$a032+ wphabAB$a033 + wphabAB$a034
   # --------------------Watershed 8 -------------------------------------------
 
   poutput$E035 = wshedInput[35, c(13:20)]*nodesInput[37, (16)]
 
+  poutput$E501 = wshedInput[311, c(13:20)]*nodesInput[313, 16]*
+    nodesInput[37, 16]
+
   poutput$E036 = wshedInput[36, c(13:20)]*nodesInput[190, (16)]*
-    nodesInput[37, (16)]
+    nodesInput[37, (16)]*
+    nodesInput[313, 16]
 
   wphabAll$a035 = poutput$E035[2:8]*allsp.hab(waterImpactedHab[35])
   wphabAB$a035= poutput$E035[1]*ab.hab(waterImpactedHab[35])
+
+  wphabAll$a501 = poutput$E501[2:8]*allsp.hab(waterImpactedHab[313])
+  wphabAB$a501 = poutput$E501[1]*ab.hab(waterImpactedHab[313])
+
   wphabAll$a036 = poutput$E036[2:8]*allsp.hab(waterImpactedHab[36])
   wphabAB$a036= poutput$E036[1]*ab.hab(waterImpactedHab[36])
 
-  WshedHabAllsp$w008 = wphabAll$a035 + wphabAll$a036
+  WshedHabAllsp$w008 = wphabAll$a035 + wphabAll$a036 + wphabAll$a501
 
-  WshedHabABsp$w008 = wphabAB$a035 + wphabAB$a036
+  WshedHabABsp$w008 = wphabAB$a035 + wphabAB$a036 + wphabAB$a501
 
   # --------------------Watershed 9 -------------------------------------------
 
   poutput$E037 = wshedInput[37, c(13:20)]*nodesInput[36, (16)]
 
-  poutput$E038 = wshedInput[38, c(13:20)]*nodesInput[223, (16)]*nodesInput[36, (16)]
+  poutput$E502 = wshedInput[312, c(13:20)]*nodesInput[314, 16]*
+    nodesInput[36, 16]
+
+  poutput$E038 = wshedInput[38, c(13:20)]*
+    nodesInput[223, (16)]*
+    nodesinput[314, 16]*
+    nodesInput[36, (16)]
 
   wphabAll$a037 = poutput$E037[2:8]*allsp.hab(waterImpactedHab[37])
-  wphabAB$a037= poutput$E037[1]*ab.hab(waterImpactedHab[37])
+  wphabAB$a037 = poutput$E037[1]*ab.hab(waterImpactedHab[37])
+
+  wphabAll$a502 = poutput$E502[2:8]*allsp.hab(waterImpactedHab[314])
+  wphabAB$a502 = poutput$E502[1]*ab.hab(waterImpactedHab[314])
+
   wphabAll$a038 = poutput$E038[2:8]*allsp.hab(waterImpactedHab[38])
   wphabAB$a038= poutput$E038[1]*ab.hab(waterImpactedHab[38])
 
-  WshedHabAllsp$w009 = wphabAll$a037 + wphabAll$a038
+  WshedHabAllsp$w009 = wphabAll$a037 + wphabAll$a038 + wphabAll$a502
 
-  WshedHabABsp$w009 = wphabAB$a037 + wphabAB$a038
+  WshedHabABsp$w009 = wphabAB$a037 + wphabAB$a038 + wphabAB$a502
   # --------------------Watershed 10 -------------------------------------------
 
   poutput$E039 = wshedInput[39, c(13:20)]*nodesInput[35, (16)]
 
+  poutput$E503 = wshedInput[313, c(13:20)]*nodesInput[315, 16]*
+    nodesInput[35, 16]
+
   poutput$E040 = wshedInput[40, c(13:20)]*nodesInput[218, (16)]*
+    nodesinput[315, 16]*
     nodesInput[35, (16)]
 
   poutput$E041 = wshedInput[41, c(13:20)]*nodesInput[220, (16)]*
+    nodesinput[315, 16]*
     nodesInput[35, (16)]
 
   poutput$E042 = wshedInput[42, c(13:20)]*nodesInput[238, (16)]*
     nodesInput[217, (16)]*
+    nodesinput[315, 16]*
     nodesInput[35, (16)]
 
   poutput$E043 = wshedInput[43, c(13:20)]*
     nodesInput[227, (16)]*
+    nodesinput[315, 16]*
     nodesInput[35, (16)]
 
   poutput$E044 = wshedInput[44 ,c(13:20)]*nodesInput[217, (16)]*
+    nodesinput[315, 16]*
     nodesInput[35, (16)]
 
 
@@ -322,12 +358,14 @@ basin.fun = function(nodesInput, wshedInput, waterImpactedHab){
   wphabAll$a044 = poutput$E044[2:8]*allsp.hab(waterImpactedHab[44])
   wphabAB$a044= poutput$E044[1]*ab.hab(waterImpactedHab[44])
 
+  wphabAll$a503 = poutput$E503[2:8]*allsp.hab(waterIMpactedHab[315])
+  wphabAB$a503 = poutput$E503[1]*ab.hab(waterImpactedHab[315])
 
-  WshedHabAllsp$w010 = wphabAll$a039 + wphabAll$a040 + wphabAll$a041+
-    wphabAll$a042 + wphabAll$a043 + wphabAll$a044
+  WshedHabAllsp$w010 = wphabAll$a039 + wphabAll$a040 + wphabAll$a041 +
+    wphabAll$a042 + wphabAll$a043 + wphabAll$a044 + wphabAll$a503
 
-  WshedHabABsp$w010 = wphabAB$a039 + wphabAB$a040 + wphabAB$a041+
-    wphabAB$a042+ wphabAB$a043 + wphabAB$a044
+  WshedHabABsp$w010 = wphabAB$a039 + wphabAB$a040 + wphabAB$a041 +
+    wphabAB$a042+ wphabAB$a043 + wphabAB$a044 + wphabAB$a503
 
    # --------------------Watershed 11 -------------------------------------------
 
@@ -405,7 +443,11 @@ basin.fun = function(nodesInput, wshedInput, waterImpactedHab){
 
   poutput$E055 = wshedInput[55 ,c(13:20)]*nodesInput[32, (16)]
 
+  poutput$E504 = wshedInput[314, c(13:20)]*nodesInput[316, 16]*
+    nodesInput[32, 16]
+
   poutput$E056 = wshedInput[56 ,c(13:20)]*nodesInput[52, (16)]*
+    nodesInput[316, 16]*
     nodesInput[32, (16)]
 
   poutput$E057 = wshedInput[57 ,c(13:20)]*nodesInput[47, (16)]*
@@ -442,6 +484,7 @@ basin.fun = function(nodesInput, wshedInput, waterImpactedHab){
 
   poutput$E064 = wshedInput[64 ,c(13:20)]*nodesInput[226, (16)]*
     nodesInput[52, (16)]*
+    nodesInput[316, 16]*
     nodesInput[32, (16)]
 
   wphabAll$a055 = poutput$E055[2:8]*allsp.hab(waterImpactedHab[55])
@@ -465,31 +508,42 @@ basin.fun = function(nodesInput, wshedInput, waterImpactedHab){
   wphabAll$a064 = poutput$E064[2:8]*allsp.hab(waterImpactedHab[64])
   wphabAB$a064= poutput$E064[1]*ab.hab(waterImpactedHab[64])
 
+  wphabAll$a504 = poutput$E504[2:8]*allsp.hab(waterImpactedHab[316])
+  wphabAB$a504 = poutput$E504[1]*ab.hab(waterImpactedHab[316])
+
 
   WshedHabAllsp$w012 = wphabAll$a055 + wphabAll$a056 + wphabAll$a057 +
-    wphabAll$a058 + wphabAll$a059+ wphabAll$a060 + wphabAll$a051+
-    wphabAll$a062 + wphabAll$a063 + wphabAll$a064
+    wphabAll$a058 + wphabAll$a059 + wphabAll$a060 + wphabAll$a051 +
+    wphabAll$a062 + wphabAll$a063 + wphabAll$a064 + wphabAll$a504
 
   WshedHabABsp$w012 = wphabAB$a055 + wphabAB$a056 + wphabAB$a057+
-    wphabAB$a058 + wphabAB$a059 + wphabAB$a060 + wphabAB$a061+
-    wphabAB$a062+ wphabAB$a063 + wphabAB$a064
+    wphabAB$a058 + wphabAB$a059 + wphabAB$a060 + wphabAB$a061 +
+    wphabAB$a062 + wphabAB$a063 + wphabAB$a064 + wphabAB$a504
   # --------------------Watershed 13 -------------------------------------------
 
   poutput$E065 = wshedInput[65 ,c(13:20)]*nodesInput[31, (16)]
 
+  poutput$E505 = wshedInput[315, c(13:20)]*nodesInput[317, 16]*
+    nodesInput[31, 16]
+
   poutput$E066 = wshedInput[66 ,c(13:20)]*nodesInput[244, (16)]*
+    nodesInput[317, 16]*
     nodesInput[31, (16)]
 
   poutput$E067 = wshedInput[67 ,c(13:20)]*nodesInput[245, (16)]*
+    nodesInput[317, 16]*
     nodesInput[31, (16)]
 
   poutput$E068 = wshedInput[68 ,c(13:20)]*nodesInput[247, (16)]*
+    nodesInput[317, 16]*
     nodesInput[31, (16)]
 
   poutput$E069 = wshedInput[69 ,c(13:20)]*nodesInput[246, (16)]*
+    nodesInput[317, 16]*
     nodesInput[31, (16)]
 
   poutput$E070 = wshedInput[70 ,c(13:20)]*nodesInput[221, (16)]*
+    nodesInput[317, 16]*
     nodesInput[31, (16)]
 
   wphabAll$a065 = poutput$E065[2:8]*allsp.hab(waterImpactedHab[65])
@@ -505,17 +559,24 @@ basin.fun = function(nodesInput, wshedInput, waterImpactedHab){
   wphabAll$a070 = poutput$E070[2:8]*allsp.hab(waterImpactedHab[70])
   wphabAB$a070= poutput$E070[1]*ab.hab(waterImpactedHab[70])
 
-  WshedHabAllsp$w013 = wphabAll$a065 + wphabAll$a066 + wphabAll$a067 +
-    wphabAll$a068 + wphabAll$a069+ wphabAll$a070
+  wphabAll$a505 = poutput$E505[2:8]*allsp.hab(waterImpactedHab[317])
+  wphabAB$a505 = poutput$E505[1]*ab.hab(waterImpactedhab[317])
 
-  WshedHabABsp$w013 = wphabAB$a065 + wphabAB$a066 + wphabAB$a067+
-    wphabAB$a068 + wphabAB$a069 + wphabAB$a070
+  WshedHabAllsp$w013 = wphabAll$a065 + wphabAll$a066 + wphabAll$a067 +
+    wphabAll$a068 + wphabAll$a069 + wphabAll$a070 + wphabAll$a505
+
+  WshedHabABsp$w013 = wphabAB$a065 + wphabAB$a066 + wphabAB$a067 +
+    wphabAB$a068 + wphabAB$a069 + wphabAB$a070 + wphabAB$a505
 
   # --------------------Watershed 14 -------------------------------------------
 
   poutput$E071 = wshedInput[71 ,c(13:20)]*nodesInput[30, (16)]
 
+  poutput$E506 = wshedInput[316, c(13:20)]*nodesInput[318, 16]*
+    nodesInput[30, 16]
+
   poutput$E072 = wshedInput[72 ,c(13:20)]*nodesInput[281, (16)]*
+    nodesInput[318, 16]*
     nodesInput[30, (16)]
 
   poutput$E073 = wshedInput[73 ,c(13:20)]*nodesInput[249, (16)]*
@@ -525,15 +586,19 @@ basin.fun = function(nodesInput, wshedInput, waterImpactedHab){
     nodesInput[30, (16)]
 
   poutput$E075 = wshedInput[75 ,c(13:20)]*nodesInput[206, (16)]*
+    nodesInput[318, 16]*
     nodesInput[30, (16)]
 
   poutput$E076 = wshedInput[76 ,c(13:20)]*nodesInput[199, (16)]*
+    nodesInput[318, 16]*
     nodesInput[30, (16)]
 
   poutput$E077 = wshedInput[77 ,c(13:20)]*nodesInput[200, (16)]*
+    nodesInput[318, 16]*
     nodesInput[30, (16)]
 
   poutput$E078 = wshedInput[78 ,c(13:20)]*nodesInput[181, (16)]*
+    nodesInput[318, 16]*
     nodesInput[30, (16)]
 
 
@@ -554,53 +619,70 @@ basin.fun = function(nodesInput, wshedInput, waterImpactedHab){
   wphabAll$a078 = poutput$E078[2:8]*allsp.hab(waterImpactedHab[78])
   wphabAB$a078= poutput$E078[1]*ab.hab(waterImpactedHab[78])
 
-  WshedHabAllsp$w014 = wphabAll$a071 + wphabAll$a072 + wphabAll$a073 +
-    wphabAll$a074 + wphabAll$a075+ wphabAll$a076+ wphabAll$a077+ wphabAll$a078
+  wphabAll$a506 = poutput$E506[2:8]*allsp.hab(waterImpactedHab[318])
+  wphabAB$a506 = poutput$E506[1]*ab.hab(waterImpactedHab[318])
 
-  WshedHabABsp$w014 = wphabAB$a071 + wphabAB$a072 + wphabAB$a073+
-    wphabAB$a074 + wphabAB$a075 + wphabAB$a076+ wphabAB$a077+ wphabAB$a078
+  WshedHabAllsp$w014 = wphabAll$a071 + wphabAll$a072 + wphabAll$a073 +
+    wphabAll$a074 + wphabAll$a075+ wphabAll$a076 + wphabAll$a077 +
+    wphabAll$a078 + wphabAll$a506
+
+  WshedHabABsp$w014 = wphabAB$a071 + wphabAB$a072 + wphabAB$a073 +
+    wphabAB$a074 + wphabAB$a075 + wphabAB$a076+ wphabAB$a077 +
+    wphabAB$a078 + wphabAB$a506
   # --------------------Watershed 15 -------------------------------------------
 
   poutput$E079 = wshedInput[79 ,c(13:20)]*nodesInput[29, (16)]
 
+  poutput$E507 = wshedInput[317, c(13:20)]*nodesInput[319, 16]*
+    nodesInput[29, 16]
+
   poutput$E080 = wshedInput[80 ,c(13:20)]*nodesInput[284, (16)]*
+    nodesInput[319, 16]*
     nodesInput[29, (16)]
 
   poutput$E081 = wshedInput[81 ,c(13:20)]*nodesInput[285, (16)]*
+    nodesInput[319, 16]*
     nodesInput[29, (16)]
 
   poutput$E082 = wshedInput[82 ,c(13:20)]*nodesInput[113, (16)]*
+    nodesInput[319, 16]*
     nodesInput[285, (16)]*
     nodesInput[29, (16)]
 
   poutput$E083 = wshedInput[83 ,c(13:20)]*nodesInput[280, (16)]*
+    nodesInput[319, 16]*
     nodesInput[113, (16)]*
     nodesInput[285, (16)]*
     nodesInput[29, (16)]
 
   poutput$E084 = wshedInput[84 ,c(13:20)]*nodesInput[278, (16)]*
+    nodesInput[319, 16]*
     nodesInput[113, (16)]*
     nodesInput[285, (16)]*
     nodesInput[29, (16)]
 
   poutput$E085 = wshedInput[85 ,c(13:20)]*nodesInput[111, (16)]*
+    nodesInput[319, 16]*
     nodesInput[113, (16)]*
     nodesInput[285, (16)]*
     nodesInput[29, (16)]
 
   poutput$E086 = wshedInput[86 ,c(13:20)]*nodesInput[252, (16)]*
+    nodesInput[319, 16]*
     nodesInput[111, (16)]*
     nodesInput[113, (16)]*
     nodesInput[285, (16)]*
     nodesInput[29, (16)]
 
   poutput$E087 = wshedInput[87 ,c(13:20)]*nodesInput[250, (16)]*
+    nodesInput[319, 16]*
     nodesInput[111, (16)]*
     nodesInput[113, (16)]*
     nodesInput[285, (16)]*
     nodesInput[29, (16)]
 
   poutput$E088 = wshedInput[88 ,c(13:20)]*nodesInput[251, (16)]*
+    nodesInput[319, 16]*
     nodesInput[252, (16)]*
     nodesInput[111, (16)]*
     nodesInput[113, (16)]*
@@ -608,12 +690,11 @@ basin.fun = function(nodesInput, wshedInput, waterImpactedHab){
     nodesInput[29, (16)]
 
   poutput$E089 = wshedInput[89 ,c(13:20)]*nodesInput[197, (16)]*
+    nodesInput[319, 16]*
     nodesInput[111, (16)]*
     nodesInput[113, (16)]*
     nodesInput[285, (16)]*
     nodesInput[29, (16)]
-
-
 
   wphabAll$a079 = poutput$E079[2:8]*allsp.hab(waterImpactedHab[79])
   wphabAB$a079 = poutput$E079[1]*ab.hab(waterImpactedHab[79])
@@ -638,26 +719,37 @@ basin.fun = function(nodesInput, wshedInput, waterImpactedHab){
   wphabAll$a089 = poutput$E089[2:8]*allsp.hab(waterImpactedHab[89])
   wphabAB$a089 = poutput$E089[1]*ab.hab(waterImpactedHab[89])
 
+  wphabAll$a507 = poutput$E507[2:8]*allsp.hab(waterImpactedHab[319])
+  wphabAB$a507 = poutput$E507[1]*ab.hab(waterImpactedHab[319])
+
   WshedHabAllsp$w015 = wphabAll$a079 + wphabAll$a080 + wphabAll$a081 +
-    wphabAll$a082 + wphabAll$a083+ wphabAll$a084+ wphabAll$a085+
-    wphabAll$a086 + wphabAll$a087+ wphabAll$a088+ wphabAll$a089
+    wphabAll$a082 + wphabAll$a083+ wphabAll$a084+ wphabAll$a085 +
+    wphabAll$a086 + wphabAll$a087+ wphabAll$a088+ wphabAll$a089 +
+    wphabAll$a507
 
 
-  WshedHabABsp$w015 = wphabAB$a079 + wphabAB$a080 + wphabAB$a081+
-    wphabAB$a082+ wphabAB$a083 + wphabAB$a084+ wphabAB$a085+
-    wphabAB$a086 + wphabAB$a087 + wphabAB$a088+ wphabAB$a089
+  WshedHabABsp$w015 = wphabAB$a079 + wphabAB$a080 + wphabAB$a081 +
+    wphabAB$a082 + wphabAB$a083 + wphabAB$a084 + wphabAB$a085 +
+    wphabAB$a086 + wphabAB$a087 + wphabAB$a088 + wphabAB$a089 +
+    wphabAB$a507
   # --------------------Watershed 16 -------------------------------------------
 
   poutput$E090 = wshedInput[90 ,c(13:20)]*nodesInput[27, (16)]
 
+  poutput$E508 = wshedInput[318, c(13:20)]*nodesInput[320, 16]*
+    nodesInput[27, 16]
+
   poutput$E091 = wshedInput[91 ,c(13:20)]*nodesInput[119, (16)]*
+    nodesInput[320, 16]*
     nodesInput[27, (16)]
 
   poutput$E092 = wshedInput[92 ,c(13:20)]*nodesInput[279, (16)]*
+    nodesInput[320, 16]*
     nodesInput[119, (16)]*
     nodesInput[27, (16)]
 
   poutput$E093  = wshedInput[93 ,c(13:20)]*nodesInput[72, (16)]*
+    nodesInput[320, 16]*
     nodesInput[279, (16)]*
     nodesInput[119, (16)]*
     nodesInput[27, (16)]
@@ -671,43 +763,57 @@ basin.fun = function(nodesInput, wshedInput, waterImpactedHab){
   wphabAll$a093 = poutput$E093[2:8]*allsp.hab(waterImpactedHab[93])
   wphabAB$a093 = poutput$E093[1]*ab.hab(waterImpactedHab[93])
 
+  wphabAll$a508 = poutput$E508[2:8]*allsp.hab(waterImpactedHab[320])
+  wphabAB$a508 = poutput$E508[1]*ab.hab(waterImpactedHab[320])
+
   WshedHabAllsp$w016 = wphabAll$a090 + wphabAll$a091 + wphabAll$a092 +
-    wphabAll$a093
+    wphabAll$a093 + wphabAll$a508
 
   WshedHabABsp$w016 = wphabAB$a090 + wphabAB$a091 + wphabAB$a092+
-    wphabAB$a093
+    wphabAB$a093 + wphabAB$a508
 
   # --------------------Watershed 17 -------------------------------------------
 
   poutput$E094 = wshedInput[94 ,c(13:20)]*nodesInput[28, (16)]
 
+  poutput$E509 = wshedInput[319, c(13:20)]*nodesInput[321, 16]*
+    nodesInput[28, 16]
+
   poutput$E095 = wshedInput[95 ,c(13:20)]*nodesInput[109, (16)]*
+    nodesInput[321, 16]*
     nodesInput[28, (16)]
 
   poutput$E096 = wshedInput[96 ,c(13:20)]*nodesInput[256, (16)]*
+    nodesInput[321, 16]*
     nodesInput[109, (16)]*
     nodesInput[28, (16)]
 
   poutput$E097 = wshedInput[97 ,c(13:20)]*nodesInput[255, (16)]*
+    nodesInput[321, 16]*
     nodesInput[109, (16)]*
     nodesInput[28, (16)]
 
   poutput$E098 = wshedInput[98 ,c(13:20)]*nodesInput[254, (16)]*
+    nodesInput[321, 16]*
     nodesInput[109, (16)]*
     nodesInput[28, (16)]
 
   poutput$E099 = wshedInput[99 ,c(13:20)]*nodesInput[100, (16)]*
+    nodesInput[321, 16]*
     nodesInput[28, (16)]
 
   poutput$E100 = wshedInput[100,c(13:20)]*nodesInput[253, (16)]*
+    nodesInput[321, 16]*
     nodesInput[100, (16)]*
     nodesInput[28, (16)]
 
   poutput$E101 = wshedInput[101,c(13:20)]*nodesInput[201, (16)]*
+    nodesInput[321, 16]*
     nodesInput[100, (16)]*
     nodesInput[28, (16)]
 
   poutput$E102 = wshedInput[102,c(13:20)]*nodesInput[73, (16)]*
+    nodesInput[321, 16]*
     nodesInput[201, (16)]*
     nodesInput[100, (16)]*
     nodesInput[28, (16)]
@@ -732,31 +838,42 @@ basin.fun = function(nodesInput, wshedInput, waterImpactedHab){
   wphabAll$a102 = poutput$E102[2:8]*allsp.hab(waterImpactedHab[102])
   wphabAB$a102 = poutput$E102[1]*ab.hab(waterImpactedHab[102])
 
-  WshedHabAllsp$w017 = wphabAll$a094 + wphabAll$a095 + wphabAll$a096 +
-    wphabAll$a097 + wphabAll$a098+ wphabAll$a099+ wphabAll$a100+
-    wphabAll$a101 + wphabAll$a102
+  wphabAll$a509 = poutput$E509[2:8]*allsp.hab(waterImpactedHab[321])
+  wphabAB$a509 = poutput$E509[1]*ab.hab(waterImpactedhab[321])
 
-  WshedHabABsp$w017 = wphabAB$a094 + wphabAB$a095 + wphabAB$a096+
-    wphabAB$a097+ wphabAB$a098 + wphabAB$a099+ wphabAB$a100+
-    wphabAB$a101 + wphabAB$a102
+  WshedHabAllsp$w017 = wphabAll$a094 + wphabAll$a095 + wphabAll$a096 +
+    wphabAll$a097 + wphabAll$a098 + wphabAll$a099 + wphabAll$a100 +
+    wphabAll$a101 + wphabAll$a102 + wphabAll$a509
+
+  WshedHabABsp$w017 = wphabAB$a094 + wphabAB$a095 + wphabAB$a096 +
+    wphabAB$a097 + wphabAB$a098 + wphabAB$a099 + wphabAB$a100+
+    wphabAB$a101 + wphabAB$a102 + wphabAB$a509
 
   # --------------------Watershed 18 -------------------------------------------
 
   poutput$E103 = wshedInput[103,c(13:20)]*nodesInput[26, (16)]
 
+  poutput$E510 = wshedInput[320, c(13:20)]*nodesInput[322, 16]*
+    nodesInput[26, 16]
+
   poutput$E104 = wshedInput[104,c(13:20)]*nodesInput[289, (16)]*
+    nodesInput[322, 16]*
     nodesInput[26, (16)]
 
   poutput$E105 = wshedInput[105,c(13:20)]*nodesInput[286, (16)]*
+    nodesInput[322, 16]*
     nodesInput[26, (16)]
 
   poutput$E106 = wshedInput[106,c(13:20)]*nodesInput[288, (16)]*
+    nodesInput[322, 16]*
     nodesInput[26, (16)]
 
   poutput$E107 = wshedInput[107,c(13:20)]*nodesInput[112, (16)]*
+    nodesInput[322, 16]*
     nodesInput[26, (16)]
 
   poutput$E350 = wshedInput[309, c(13:20)]*nodesInput[287, (16)]*
+    nodesInput[322, 16]*
     nodesInput[26, (16)]
 
   wphabAll$a103 = poutput$E103[2:8]*allsp.hab(waterImpactedHab[103])
@@ -772,41 +889,54 @@ basin.fun = function(nodesInput, wshedInput, waterImpactedHab){
   wphabAll$a350= poutput$E350[2:8]*allsp.hab(waterImpactedHab[305])
   wphabAB$a350 = poutput$E350[1]*ab.hab(waterImpactedHab[305])
 
-  WshedHabAllsp$w018 = wphabAll$a103 + wphabAll$a104 + wphabAll$a105
-    wphabAll$a106+ wphabAll$a107+wphabAll$a350
+  wphabAll$a510 = poutput$E510[2:8]*allsp.hab(waterImpactedHab[322])
+  wphabAB$a510 = poutput$E510[1]*ab.hab(waterImpactedHab[322])
 
-  WshedHabABsp$w018 = wphabAB$a103 + wphabAB$a104 + wphabAB$a105+
-    wphabAB$a106+wphabAB$a107+ wphabAB$a350
+  WshedHabAllsp$w018 = wphabAll$a103 + wphabAll$a104 + wphabAll$a105 +
+    wphabAll$a106 + wphabAll$a107 + wphabAll$a350 + wphabAll$a510
+
+  WshedHabABsp$w018 = wphabAB$a103 + wphabAB$a104 + wphabAB$a105 +
+    wphabAB$a106 + wphabAB$a107 + wphabAB$a350 + wphabAB$a510
 
   # --------------------Watershed 19 -------------------------------------------
 
   poutput$E108 = wshedInput[108,c(13:20)]*nodesInput[25, (16)]
 
+  poutput$E511 = wshedInput[321, c(13:20)]*nodesInput[323, 16]*
+    nodesInput[25, 16]
+
   poutput$E109 = wshedInput[109,c(13:20)]*nodesInput[132, (16)]*
+    nodesInput[323, 16]*
     nodesInput[25, (16)]
 
   poutput$E110 = wshedInput[110,c(13:20)]*nodesInput[257, (16)]*
+    nodesInput[323, 16]*
     nodesInput[132, (16)]*
-   nodesInput[25, (16)]
+    nodesInput[25, (16)]
 
   poutput$E111 = wshedInput[111,c(13:20)]*nodesInput[258, (16)]*
+    nodesInput[323, 16]*
     nodesInput[132, (16)]*
     nodesInput[25, (16)]
 
   poutput$E112 = wshedInput[112,c(13:20)]*nodesInput[114, (16)]*
+    nodesInput[323, 16]*
     nodesInput[132, (16)]*
     nodesInput[25, (16)]
 
   poutput$E113 = wshedInput[113,c(13:20)]*nodesInput[74, (16)]*
+    nodesInput[323, 16]*
     nodesInput[132, (16)]*
     nodesInput[25, (16)]
 
   poutput$E114 = wshedInput[114,c(13:20)]*nodesInput[71, (16)]*
+    nodesInput[323, 16]*
     nodesInput[114, (16)]*
     nodesInput[132, (16)]*
     nodesInput[25, (16)]
 
   poutput$E115 = wshedInput[115,c(13:20)]*nodesInput[139, (16)]*
+    nodesInput[323, 16]*
     nodesInput[74, (16)]*
     nodesInput[132, (16)]*
     nodesInput[25, (16)]
@@ -828,12 +958,16 @@ basin.fun = function(nodesInput, wshedInput, waterImpactedHab){
   wphabAll$a115= poutput$E115[2:8]*allsp.hab(waterImpactedHab[115])
   wphabAB$a115 = poutput$E115[1]*ab.hab(waterImpactedHab[115])
 
-  WshedHabAllsp$w019 = wphabAll$a108 + wphabAll$a109 + wphabAll$a110
-  wphabAll$a111+ wphabAll$a112+wphabAll$a113+ wphabAll$a114+wphabAll$a115
+  wphabAll$a511 = poutput$E511[2:8]*allsp.hab(waterImpactedHab[323])
+  wphabAB$a511 = poutput$E511[1]*ab.hab(waterImpactedHab[323])
 
+  WshedHabAllsp$w019 = wphabAll$a108 + wphabAll$a109 + wphabAll$a110 +
+  wphabAll$a111 + wphabAll$a112 + wphabAll$a113 + wphabAll$a114 +
+    wphabAll$a115 + wphabAll$a511
 
-  WshedHabABsp$w019 = wphabAB$a108 + wphabAB$a109 + wphabAB$a110+
-    wphabAB$a111+wphabAB$a112+ wphabAB$a113+wphabAB$a114+ wphabAB$a115
+  WshedHabABsp$w019 = wphabAB$a108 + wphabAB$a109 + wphabAB$a110 +
+    wphabAB$a111 + wphabAB$a112 + wphabAB$a113 + wphabAB$a114 +
+    wphabAB$a115 + wphabAB$a511
 
   # --------------------Watershed 20 -------------------------------------------
 
@@ -911,12 +1045,12 @@ basin.fun = function(nodesInput, wshedInput, waterImpactedHab){
   wphabAB$a125 = poutput$E125[1]*ab.hab(waterImpactedHab[125])
 
   WshedHabAllsp$w020 = wphabAll$a116 + wphabAll$a117 + wphabAll$a118 +
-    wphabAll$a119+ wphabAll$a120+wphabAll$a121+ wphabAll$a122+wphabAll$a123+
-    wphabAll$a124+wphabAll$a125
+    wphabAll$a119 + wphabAll$a120 + wphabAll$a121 + wphabAll$a122 + wphabAll$a123 +
+    wphabAll$a124 + wphabAll$a125
 
-  WshedHabABsp$w020 = wphabAB$a116 + wphabAB$a117+ wphabAB$a118+
-    wphabAB$a119+wphabAB$a120+ wphabAB$a121+wphabAB$a122+ wphabAB$a123+
-    wphabAB$a124+ wphabAB$a125
+  WshedHabABsp$w020 = wphabAB$a116 + wphabAB$a117 + wphabAB$a118 +
+    wphabAB$a119 + wphabAB$a120 + wphabAB$a121 + wphabAB$a122 + wphabAB$a123 +
+    wphabAB$a124 + wphabAB$a125
 
   # --------------------Watershed 21 -------------------------------------------
 
@@ -966,10 +1100,10 @@ basin.fun = function(nodesInput, wshedInput, waterImpactedHab){
   wphabAB$a132= poutput$E132[1]*ab.hab(waterImpactedHab[132])
 
   WshedHabAllsp$w022 = wphabAll$a128 + wphabAll$a129 + wphabAll$a130 +
-    wphabAll$a131+ wphabAll$a132
+    wphabAll$a131 + wphabAll$a132
 
-  WshedHabABsp$w022 = wphabAB$a128 + wphabAB$a129+ wphabAB$a130+
-    wphabAB$a131+wphabAB$a132
+  WshedHabABsp$w022 = wphabAB$a128 + wphabAB$a129 + wphabAB$a130 +
+    wphabAB$a131 + wphabAB$a132
 
 
   # --------------------Watershed 23 -------------------------------------------
@@ -1088,14 +1222,14 @@ basin.fun = function(nodesInput, wshedInput, waterImpactedHab){
   wphabAB$a149 = poutput$E149[1]*ab.hab(waterImpactedHab[149])
 
   WshedHabAllsp$w023= wphabAll$a133 + wphabAll$a134 + wphabAll$a135 +
-    wphabAll$a136+ wphabAll$a137+wphabAll$a138+ wphabAll$a139+wphabAll$a140+
-    wphabAll$a141+wphabAll$a142+wphabAll$a143+ wphabAll$a144+wphabAll$a145+
-    wphabAll$a146+ wphabAll$a147+wphabAll$a148+wphabAll$a149
+    wphabAll$a136 + wphabAll$a137 + wphabAll$a138 + wphabAll$a139 + wphabAll$a140 +
+    wphabAll$a141 + wphabAll$a142 + wphabAll$a143 + wphabAll$a144 + wphabAll$a145 +
+    wphabAll$a146 + wphabAll$a147 + wphabAll$a148 + wphabAll$a149
 
-  WshedHabABsp$w023 = wphabAB$a133 + wphabAB$a134+ wphabAB$a135+
-    wphabAB$a136+wphabAB$a137+ wphabAB$a138+wphabAB$a139+ wphabAB$a140+
-    wphabAB$a141+ wphabAB$a142+ wphabAB$a143+wphabAB$a144+ wphabAB$a145+
-    wphabAB$a146+wphabAB$a147+ wphabAB$a148+wphabAB$a149
+  WshedHabABsp$w023 = wphabAB$a133 + wphabAB$a134 + wphabAB$a135 +
+    wphabAB$a136 + wphabAB$a137 + wphabAB$a138 + wphabAB$a139 + wphabAB$a140 +
+    wphabAB$a141 + wphabAB$a142 + wphabAB$a143 + wphabAB$a144 + wphabAB$a145 +
+    wphabAB$a146 + wphabAB$a147 + wphabAB$a148 + wphabAB$a149
   # --------------------Watershed 24 -------------------------------------------
 
   poutput$E150 = wshedInput[150, c(13:20)]*nodesInput[20, (16)]
@@ -1139,10 +1273,10 @@ basin.fun = function(nodesInput, wshedInput, waterImpactedHab){
   wphabAB$a156 = poutput$E156[1]*ab.hab(waterImpactedHab[156])
 
   WshedHabAllsp$w024 = wphabAll$a150 + wphabAll$a151 + wphabAll$a152 +
-    wphabAll$a153+ wphabAll$a154+wphabAll$a155+ wphabAll$a156
+    wphabAll$a153 + wphabAll$a154 + wphabAll$a155 + wphabAll$a156
 
-  WshedHabABsp$w024 = wphabAB$a150 + wphabAB$a151+ wphabAB$a152+
-    wphabAB$a153+wphabAB$a154+ wphabAB$a155+wphabAB$a156
+  WshedHabABsp$w024 = wphabAB$a150 + wphabAB$a151+ wphabAB$a152 +
+    wphabAB$a153 + wphabAB$a154 + wphabAB$a155 + wphabAB$a156
 
 
   # --------------------Watershed 25 -------------------------------------------
@@ -1230,13 +1364,13 @@ basin.fun = function(nodesInput, wshedInput, waterImpactedHab){
   wphabAB$a167= poutput$E167[1]*ab.hab(waterImpactedHab[167])
 
 
-  WshedHabAllsp$w025 =  wphabAll$a157+wphabAll$a158+ wphabAll$a159+wphabAll$a160+
-    wphabAll$a161+wphabAll$a162+wphabAll$a163+ wphabAll$a164+wphabAll$a165+
-    wphabAll$a166+ wphabAll$a167
+  WshedHabAllsp$w025 = wphabAll$a157 + wphabAll$a158 + wphabAll$a159 + wphabAll$a160 +
+    wphabAll$a161 + wphabAll$a162 + wphabAll$a163 + wphabAll$a164 + wphabAll$a165 +
+    wphabAll$a166 + wphabAll$a167
 
-  WshedHabABsp$w025 =wphabAB$a157+ wphabAB$a158+wphabAB$a159+ wphabAB$a160+
-    wphabAB$a161+ wphabAB$a162+ wphabAB$a143+wphabAB$a164+ wphabAB$a165+
-    wphabAB$a166+wphabAB$a167
+  WshedHabABsp$w025 =wphabAB$a157 + wphabAB$a158 + wphabAB$a159 + wphabAB$a160 +
+    wphabAB$a161 + wphabAB$a162 + wphabAB$a143 + wphabAB$a164 + wphabAB$a165 +
+    wphabAB$a166 + wphabAB$a167
 
   # --------------------Watershed 26 -------------------------------------------
 
@@ -1298,11 +1432,11 @@ basin.fun = function(nodesInput, wshedInput, waterImpactedHab){
   wphabAll$a175 = poutput$E175[2:8]*allsp.hab(waterImpactedHab[175])
   wphabAB$a175= poutput$E175[1]*ab.hab(waterImpactedHab[175])
 
-  WshedHabAllsp$w026 =  wphabAll$a168+ wphabAll$a169+wphabAll$a170+
-    wphabAll$a171+wphabAll$a172+wphabAll$a173+ wphabAll$a174+wphabAll$a175
+  WshedHabAllsp$w026 =  wphabAll$a168 + wphabAll$a169 + wphabAll$a170 +
+    wphabAll$a171 + wphabAll$a172 + wphabAll$a173 + wphabAll$a174 + wphabAll$a175
 
-  WshedHabABsp$w026 = wphabAB$a168+wphabAB$a169+ wphabAB$a170+
-    wphabAB$a171+ wphabAB$a172+ wphabAB$a173+wphabAB$a174+ wphabAB$a175
+  WshedHabABsp$w026 = wphabAB$a168 + wphabAB$a169 + wphabAB$a170 +
+    wphabAB$a171 + wphabAB$a172 + wphabAB$a173 + wphabAB$a174 + wphabAB$a175
 
   # --------------------Watershed 27 -------------------------------------------
 
@@ -1322,8 +1456,8 @@ basin.fun = function(nodesInput, wshedInput, waterImpactedHab){
   wphabAll$a178 = poutput$E178[2:8]*allsp.hab(waterImpactedHab[178])
   wphabAB$a178= poutput$E178[1]*ab.hab(waterImpactedHab[178])
 
-  WshedHabAllsp$w027 =  wphabAll$a176+ wphabAll$a177+wphabAll$a178
-  WshedHabABsp$w027 = wphabAB$a176+wphabAB$a177+ wphabAB$a178
+  WshedHabAllsp$w027 =  wphabAll$a176 + wphabAll$a177 + wphabAll$a178
+  WshedHabABsp$w027 = wphabAB$a176 + wphabAB$a177 + wphabAB$a178
 
   # --------------------Watershed 28 -------------------------------------------
 
@@ -1396,12 +1530,12 @@ basin.fun = function(nodesInput, wshedInput, waterImpactedHab){
   wphabAB$a188= poutput$E188[1]*ab.hab(waterImpactedHab[188])
 
   WshedHabAllsp$w028 =  wphabAll$a179+wphabAll$a180+
-    wphabAll$a181+wphabAll$a182+wphabAll$a183+ wphabAll$a184+wphabAll$a185+
-    wphabAll$a186+ wphabAll$a187+ wphabAll$a188
+    wphabAll$a181 + wphabAll$a182 + wphabAll$a183 + wphabAll$a184 + wphabAll$a185+
+    wphabAll$a186 + wphabAll$a187 + wphabAll$a188
 
-  WshedHabABsp$w028 =wphabAB$a179+ wphabAB$a180+wphabAB$a181+
-    wphabAB$a182+ wphabAB$a183+wphabAB$a184+ wphabAB$a185+
-    wphabAB$a186+wphabAB$a187+wphabAB$a188
+  WshedHabABsp$w028 = wphabAB$a179 + wphabAB$a180 + wphabAB$a181 +
+    wphabAB$a182 + wphabAB$a183 + wphabAB$a184 + wphabAB$a185 +
+    wphabAB$a186 + wphabAB$a187 + wphabAB$a188
 
   # --------------------Watershed 29 -------------------------------------------
 
@@ -1491,15 +1625,15 @@ basin.fun = function(nodesInput, wshedInput, waterImpactedHab){
   wphabAll$a202= poutput$E202[2:8]*allsp.hab(waterImpactedHab[202])
   wphabAB$a202= poutput$E202[1]*ab.hab(waterImpactedHab[202])
 
-  WshedHabAllsp$w029 =  wphabAll$a189+wphabAll$a190+
-    wphabAll$a191+wphabAll$a192+wphabAll$a193+ wphabAll$a194+wphabAll$a195+
-    wphabAll$a196+ wphabAll$a197+ wphabAll$a198+ wphabAll$a199+wphabAll$a200+
-    wphabAll$a201+ wphabAll$a202
+  WshedHabAllsp$w029 = wphabAll$a189 + wphabAll$a190 +
+    wphabAll$a191 + wphabAll$a192 + wphabAll$a193 + wphabAll$a194 + wphabAll$a195 +
+    wphabAll$a196 + wphabAll$a197 + wphabAll$a198 + wphabAll$a199 + wphabAll$a200 +
+    wphabAll$a201 + wphabAll$a202
 
-  WshedHabABsp$w029 =wphabAB$a189+ wphabAB$a190+wphabAB$a191+
-    wphabAB$a192+ wphabAB$a193+wphabAB$a194+ wphabAB$a195+
-    wphabAB$a196+wphabAB$a197+wphabAB$a198+wphabAB$a199+ wphabAB$a200+
-    wphabAB$a201+wphabAB$a202
+  WshedHabABsp$w029 = wphabAB$a189 + wphabAB$a190+wphabAB$a191 +
+    wphabAB$a192 + wphabAB$a193 + wphabAB$a194 + wphabAB$a195 +
+    wphabAB$a196 + wphabAB$a197 + wphabAB$a198 + wphabAB$a199 + wphabAB$a200 +
+    wphabAB$a201 + wphabAB$a202
 
 
   # --------------------Watershed 30 -------------------------------------------
@@ -1554,11 +1688,11 @@ basin.fun = function(nodesInput, wshedInput, waterImpactedHab){
   wphabAll$a210 = poutput$E210[2:8]*allsp.hab(waterImpactedHab[210])
   wphabAB$a210=poutput$E210[1]*ab.hab(waterImpactedHab[210])
 
-  WshedHabAllsp$w031 =  wphabAll$a204 + wphabAll$a205+
-    wphabAll$a207+ wphabAll$a208+ wphabAll$a209+ wphabAll$a210
+  WshedHabAllsp$w031 =  wphabAll$a204 + wphabAll$a205 +
+    wphabAll$a207 + wphabAll$a208 + wphabAll$a209 + wphabAll$a210
 
-  WshedHabABsp$w031 = wphabAB$a204 + wphabAB$a205+
-    wphabAB$a207+ wphabAB$a208+ wphabAB$a209+ wphabAB$a210
+  WshedHabABsp$w031 = wphabAB$a204 + wphabAB$a205 +
+    wphabAB$a207 + wphabAB$a208 + wphabAB$a209 + wphabAB$a210
 
 
   # --------------------Watershed 32 -------------------------------------------
@@ -1585,11 +1719,11 @@ basin.fun = function(nodesInput, wshedInput, waterImpactedHab){
   wphabAll$a214 = poutput$E214[2:8]*allsp.hab(waterImpactedHab[214])
   wphabAB$a214=poutput$E214[1]*ab.hab(waterImpactedHab[214])
 
-  WshedHabAllsp$w032 =  wphabAll$a211 + wphabAll$a212+
-    wphabAll$a213+ wphabAll$a214
+  WshedHabAllsp$w032 = wphabAll$a211 + wphabAll$a212+
+    wphabAll$a213 + wphabAll$a214
 
-  WshedHabABsp$w032 = wphabAB$a211 + wphabAB$a212+
-    wphabAB$a213+ wphabAB$a214
+  WshedHabABsp$w032 = wphabAB$a211 + wphabAB$a212 +
+    wphabAB$a213 + wphabAB$a214
   # --------------------Watershed 33 -------------------------------------------
 
   poutput$E215 = wshedInput[215, c(13:20)]*nodesInput[12, (16)]
@@ -1706,14 +1840,14 @@ basin.fun = function(nodesInput, wshedInput, waterImpactedHab){
   wphabAll$a229= poutput$E229[2:8]*allsp.hab(waterImpactedHab[229])
   wphabAB$a229= poutput$E229[1]*ab.hab(waterImpactedHab[229])
 
-  WshedHabAllsp$w034 =  wphabAll$a216+wphabAll$a217+
-    wphabAll$a218+wphabAll$a219+wphabAll$a220+ wphabAll$a221+wphabAll$a222+
-    wphabAll$a223+ wphabAll$a224+ wphabAll$a225+wphabAll$a226+
-    wphabAll$a227+ wphabAll$a228+ wphabAll$a229
+  WshedHabAllsp$w034 = wphabAll$a216 + wphabAll$a217 +
+    wphabAll$a218 + wphabAll$a219 + wphabAll$a220 + wphabAll$a221 + wphabAll$a222 +
+    wphabAll$a223 + wphabAll$a224 + wphabAll$a225 + wphabAll$a226 +
+    wphabAll$a227 + wphabAll$a228 + wphabAll$a229
 
-  WshedHabABsp$w034 =wphabAB$a216+ wphabAB$a217+wphabAB$a218+
-    wphabAB$a219+ wphabAB$a220+wphabAB$a221+ wphabAB$a222+
-    wphabAB$a223 + wphabAB$a224+wphabAB$a225 + wphabAB$a226+
+  WshedHabABsp$w034 = wphabAB$a216 + wphabAB$a217 + wphabAB$a218 +
+    wphabAB$a219 + wphabAB$a220+wphabAB$a221 + wphabAB$a222 +
+    wphabAB$a223 + wphabAB$a224+wphabAB$a225 + wphabAB$a226 +
     wphabAB$a227 + wphabAB$a228+wphabAB$a229
 
   # --------------------Watershed 35 -------------------------------------------
@@ -1775,12 +1909,12 @@ basin.fun = function(nodesInput, wshedInput, waterImpactedHab){
   wphabAll$a238= poutput$E238[2:8]*allsp.hab(waterImpactedHab[238])
   wphabAB$a238= poutput$E238[1]*ab.hab(waterImpactedHab[238])
 
-  WshedHabAllsp$w035 =  wphabAll$a230+ wphabAll$a231+wphabAll$a232+
-    wphabAll$a233+ wphabAll$a234+ wphabAll$a235+wphabAll$a236+
-    wphabAll$a237+ wphabAll$a238
+  WshedHabAllsp$w035 =  wphabAll$a230 + wphabAll$a231 + wphabAll$a232 +
+    wphabAll$a233 + wphabAll$a234 + wphabAll$a235 + wphabAll$a236 +
+    wphabAll$a237 + wphabAll$a238
 
-  WshedHabABsp$w035 = wphabAB$a230+wphabAB$a231+ wphabAB$a232+
-    wphabAB$a233 + wphabAB$a234+wphabAB$a235 + wphabAB$a236+
+  WshedHabABsp$w035 = wphabAB$a230 + wphabAB$a231 + wphabAB$a232 +
+    wphabAB$a233 + wphabAB$a234 + wphabAB$a235 + wphabAB$a236 +
     wphabAB$a237 + wphabAB$a238
 
 
@@ -2027,24 +2161,24 @@ basin.fun = function(nodesInput, wshedInput, waterImpactedHab){
   wphabAll$a270= poutput$E270[2:8]*allsp.hab(waterImpactedHab[270])
   wphabAB$a270= poutput$E270[1]*ab.hab(waterImpactedHab[270])
 
-  WshedHabAllsp$w036 = wphabAll$a239+wphabAll$a240+ wphabAll$a241+
-    wphabAll$a242+ wphabAll$a243+ wphabAll$a244+ wphabAll$a245+
-    wphabAll$a246+ wphabAll$a247+ wphabAll$a248+ wphabAll$a249 +
-    wphabAll$a250+ wphabAll$a251+ wphabAll$a252+ wphabAll$a253+
-    wphabAll$a254+ wphabAll$a255+  wphabAll$a256+ wphabAll$a247+
-    wphabAll$a258+ wphabAll$a259 + wphabAll$a260+ wphabAll$a261+
-    wphabAll$a262+ wphabAll$a263+ wphabAll$a264+ wphabAll$a265+
-    wphabAll$a266+ wphabAll$a267+ wphabAll$a268+ wphabAll$a269 +
+  WshedHabAllsp$w036 = wphabAll$a239 + wphabAll$a240 + wphabAll$a241 +
+    wphabAll$a242 + wphabAll$a243 + wphabAll$a244 + wphabAll$a245 +
+    wphabAll$a246 + wphabAll$a247 + wphabAll$a248 + wphabAll$a249 +
+    wphabAll$a250 + wphabAll$a251 + wphabAll$a252 + wphabAll$a253 +
+    wphabAll$a254 + wphabAll$a255 + wphabAll$a256 + wphabAll$a247 +
+    wphabAll$a258 + wphabAll$a259 + wphabAll$a260 + wphabAll$a261 +
+    wphabAll$a262 + wphabAll$a263 + wphabAll$a264 + wphabAll$a265 +
+    wphabAll$a266 + wphabAll$a267 + wphabAll$a268 + wphabAll$a269 +
     wphabAll$a270
 
-  WshedHabABsp$w036 = wphabAB$a239+wphabAB$a240+ wphabAB$a241+
-    wphabAB$a242+ wphabAB$a243+ wphabAB$a244+ wphabAB$a245+
-    wphabAB$a246+ wphabAB$a247+ wphabAB$a248+ wphabAB$a249 +
-    wphabAB$a250+ wphabAB$a251+ wphabAB$a252+ wphabAB$a253+
-    wphabAB$a254+ wphabAB$a255+ wphabAB$a256+ wphabAB$a247+
-    wphabAB$a258+ wphabAB$a259+ wphabAB$a260+ wphabAB$a261+
-    wphabAB$a262+ wphabAB$a263+ wphabAB$a264+ wphabAB$a265+
-    wphabAB$a266+ wphabAB$a267+ wphabAB$a268+ wphabAB$a269 +
+  WshedHabABsp$w036 = wphabAB$a239 + wphabAB$a240 + wphabAB$a241 +
+    wphabAB$a242 + wphabAB$a243 + wphabAB$a244 + wphabAB$a245 +
+    wphabAB$a246 + wphabAB$a247 + wphabAB$a248 + wphabAB$a249 +
+    wphabAB$a250 + wphabAB$a251 + wphabAB$a252 + wphabAB$a253 +
+    wphabAB$a254 + wphabAB$a255 + wphabAB$a256 + wphabAB$a247 +
+    wphabAB$a258 + wphabAB$a259 + wphabAB$a260 + wphabAB$a261 +
+    wphabAB$a262 + wphabAB$a263 + wphabAB$a264 + wphabAB$a265 +
+    wphabAB$a266 + wphabAB$a267 + wphabAB$a268 + wphabAB$a269 +
     wphabAB$a270
 
 
@@ -2097,9 +2231,9 @@ basin.fun = function(nodesInput, wshedInput, waterImpactedHab){
   wphabAll$a277= poutput$E277[2:8]*allsp.hab(waterImpactedHab[277])
   wphabAB$a277= poutput$E277[1]*ab.hab(waterImpactedHab[277])
 
-  WshedHabAllsp$w039 = wphabAll$a274 + wphabAll$a275+ wphabAll$a276 +
+  WshedHabAllsp$w039 = wphabAll$a274 + wphabAll$a275 + wphabAll$a276 +
     wphabAll$a277
-  WshedHabABsp$w039 = wphabAB$a274 + wphabAB$a275 +wphabAB$a276 +
+  WshedHabABsp$w039 = wphabAB$a274 + wphabAB$a275 + wphabAB$a276 +
     wphabAB$a277
   # --------------------Watershed 40 -------------------------------------------
 
@@ -2118,9 +2252,9 @@ basin.fun = function(nodesInput, wshedInput, waterImpactedHab){
   wphabAll$a280= poutput$E280[2:8]*allsp.hab(waterImpactedHab[280])
   wphabAB$a280= poutput$E280[1]*ab.hab(waterImpactedHab[280])
 
-  WshedHabAllsp$w040 = wphabAll$a278 + wphabAll$a279+ wphabAll$a280
+  WshedHabAllsp$w040 = wphabAll$a278 + wphabAll$a279 + wphabAll$a280
 
-  WshedHabABsp$w040 = wphabAB$a278 + wphabAB$a279 +wphabAB$a280
+  WshedHabABsp$w040 = wphabAB$a278 + wphabAB$a279 + wphabAB$a280
 
   # --------------------Watershed 41 -------------------------------------------
 
@@ -2159,10 +2293,10 @@ basin.fun = function(nodesInput, wshedInput, waterImpactedHab){
   wphabAll$a286= poutput$E286[2:8]*allsp.hab(waterImpactedHab[286])
   wphabAB$a286= poutput$E286[1]*ab.hab(waterImpactedHab[286])
 
-  WshedHabAllsp$w042 = wphabAll$a282 + wphabAll$a283+ wphabAll$a284 +
-    wphabAll$a285+ wphabAll$a286
+  WshedHabAllsp$w042 = wphabAll$a282 + wphabAll$a283 + wphabAll$a284 +
+    wphabAll$a285 + wphabAll$a286
 
-  WshedHabABsp$w042 = wphabAB$a282 + wphabAB$a283 +wphabAB$a284 +
+  WshedHabABsp$w042 = wphabAB$a282 + wphabAB$a283 + wphabAB$a284 +
     wphabAB$a285 + wphabAB$a286
 
   # --------------------Watershed 43 -------------------------------------------
@@ -2213,8 +2347,8 @@ basin.fun = function(nodesInput, wshedInput, waterImpactedHab){
   wphabAll$a293= poutput$E293[2:8]*allsp.hab(waterImpactedHab[293])
   wphabAB$a293= poutput$E293[1]*ab.hab(waterImpactedHab[293])
 
-  WshedHabAllsp$w043 = wphabAll$a287+ wphabAll$a288 + wphabAll$a289+
-    wphabAll$a290 + wphabAll$a291+ wphabAll$a292+ wphabAll$a293
+  WshedHabAllsp$w043 = wphabAll$a287 + wphabAll$a288 + wphabAll$a289 +
+    wphabAll$a290 + wphabAll$a291 + wphabAll$a292 + wphabAll$a293
 
   WshedHabABsp$w043 = wphabAB$a287 + wphabAB$a288 + wphabAB$a289 +
     wphabAB$a290 + wphabAB$a291 + wphabAB$a292 + wphabAB$a293
@@ -2233,7 +2367,7 @@ basin.fun = function(nodesInput, wshedInput, waterImpactedHab){
   wphabAll$a295= poutput$E295[2:8]*allsp.hab(waterImpactedHab[295])
   wphabAB$a295= poutput$E295[1]*ab.hab(waterImpactedHab[295])
 
-  WshedHabAllsp$w044 = wphabAll$a294+ wphabAll$a295
+  WshedHabAllsp$w044 = wphabAll$a294 + wphabAll$a295
 
   WshedHabABsp$w044 = wphabAB$a294 + wphabAB$a295
 
@@ -2255,9 +2389,9 @@ basin.fun = function(nodesInput, wshedInput, waterImpactedHab){
   wphabAll$a298= poutput$E298[2:8]*allsp.hab(waterImpactedHab[298])
   wphabAB$a298= poutput$E298[1]*ab.hab(waterImpactedHab[298])
 
-  WshedHabAllsp$w045 = wphabAll$a296+ wphabAll$a297+ wphabAll$a298
+  WshedHabAllsp$w045 = wphabAll$a296 + wphabAll$a297 + wphabAll$a298
 
-  WshedHabABsp$w045 = wphabAB$a296 + wphabAB$a297+ wphabAB$a298
+  WshedHabABsp$w045 = wphabAB$a296 + wphabAB$a297 + wphabAB$a298
 
   # --------------------Watershed 46 -------------------------------------------
 
@@ -2320,13 +2454,23 @@ basin.fun = function(nodesInput, wshedInput, waterImpactedHab){
   wphabAB$a308= poutput$E308[1]*ab.hab(waterImpactedHab[308])
 
 
-  WshedHabAllsp$w046 = wphabAll$a299+wphabAll$a300+ wphabAll$a301+
-    wphabAll$a302+ wphabAll$a303+ wphabAll$a304+ wphabAll$a305+
-    wphabAll$a306+ wphabAll$a307+ wphabAll$a308
+  WshedHabAllsp$w046 = wphabAll$a299 + wphabAll$a300 + wphabAll$a301 +
+    wphabAll$a302 + wphabAll$a303 + wphabAll$a304 + wphabAll$a305 +
+    wphabAll$a306 + wphabAll$a307 + wphabAll$a308
 
-  WshedHabABsp$w046 = wphabAB$a299+wphabAB$a300+ wphabAB$a301+
-    wphabAB$a302+ wphabAB$a303+ wphabAB$a304+ wphabAB$a305+
-    wphabAB$a306+ wphabAB$a307+ wphabAB$a308
+  WshedHabABsp$w046 = wphabAB$a299 + wphabAB$a300 + wphabAB$a301 +
+    wphabAB$a302 + wphabAB$a303 + wphabAB$a304 + wphabAB$a305 +
+    wphabAB$a306 + wphabAB$a307 + wphabAB$a308
+
+  # --------------------Watershed 47 -------------------------------------------
+
+  poutput$E600 = wshedInput[322, c(13:20)]*nodesInput[33, 15]
+
+  wphabAll$a600 = poutput$E600[2:8]*allsp.hab(waterImpactedHab[33])
+  wphabAb$a600 = poutput$E600[1]*ab.hab(waterImpactedHab[33])
+
+  WshedHabAllsp$w047 = wphabAll$a600
+  WshedhabABsp$w047 = wphabAB$a600
 
   # -------------------------------------------------------------------
   # Save output in dataframe
