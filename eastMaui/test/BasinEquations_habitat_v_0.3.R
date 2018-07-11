@@ -43,7 +43,7 @@ basin.fun = function(nodesInput, wshedInput, waterImpactedHab){
   wphabAll$a004 = poutput$E004[2:8]*allsp.hab(waterImpactedHab[4])
   wphabAB$a004 = poutput$E004[1]*ab.hab(waterImpactedHab[4])
 
-  wphabAll$a500 = poutput$E500[2:8]*allsp.hab(waterIMpactedHab[312])
+  wphabAll$a500 = poutput$E500[2:8]*allsp.hab(waterImpactedHab[312])
   wphabAB$a500 = poutput$E500[1]*ab.hab(waterImpactedHab[312])
 
   WshedHabAllsp$w001 = wphabAll$a001 + wphabAll$a002 + wphabAll$a003 +
@@ -300,7 +300,7 @@ basin.fun = function(nodesInput, wshedInput, waterImpactedHab){
 
   poutput$E038 = wshedInput[38, c(13:20)]*
     nodesInput[223, (16)]*
-    nodesinput[314, 16]*
+    nodesInput[314, 16]*
     nodesInput[36, (16)]
 
   wphabAll$a037 = poutput$E037[2:8]*allsp.hab(waterImpactedHab[37])
@@ -323,25 +323,25 @@ basin.fun = function(nodesInput, wshedInput, waterImpactedHab){
     nodesInput[35, 16]
 
   poutput$E040 = wshedInput[40, c(13:20)]*nodesInput[218, (16)]*
-    nodesinput[315, 16]*
+    nodesInput[315, 16]*
     nodesInput[35, (16)]
 
   poutput$E041 = wshedInput[41, c(13:20)]*nodesInput[220, (16)]*
-    nodesinput[315, 16]*
+    nodesInput[315, 16]*
     nodesInput[35, (16)]
 
   poutput$E042 = wshedInput[42, c(13:20)]*nodesInput[238, (16)]*
     nodesInput[217, (16)]*
-    nodesinput[315, 16]*
+    nodesInput[315, 16]*
     nodesInput[35, (16)]
 
   poutput$E043 = wshedInput[43, c(13:20)]*
     nodesInput[227, (16)]*
-    nodesinput[315, 16]*
+    nodesInput[315, 16]*
     nodesInput[35, (16)]
 
   poutput$E044 = wshedInput[44 ,c(13:20)]*nodesInput[217, (16)]*
-    nodesinput[315, 16]*
+    nodesInput[315, 16]*
     nodesInput[35, (16)]
 
 
@@ -358,7 +358,7 @@ basin.fun = function(nodesInput, wshedInput, waterImpactedHab){
   wphabAll$a044 = poutput$E044[2:8]*allsp.hab(waterImpactedHab[44])
   wphabAB$a044= poutput$E044[1]*ab.hab(waterImpactedHab[44])
 
-  wphabAll$a503 = poutput$E503[2:8]*allsp.hab(waterIMpactedHab[315])
+  wphabAll$a503 = poutput$E503[2:8]*allsp.hab(waterImpactedHab[315])
   wphabAB$a503 = poutput$E503[1]*ab.hab(waterImpactedHab[315])
 
   WshedHabAllsp$w010 = wphabAll$a039 + wphabAll$a040 + wphabAll$a041 +
@@ -560,7 +560,7 @@ basin.fun = function(nodesInput, wshedInput, waterImpactedHab){
   wphabAB$a070= poutput$E070[1]*ab.hab(waterImpactedHab[70])
 
   wphabAll$a505 = poutput$E505[2:8]*allsp.hab(waterImpactedHab[317])
-  wphabAB$a505 = poutput$E505[1]*ab.hab(waterImpactedhab[317])
+  wphabAB$a505 = poutput$E505[1]*ab.hab(waterImpactedHab[317])
 
   WshedHabAllsp$w013 = wphabAll$a065 + wphabAll$a066 + wphabAll$a067 +
     wphabAll$a068 + wphabAll$a069 + wphabAll$a070 + wphabAll$a505
@@ -839,7 +839,7 @@ basin.fun = function(nodesInput, wshedInput, waterImpactedHab){
   wphabAB$a102 = poutput$E102[1]*ab.hab(waterImpactedHab[102])
 
   wphabAll$a509 = poutput$E509[2:8]*allsp.hab(waterImpactedHab[321])
-  wphabAB$a509 = poutput$E509[1]*ab.hab(waterImpactedhab[321])
+  wphabAB$a509 = poutput$E509[1]*ab.hab(waterImpactedHab[321])
 
   WshedHabAllsp$w017 = wphabAll$a094 + wphabAll$a095 + wphabAll$a096 +
     wphabAll$a097 + wphabAll$a098 + wphabAll$a099 + wphabAll$a100 +
@@ -2467,10 +2467,10 @@ basin.fun = function(nodesInput, wshedInput, waterImpactedHab){
   poutput$E600 = wshedInput[322, c(13:20)]*nodesInput[33, 15]
 
   wphabAll$a600 = poutput$E600[2:8]*allsp.hab(waterImpactedHab[33])
-  wphabAb$a600 = poutput$E600[1]*ab.hab(waterImpactedHab[33])
+  wphabAB$a600 = poutput$E600[1]*ab.hab(waterImpactedHab[33])
 
   WshedHabAllsp$w047 = wphabAll$a600
-  WshedhabABsp$w047 = wphabAB$a600
+  WshedHabABsp$w047 = wphabAB$a600
 
   # -------------------------------------------------------------------
   # Save output in dataframe
