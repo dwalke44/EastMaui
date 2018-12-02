@@ -15,9 +15,17 @@ library(readxl)
 
 
 path = "~/Programming/Trutta/HSHEP/EMaui/EMpackage/eastMaui/rawData"
-
+# required functions
 percent <- function(x, digits = 2, format = "f", ...) {
   paste0(formatC(100 * x, format = format, digits = digits, ...), "%")
+}
+allsp.hab = function(x){
+  y = (1-(0.0000681*((100-x)^2) - 0.00032*(100-x)))
+  return(y)  
+}
+ab.hab = function(x){
+  y = (1-(0.00004678*((100-x)^2) + 0.000313*(100-x)))
+  return(y)
 }
 
 ```
@@ -42,11 +50,11 @@ habitatInput.mat = habitatInput.mat[, -6]
 
 # nodes.compare = eastMaui::nodes1
 
-nodes = read_excel(paste(path, "/nodes_mixed.xlsx", sep = ""))
+nodes = read_excel(paste(path, "/DiversionInputMix5.xlsx", sep = ""))
 nodes = nodes[ ,-c(2:7)]
 nodes0 = read_excel(paste(path, "/nodes_fulldiv.xlsx", sep = ""))
 nodes0 = nodes0[ ,-c(2:7)]
-nodes1 = read_excel(paste(path, "/DiversionInputMix5.xlsx", sep = ""))
+nodes1 = read_excel(paste(path, "/nodes_nodiv.xlsx", sep = ""))
 nodes1 = nodes1[ ,-c(2:7)]
 nodes.mat = data.matrix(nodes)
 nodes0.mat = data.matrix(nodes0)

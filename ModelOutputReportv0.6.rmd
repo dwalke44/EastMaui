@@ -1,5 +1,5 @@
 ---
-title: "East Maui Irrigation Model Report"
+title: "Wailua Irrigation Model Report"
 author: "Trutta Environmental Solutions, LLC"
 output: word_document
 ---
@@ -7,12 +7,14 @@ output: word_document
 ```{r setup, include=FALSE, echo=FALSE, warning=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
 knitr::opts_chunk$set(warning = FALSE)
+# devtools::install_github("dwalke44/EastMauiClean/eastMaui")
 library(eastMaui)
 library(tidyverse)
 library(gridExtra)
 library(knitr)
 library(readxl)
 library(openxlsx)
+library(eastMaui)
 
 
 inpath = "~/Programming/Trutta/HSHEP/EMaui/EMpackage/eastMaui/rawData"
@@ -43,13 +45,13 @@ habitatInput.mat = habitatInput.mat[, -6]
 
 # nodes.compare = eastMaui::nodes1
 # nodesOld = read_excel(paste(inpath, "/nodes_mixed.xlsx", sep = ""))
-nodes = read_excel(paste(inpath, "/No Diversion.xlsx", sep = ""))
+nodes = read_excel(paste(inpath, "/No Diversions Final.xlsx", sep = ""))
 nodes = nodes[ ,-c(2:7)]
-nodes0 = read_excel(paste(inpath, "/Sugar Diversion.xlsx", sep = ""))
+nodes0 = read_excel(paste(inpath, "/Sugar Diversion Final.xlsx", sep = ""))
 nodes0 = nodes0[ ,-c(2:7)]
-nodes1 = read_excel(paste(inpath, "/IIFS2008.xlsx", sep = ""))
+nodes1 = read_excel(paste(inpath, "/IIFS2008 Final.xlsx", sep = ""))
 nodes1 = nodes1[ ,-c(2:7)]
-nodes2 = read_excel(paste(inpath, "/IIFS2008_plus_taro.xlsx", sep = ""))
+nodes2 = read_excel(paste(inpath, "/IIFS2008_plus_taro Final.xlsx", sep = ""))
 nodes2 = nodes2[ ,-c(2:7)]
 nodes3 = read_excel(paste(inpath, "/DiversionInputMix5v0.1.xlsx", sep = ""))
 nodes3 = nodes3[ ,-c(2:7)]
@@ -154,9 +156,9 @@ instream6 = as.data.frame(test6$inStream)
 instream7 = as.data.frame(test7$inStream)
 instream8 = as.data.frame(test8$inStream)
 
-instream = bind_rows(instream1, instream2, instream3, instream4, instream5, instream6, instream7, instream8)
+instream = bind_rows(instream1, instream2, instream3, instream4) #, instream5, instream6, instream7, instream8)
 instream = t(instream)
-colnames(instream)<-c("natural", "sugar", "IIFS2008", "IIFS2008plus", "mixed","mixed","mixed","mixed")
+colnames(instream)<-c("natural", "sugar", "IIFS2008", "IIFS2008plus") #, "mixed","mixed","mixed","mixed")
 instream = as.data.frame(instream) %>%
   rownames_to_column(var = "basinID") %>%
   separate(basinID, into = c("E", "Basin"), sep = "^([E])")
@@ -180,7 +182,7 @@ instreamOut = instreamOut[, -c(1, 2)]
 basins = instream$Basin
 instreamOut = instreamOut*0.646317
 instreamOut$BasinID = basins
-instreamOut = instreamOut[ ,c(9, 1:8)]
+instreamOut = instreamOut[ ,c(5, 1:4)]
 instreamOut = instreamOut[order(instreamOut$BasinID), ]
 
 
@@ -548,6 +550,7 @@ AllSpBasHab.mix3 = AllSpBasHab.mix3 %>%
   separate(BasinID, into = c("A", "BasinID"), sep = "^([a])")
 AllSpBasHab.mix3$BasinID = as.numeric(AllSpBasHab.mix3$BasinID)
 AllSpBasHab.mix3 = AllSpBasHab.mix3[ , -1]
+
 # ------------------------------------------------------------- 
 # Habitat calculations - INSECTS
 # -------------------------------------------------------------
@@ -569,7 +572,7 @@ AllSpBasHab.mix1 = left_join(AllSpBasHab.mix1, insects.mix1, by = "BasinID")
 AllSpBasHab.mix2 = left_join(AllSpBasHab.mix2, insects.mix2, by = "BasinID")
 AllSpBasHab.mix3 = left_join(AllSpBasHab.mix3, insects.mix3, by = "BasinID")
 
-# match WshedID with Insect Basin habtiat data
+# match WshedID with Insect Basin habitat data
 wsheds.i = watersheds[ ,c(1:3)]
 colnames(wsheds.i)[2]<- "BasinID"
 insects.nat = left_join(wsheds.i, insects.nat, by = "BasinID")

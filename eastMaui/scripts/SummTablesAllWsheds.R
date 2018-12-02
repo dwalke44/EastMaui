@@ -4,9 +4,9 @@ library(readxl)
 library(tidyverse)
 library(eastMaui)
 path = "~/Programming/Trutta/HSHEP/EMaui/EMpackage/eastMaui/rawData"
-inputs = read_excel(paste(path, "/EMauiAllData.xlsx", sep = ""), sheet = 3)
-nodes = read_excel(paste(path, "/EMauiAllData.xlsx", sep = ""), sheet = 4)
-
+inputs1 = read_excel(paste(path, "/EMauiAllData.xlsx", sep = ""), sheet = 3)
+nodes1 = read_excel(paste(path, "/EMauiAllData.xlsx", sep = ""), sheet = 4)
+inputs2 = read_excel(paste(path,"/WatershedAndBasins_wGroups.xlsx", sep = ""))
 addDitches = read_excel('~/Programming/Trutta/HSHEP/Emaui/fixNodesDitches.xlsx', sheet = 1)
 # --------------------------------------------------------------------
 # add grouping data to new basin input for EM package
@@ -29,6 +29,6 @@ groupedBasins = read_excel(paste(path, 'EMpackage/eastMaui/rawData/BasinsAllGrou
 # fix springs on nodes, replace input rain with BFQ
 # using new inputs from DrJP - 17 April 2018
 
-devtools::use_data(inputs, overwrite = TRUE)
-
-devtools::use_data(nodes, overwrite = TRUE)
+devtools::use_data(inputs1, overwrite = TRUE)
+devtools::use_data(inputs2)
+devtools::use_data(nodes1, overwrite = TRUE)

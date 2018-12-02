@@ -24,7 +24,7 @@ basinWater.fun = function(nodesInput, waterInput){
   # node 49 = sink
   sk$E001s = (inStream$E002*nodesInput[49, 3] + nodesInput[49, 13])
 
-  sk$E001 = ifelse(sk$E001s<0, 0, sk$E001s)
+  sk$E001 = ifelse(sk$E001s<=0, 0, sk$E001s)
 
   inStream$E001 = waterInput[1,3] + sk$E001
 
@@ -71,7 +71,7 @@ basinWater.fun = function(nodesInput, waterInput){
   # node 50 = spring
   sp$E005s =  (nodesInput[50,13] + inStream$E006*nodesInput[50,3])
 
-  sp$E005 = ifelse(sp$E005s<0, 0, sp$E005s)
+  sp$E005 = ifelse(sp$E005s<=0, 0, sp$E005s)
 
   inStream$E005 = waterInput[5, 3] + sp$E005
 
@@ -109,7 +109,7 @@ basinWater.fun = function(nodesInput, waterInput){
 
   sp$E011s =  (nodesInput[51,13] + inStream$E012*nodesInput[51,3])
 
-  sp$E011 = ifelse(sp$E011s<0, 0, sp$E011s)
+  sp$E011 = ifelse(sp$E011s<=0, 0, sp$E011s)
 
   inStream$E011 = waterInput[11, 3] + sp$E011
 
@@ -326,7 +326,7 @@ basinWater.fun = function(nodesInput, waterInput){
 
   # node 54 = sink
   sk$E046s =  (inStream$E046*nodesInput[54, 3] + nodesInput[54,13])
-  sk$E046 = ifelse(sk$E046s<0 , 0, sk$E046s)
+  sk$E046 = ifelse(sk$E046s<=0 , 0, sk$E046s)
 
   inDitch$n054 = inStream$E046 - sk$E046
 
@@ -380,7 +380,7 @@ basinWater.fun = function(nodesInput, waterInput){
 
   # node 53 = sink
   sk$E058s = inStream$E058*nodesInput[53, 3] + nodesInput[53, 13]
-  sk$E058 = ifelse(sk$E058s<0, 0, sk$E028s)
+  sk$E058 = ifelse(sk$E058s<=0, 0, sk$E058s)
   inStream$E057 = waterInput[57 ,3] + sk$E058
   inDitch$n053 = inStream$E058 - sk$E058
 
@@ -459,8 +459,8 @@ basinWater.fun = function(nodesInput, waterInput){
   # basin 77 has two diversions
 
   inDitch$n200 = waterInput[77, 3]*nodesInput[200, 2]
-  inStream$E0771 = waterInput[77, 3]*nodesInput[200, 3]
-  inDitch$n248 = inStream$E0771*nodesInput[248, 2]
+  inStream$E077 = waterInput[77, 3]*nodesInput[200, 3]
+  # inDitch$n248 = inStream$E0771*nodesInput[248, 2]
 
   inStream$E078 = waterInput[78, 3]
 
@@ -480,7 +480,7 @@ basinWater.fun = function(nodesInput, waterInput){
     inStream$E074*nodesInput[198, 3] +
     inStream$E076*nodesInput[199, 3] +
     inStream$E078*nodesInput[181, 3] +
-    inStream$E0771*nodesInput[248, 3]
+    inStream$E077*nodesInput[200, 3]
 
   inWshed$w014 = inStream$E071
 
@@ -489,7 +489,7 @@ basinWater.fun = function(nodesInput, waterInput){
                       waterInput[75, 3] + waterInput[76,3] +
                       waterInput[77, 3] + waterInput[78,3]
                     ) -
-    (inDitch$n206 + inDitch$n249 + inDitch$n200 + inDitch$n248 +
+    (inDitch$n206 + inDitch$n249 + inDitch$n200 +
        inDitch$n199 + inDitch$n181 + inDitch$n198 + inDitch$n281 +
        inWshed$w014)
 
@@ -1139,6 +1139,7 @@ basinWater.fun = function(nodesInput, waterInput){
 
   inStream$E203 = waterInput[203, 3]
   inWshed$w030 = inStream$E203
+  WshedCheck$w030 = 0
 
   # -------------------- Watershed 31 -----------------------------------
 
@@ -1199,6 +1200,7 @@ basinWater.fun = function(nodesInput, waterInput){
 
   inStream$E215 = waterInput[215, 3]
   inWshed$w033 = inStream$E215
+  WshedCheck$w035 = 0
 
   # -------------------- Watershed 34 -----------------------------------
 
@@ -1222,27 +1224,23 @@ basinWater.fun = function(nodesInput, waterInput){
   inDitch$n300 = inStream$E218*nodesInput[300, 2]
 
   inStream$E226 = waterInput[226, 3] +
-    inStream$E223*nodesInput[268, 3] +
-    inStream$E229*nodesInput[58, 3]
+   inStream$E229*nodesInput[58, 3]
 
   inDitch$n138 = inStream$E226*nodesInput[138, 2]
 
   inStream$E225 = waterInput[225, 3] + inStream$E227*nodesInput[57, 3]
   inDitch$n148 = inStream$E225*nodesInput[148, 2]
 
-  inStream$E2251 = inStream$E225*nodesInput[148, 3]
-  inDitch$n267 = inStream$E2251*nodesInput[267, 2]
-
-  inStream$E2252 = inStream$E2251*nodesInput[267, 3]
-
-  # assigned two diversions to basin 225
   inStream$E224 = waterInput[224, 3]+
-    inStream$E2252 +
+    inStream$E225*nodesInput[148,3] +
     inStream$E226*nodesInput[138, 3]
 
   inDitch$n158 = inStream$E224*nodesInput[158, 2]
 
-  inStream$E221 = waterInput[221, 3] + inStream$E224*nodesInput[158, 3]
+  inStream$E221 = waterInput[221, 3] +
+    inStream$E224*nodesInput[158, 3] +
+    inStream$E223*nodesInput[268, 3]
+
   inDitch$n140 = inStream$E221*nodesInput[140, 2]
 
   inStream$E222 = waterInput[222, 3] + inStream$E228*nodesInput[59, 3]
@@ -1270,7 +1268,7 @@ basinWater.fun = function(nodesInput, waterInput){
                        waterInput[228, 3] + waterInput[229, 3]
                      ) -
     (inDitch$n121 + inDitch$n300 + inDitch$n141 + inDitch$n140 + inDitch$n147 +
-       inDitch$n059 + inDitch$n268 + inDitch$n138 + inDitch$n058 + inDitch$n267 +
+       inDitch$n059 + inDitch$n268 + inDitch$n138 + inDitch$n058 +
        inDitch$n148 + inDitch$n057 + inDitch$n158 + inWshed$w034)
 
   # -------------------- Watershed 35 -----------------------------------
@@ -1464,9 +1462,9 @@ basinWater.fun = function(nodesInput, waterInput){
        inWshed$w036)
 
   # -------------------- Watershed 37 -----------------------------------
-
-  # inStream$E271 = 0
-  inWshed$w037 = 0
+  inStream$E271 = waterInput[271, 3]*0
+  inWshed$w037 = inStream$E271
+  WshedCheck$w037 = inWshed$w037
 
   # -------------------- Watershed 38 -----------------------------------
 
@@ -1528,8 +1526,9 @@ basinWater.fun = function(nodesInput, waterInput){
 
   # -------------------- Watershed 41 -----------------------------------
 
-  # inStream$E281 = 0
-  inWshed$w041 = 0
+  inStream$E281 = waterInput[281,3]*0
+  inWshed$w041 = inStream$E281
+  WshedCheck$w041 = inWshed$w041
 
   # -------------------- Watershed 42 -----------------------------------
 

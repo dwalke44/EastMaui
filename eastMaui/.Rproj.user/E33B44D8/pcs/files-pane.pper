@@ -1,13 +1,13 @@
 {
-    "path" : "~/Programming/Trutta/HSHEP/EMaui",
+    "path" : "~/Programming/Trutta/HSHEP/EMaui/EMpackage/eastMaui/rawData",
     "sortOrder" : [
-        {
-            "ascending" : false,
-            "columnIndex" : 4
-        },
         {
             "ascending" : true,
             "columnIndex" : 2
+        },
+        {
+            "ascending" : false,
+            "columnIndex" : 4
         }
     ]
 }
